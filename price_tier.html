@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>割草机全球市场价格分层分析</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+       background: #f5f7fa; color: #1d1d1f; padding: 24px 32px; }
+.container { max-width: 1200px; margin: 0 auto; }
+h1 { font-size: 24px; font-weight: 700; margin: 0 0 8px 0; }
+.subtitle { font-size: 13px; color: #86868b; margin-bottom: 28px; }
+
+.section-title { font-size: 18px; font-weight: 700; margin: 32px 0 4px 0; }
+.section-desc { font-size: 12px; color: #86868b; margin-bottom: 16px; }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+@media (max-width: 900px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+.card { background: #fff; border-radius: 14px; padding: 20px 20px 12px 20px;
+         box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.card h3 { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.card .sub { font-size: 11px; color: #86868b; margin-bottom: 10px; }
+.chart-wrap { position: relative; height: 260px; }
+.chart-wrap.tall { height: 320px; }
+
+/* Summary table */
+.summary-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0; }
+.summary-table th { background: #f5f7fa; text-align: left; padding: 8px 12px;
+                    font-weight: 600; font-size: 11px; color: #86868b; border-bottom: 2px solid #e5e5ea; }
+.summary-table td { padding: 8px 12px; border-bottom: 1px solid #f0f0f2; }
+.summary-table tr:last-child td { border-bottom: none; }
+.summary-table .num { font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; }
+
+/* Cross-country bar colors */
+.bar-up { color: #34c759; }
+.bar-down { color: #ff3b30; }
+.bar-neutral { color: #86868b; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>🌍 割草机全球市场价格分层分析</h1>
+<p class="subtitle">数据来源：卖家精灵亚马逊多国数据 | 价格单位为各国当地货币（€/$/£）</p>
+
+<!-- ════ 横比：各国家各价格段销量 ════ -->
+<div class="section-title">① 多国价格段销量对比</div>
+<div class="section-desc">各国总销量按价格段分布 — 堆积柱状图</div>
+<div class="card">
+  <div class="chart-wrap tall"><canvas id="chartCompareSales"></canvas></div>
+</div>
+
+<div class="section-title">② 多国价格段销售额对比</div>
+<div class="section-desc">各国总销售额按价格段分布（单位：百万 USD）</div>
+<div class="card">
+  <div class="chart-wrap tall"><canvas id="chartCompareRevenue"></canvas></div>
+</div>
+
+<!-- ════ 各国详情 ════ -->
+<div class="section-title">③ 各国价格详情</div>
+<div class="section-desc">每个国家独立展示 — 销量分布(柱状) · SKU数(折线) · 销售额(柱状)</div>
+<div class="grid-3">
+
+<div class="card">
+  <h3>🇩🇪 德国</h3>
+  <div class="sub">价格段: 销量(柱) · SKU数(折线) · 销售额(柱)</div>
+  <div class="chart-wrap"><canvas id="chart_DE"></canvas></div>
+</div>
+<div class="card">
+  <h3>🇪🇸 西班牙</h3>
+  <div class="sub">价格段: 销量(柱) · SKU数(折线) · 销售额(柱)</div>
+  <div class="chart-wrap"><canvas id="chart_ES"></canvas></div>
+</div>
+<div class="card">
+  <h3>🇫🇷 法国</h3>
+  <div class="sub">价格段: 销量(柱) · SKU数(折线) · 销售额(柱)</div>
+  <div class="chart-wrap"><canvas id="chart_FR"></canvas></div>
+</div>
+<div class="card">
+  <h3>🇮🇹 意大利</h3>
+  <div class="sub">价格段: 销量(柱) · SKU数(折线) · 销售额(柱)</div>
+  <div class="chart-wrap"><canvas id="chart_IT"></canvas></div>
+</div>
+<div class="card">
+  <h3>🇺🇸 美国</h3>
+  <div class="sub">价格段: 销量(柱) · SKU数(折线) · 销售额(柱)</div>
+  <div class="chart-wrap"><canvas id="chart_US"></canvas></div>
+</div>
+</div>
+
+<!-- ════ 价格段汇总表 ════ -->
+<div class="section-title">④ 各国价格段汇总表</div>
+<div class="section-desc">销量(Sales) / 产品数(SKUs) / 月销售额(Revenue USD)</div>
+<div class="card" style="overflow-x:auto;padding:16px 20px;">
+<table class="summary-table">
+<thead><tr>
+  <th>国家</th>
+  <th>价格段</th>
+  <th style="text-align:right">月销量</th>
+  <th style="text-align:right">动销SKU</th>
+  <th style="text-align:right">月销售额(USD)</th>
+  <th style="text-align:right">均价(USD)</th>
+</tr></thead><tbody>
+<tr><td>德国</td><td>500以内</td><td class='num'>10,531</td><td class='num'>56</td><td class='num'>$4,801,486</td><td class='num'>$456</td></tr><tr><td></td><td>500～800</td><td class='num'>16,077</td><td class='num'>40</td><td class='num'>$11,493,838</td><td class='num'>$715</td></tr><tr><td></td><td>800～1000</td><td class='num'>16,512</td><td class='num'>27</td><td class='num'>$15,922,194</td><td class='num'>$964</td></tr><tr><td></td><td>1000～1300</td><td class='num'>2,530</td><td class='num'>16</td><td class='num'>$3,206,865</td><td class='num'>$1268</td></tr><tr><td></td><td>1300～1500</td><td class='num'>2,201</td><td class='num'>12</td><td class='num'>$3,534,283</td><td class='num'>$1606</td></tr><tr><td></td><td>1500～1800</td><td class='num'>3,156</td><td class='num'>7</td><td class='num'>$6,557,502</td><td class='num'>$2078</td></tr><tr><td></td><td>1800～2000</td><td class='num'>162</td><td class='num'>2</td><td class='num'>$369,688</td><td class='num'>$2282</td></tr><tr><td></td><td>2000～2400</td><td class='num'>1,420</td><td class='num'>8</td><td class='num'>$3,693,739</td><td class='num'>$2601</td></tr><tr><td></td><td>2400以上</td><td class='num'>238</td><td class='num'>6</td><td class='num'>$752,532</td><td class='num'>$3162</td></tr><tr><td>西班牙</td><td>500以内</td><td class='num'>351</td><td class='num'>30</td><td class='num'>$148,701</td><td class='num'>$424</td></tr><tr><td></td><td>500～800</td><td class='num'>662</td><td class='num'>32</td><td class='num'>$434,729</td><td class='num'>$657</td></tr><tr><td></td><td>800～1000</td><td class='num'>152</td><td class='num'>14</td><td class='num'>$146,261</td><td class='num'>$962</td></tr><tr><td></td><td>1000～1300</td><td class='num'>104</td><td class='num'>10</td><td class='num'>$119,733</td><td class='num'>$1151</td></tr><tr><td></td><td>1300～1500</td><td class='num'>55</td><td class='num'>5</td><td class='num'>$91,949</td><td class='num'>$1672</td></tr><tr><td></td><td>1500～1800</td><td class='num'>115</td><td class='num'>3</td><td class='num'>$225,482</td><td class='num'>$1961</td></tr><tr><td></td><td>1800～2000</td><td class='num'>13</td><td class='num'>2</td><td class='num'>$29,666</td><td class='num'>$2282</td></tr><tr><td></td><td>2000～2400</td><td class='num'>15</td><td class='num'>5</td><td class='num'>$37,883</td><td class='num'>$2526</td></tr><tr><td></td><td>2400以上</td><td class='num'>25</td><td class='num'>6</td><td class='num'>$77,746</td><td class='num'>$3110</td></tr><tr><td>法国</td><td>500以内</td><td class='num'>1,693</td><td class='num'>48</td><td class='num'>$786,212</td><td class='num'>$464</td></tr><tr><td></td><td>500～800</td><td class='num'>6,832</td><td class='num'>52</td><td class='num'>$5,036,229</td><td class='num'>$737</td></tr><tr><td></td><td>800～1000</td><td class='num'>3,069</td><td class='num'>20</td><td class='num'>$3,116,643</td><td class='num'>$1016</td></tr><tr><td></td><td>1000～1300</td><td class='num'>1,147</td><td class='num'>15</td><td class='num'>$1,095,303</td><td class='num'>$955</td></tr><tr><td></td><td>1300～1500</td><td class='num'>438</td><td class='num'>7</td><td class='num'>$676,002</td><td class='num'>$1543</td></tr><tr><td></td><td>1500～1800</td><td class='num'>525</td><td class='num'>9</td><td class='num'>$1,056,734</td><td class='num'>$2013</td></tr><tr><td></td><td>1800～2000</td><td class='num'>176</td><td class='num'>4</td><td class='num'>$389,998</td><td class='num'>$2216</td></tr><tr><td></td><td>2000～2400</td><td class='num'>112</td><td class='num'>4</td><td class='num'>$289,606</td><td class='num'>$2586</td></tr><tr><td></td><td>2400以上</td><td class='num'>328</td><td class='num'>7</td><td class='num'>$992,542</td><td class='num'>$3026</td></tr><tr><td>意大利</td><td>500以内</td><td class='num'>1,306</td><td class='num'>32</td><td class='num'>$525,212</td><td class='num'>$402</td></tr><tr><td></td><td>500～800</td><td class='num'>1,454</td><td class='num'>31</td><td class='num'>$1,087,839</td><td class='num'>$748</td></tr><tr><td></td><td>800～1000</td><td class='num'>1,810</td><td class='num'>15</td><td class='num'>$1,490,835</td><td class='num'>$824</td></tr><tr><td></td><td>1000～1300</td><td class='num'>516</td><td class='num'>14</td><td class='num'>$632,781</td><td class='num'>$1226</td></tr><tr><td></td><td>1300～1500</td><td class='num'>80</td><td class='num'>9</td><td class='num'>$125,790</td><td class='num'>$1572</td></tr><tr><td></td><td>1500～1800</td><td class='num'>154</td><td class='num'>6</td><td class='num'>$303,942</td><td class='num'>$1974</td></tr><tr><td></td><td>1800～2000</td><td class='num'>2</td><td class='num'>1</td><td class='num'>$4,564</td><td class='num'>$2282</td></tr><tr><td></td><td>2000～2400</td><td class='num'>63</td><td class='num'>2</td><td class='num'>$162,946</td><td class='num'>$2586</td></tr><tr><td></td><td>2400以上</td><td class='num'>67</td><td class='num'>6</td><td class='num'>$204,952</td><td class='num'>$3059</td></tr><tr><td>美国</td><td>500以内</td><td class='num'>1,237</td><td class='num'>25</td><td class='num'>$517,213</td><td class='num'>$418</td></tr><tr><td></td><td>500～800</td><td class='num'>2,199</td><td class='num'>39</td><td class='num'>$1,483,747</td><td class='num'>$675</td></tr><tr><td></td><td>800～1000</td><td class='num'>2,533</td><td class='num'>13</td><td class='num'>$2,404,141</td><td class='num'>$949</td></tr><tr><td></td><td>1000～1300</td><td class='num'>1,184</td><td class='num'>8</td><td class='num'>$1,348,497</td><td class='num'>$1139</td></tr><tr><td></td><td>1300～1500</td><td class='num'>3,828</td><td class='num'>6</td><td class='num'>$5,515,870</td><td class='num'>$1441</td></tr><tr><td></td><td>1500～1800</td><td class='num'>1,213</td><td class='num'>5</td><td class='num'>$2,040,099</td><td class='num'>$1682</td></tr><tr><td></td><td>1800～2000</td><td class='num'>511</td><td class='num'>15</td><td class='num'>$969,487</td><td class='num'>$1897</td></tr><tr><td></td><td>2000～2400</td><td class='num'>2,006</td><td class='num'>12</td><td class='num'>$4,364,455</td><td class='num'>$2176</td></tr><tr><td></td><td>2400以上</td><td class='num'>2,188</td><td class='num'>21</td><td class='num'>$7,046,678</td><td class='num'>$3221</td></tr>
+</tbody></table>
+</div>
+
+</div>
+
+<script>
+const DATA = {"DE": {"labels": ["500以内", "500～800", "800～1000", "1000～1300", "1300～1500", "1500～1800", "1800～2000", "2000～2400", "2400以上"], "sales": [10531, 16077, 16512, 2530, 2201, 3156, 162, 1420, 238], "skus": [56, 40, 27, 16, 12, 7, 2, 8, 6], "revenue": [4801486.0, 11493838.0, 15922194.0, 3206865.0, 3534283.0, 6557502.0, 369688.0, 3693739.0, 752532.0]}, "ES": {"labels": ["500以内", "500～800", "800～1000", "1000～1300", "1300～1500", "1500～1800", "1800～2000", "2000～2400", "2400以上"], "sales": [351, 662, 152, 104, 55, 115, 13, 15, 25], "skus": [30, 32, 14, 10, 5, 3, 2, 5, 6], "revenue": [148701.0, 434729.0, 146261.0, 119733.0, 91949.0, 225482.0, 29666.0, 37883.0, 77746.0]}, "FR": {"labels": ["500以内", "500～800", "800～1000", "1000～1300", "1300～1500", "1500～1800", "1800～2000", "2000～2400", "2400以上"], "sales": [1693, 6832, 3069, 1147, 438, 525, 176, 112, 328], "skus": [48, 52, 20, 15, 7, 9, 4, 4, 7], "revenue": [786212.0, 5036229.0, 3116643.0, 1095303.0, 676002.0, 1056734.0, 389998.0, 289606.0, 992542.0]}, "IT": {"labels": ["500以内", "500～800", "800～1000", "1000～1300", "1300～1500", "1500～1800", "1800～2000", "2000～2400", "2400以上"], "sales": [1306, 1454, 1810, 516, 80, 154, 2, 63, 67], "skus": [32, 31, 15, 14, 9, 6, 1, 2, 6], "revenue": [525212.0, 1087839.0, 1490835.0, 632781.0, 125790.0, 303942.0, 4564.0, 162946.0, 204952.0]}, "US": {"labels": ["500以内", "500～800", "800～1000", "1000～1300", "1300～1500", "1500～1800", "1800～2000", "2000～2400", "2400以上"], "sales": [1237, 2199, 2533, 1184, 3828, 1213, 511, 2006, 2188], "skus": [25, 39, 13, 8, 6, 5, 15, 12, 21], "revenue": [517213, 1483747, 2404141, 1348497, 5515870, 2040099, 969487, 4364455, 7046678]}};
+const COMP = {"labels": ["500以内", "500～800", "800～1000", "1000～1300", "1300～1500", "1500～1800", "1800～2000", "2000～2400", "2400以上"], "DE_sales": [10531, 16077, 16512, 2530, 2201, 3156, 162, 1420, 238], "DE_revenue": [4.8, 11.49, 15.92, 3.21, 3.53, 6.56, 0.37, 3.69, 0.75], "ES_sales": [351, 662, 152, 104, 55, 115, 13, 15, 25], "ES_revenue": [0.15, 0.43, 0.15, 0.12, 0.09, 0.23, 0.03, 0.04, 0.08], "FR_sales": [1693, 6832, 3069, 1147, 438, 525, 176, 112, 328], "FR_revenue": [0.79, 5.04, 3.12, 1.1, 0.68, 1.06, 0.39, 0.29, 0.99], "IT_sales": [1306, 1454, 1810, 516, 80, 154, 2, 63, 67], "IT_revenue": [0.53, 1.09, 1.49, 0.63, 0.13, 0.3, 0.0, 0.16, 0.2], "US_sales": [1237, 2199, 2533, 1184, 3828, 1213, 511, 2006, 2188], "US_revenue": [0.52, 1.48, 2.4, 1.35, 5.52, 2.04, 0.97, 4.36, 7.05]};
+const COLORS = {
+  DE: {bg:'rgba(0,122,255,0.7)', bd:'#007AFF'},
+  US: {bg:'rgba(255,45,85,0.7)', bd:'#FF2D55'},
+  FR: {bg:'rgba(255,149,0,0.7)', bd:'#FF9500'},
+  IT: {bg:'rgba(52,199,89,0.7)', bd:'#34C759'},
+  ES: {bg:'rgba(88,86,214,0.7)', bd:'#5856D6'},
+};
+const CORDER = ["DE","US","FR","IT","ES"];
+
+// ── ① 各国销量对比堆积图 ──
+(function() {
+  const ctx = document.getElementById('chartCompareSales');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: COMP.labels,
+      datasets: CORDER.map(c => ({
+        label: c,
+        data: COMP[c + '_sales'],
+        backgroundColor: COLORS[c].bg,
+        borderColor: COLORS[c].bd,
+        borderWidth: 1,
+        borderRadius: 2,
+      }))
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'top', labels: { font: {size:11} } } },
+      scales: {
+        x: { stacked: true, ticks: { font: {size:10} } },
+        y: { stacked: true, beginAtZero: true, ticks: { font: {size:10}, callback: v => v.toLocaleString() } }
+      }
+    }
+  });
+})();
+
+// ── ② 各国销售额对比堆积图 ──
+(function() {
+  const ctx = document.getElementById('chartCompareRevenue');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: COMP.labels,
+      datasets: CORDER.map(c => ({
+        label: c,
+        data: COMP[c + '_revenue'],
+        backgroundColor: COLORS[c].bg,
+        borderColor: COLORS[c].bd,
+        borderWidth: 1,
+        borderRadius: 2,
+      }))
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', labels: { font: {size:11} } },
+        tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': $' + ctx.raw + 'M'} }
+      },
+      scales: {
+        x: { stacked: true, ticks: { font: {size:10} } },
+        y: { stacked: true, beginAtZero: true,
+             ticks: { font: {size:10}, callback: v => '$' + v + 'M'} }
+      }
+    }
+  });
+})();
+
+// ── ③ 各国独立图表 ──
+CORDER.forEach(c => {
+  const d = DATA[c];
+  const ctx = document.getElementById('chart_' + c);
+  const pal = COLORS[c];
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: d.labels,
+      datasets: [
+        {
+          label: '月销量',
+          data: d.sales,
+          backgroundColor: pal.bg,
+          borderColor: pal.bd,
+          borderWidth: 1,
+          borderRadius: 3,
+          yAxisID: 'y',
+          order: 2,
+        },
+        {
+          label: 'SKU数',
+          type: 'line',
+          data: d.skus,
+          borderColor: pal.bd,
+          backgroundColor: pal.bd,
+          pointBackgroundColor: pal.bd,
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          tension: 0.3,
+          yAxisID: 'y1',
+          order: 1,
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', labels: { font: {size:10}, boxWidth: 12 } },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              if (ctx.dataset.label === '月销量') return ctx.dataset.label + ': ' + ctx.raw.toLocaleString();
+              return ctx.dataset.label + ': ' + ctx.raw;
+            }
+          }
+        }
+      },
+      scales: {
+        x: { ticks: { font: {size:8}, maxRotation: 45 } },
+        y: { position: 'left', beginAtZero: true,
+             ticks: { font: {size:9}, callback: v => v.toLocaleString() } },
+        y1: { position: 'right', beginAtZero: true,
+              grid: { drawOnChartArea: false },
+              ticks: { font: {size:9} } }
+      }
+    }
+  });
+});
+</script>
+
+</body>
+</html>
