@@ -92,6 +92,21 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .bi-bar-cell { position: relative; height: 24px; }
 .bi-bar-fill { position: absolute; top: 2px; height: 20px; border-radius: 4px; z-index: 0; }
 .bi-bar-label { position: relative; z-index: 1; text-align: center; font-weight: 600; font-size: 12px; line-height: 24px; }
+
+/* Price range */
+.tag-top1 { display: inline-block; background: #007aff; color: #fff; font-size: 10px; font-weight: 700; padding: 0 5px; border-radius: 3px; white-space: nowrap; }
+.change-up { color: #34c759; font-weight: 600; font-size: 12px; }
+.change-down { color: #ff3b30; font-weight: 600; font-size: 12px; }
+.legend-grid { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 12px; font-size: 12px; }
+.legend-item { display: flex; align-items: center; gap: 4px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.pr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 800px) { .pr-grid { grid-template-columns: 1fr; } }
+.pr-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.pr-table th { text-align: left; padding: 6px 4px; font-size: 10px; color: #86868b; font-weight: 600; border-bottom: 1px solid #e5e5ea; white-space: nowrap; }
+.pr-table td { padding: 6px 4px; border-bottom: 1px solid #f0f0f2; white-space: nowrap; font-size: 12px; }
+.pr-table .num { font-variant-numeric: tabular-nums; text-align: right; }
+.pr-table tr:last-child td { border-bottom: none; }
 </style>
 </head>
 <body>
@@ -101,25 +116,25 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 <div class="kpi-row">
   <div class="kpi-card">
     <div class="kpi-label">5国总销量</div>
-    <div class="kpi-value">133,965 台</div>
-    <div class="kpi-change kpi-up">▲ +47.2%</div>
-    <div class="kpi-sub">上期 90,990 台</div>
+    <div class="kpi-value">112,487 台</div>
+    <div class="kpi-change kpi-down">▼ -16.0%</div>
+    <div class="kpi-sub">上期 133,965 台</div>
   </div>
   <div class="kpi-card">
     <div class="kpi-label">5国总销售额</div>
-    <div class="kpi-value">$172.4M</div>
-    <div class="kpi-change kpi-up">▲ +80.8%</div>
-    <div class="kpi-sub">上期 $95.3M</div>
+    <div class="kpi-value">$132.7M</div>
+    <div class="kpi-change kpi-down">▼ -23.0%</div>
+    <div class="kpi-sub">上期 $172.4M</div>
   </div>
   <div class="kpi-card">
     <div class="kpi-label">增长引擎</div>
-    <div class="kpi-value" style="font-size:24px;">🇺🇸 美国</div>
-    <div class="kpi-sub">+98.7% | 增量 33,584 台</div>
+    <div class="kpi-value" style="font-size:24px;">🇮🇹 意大利</div>
+    <div class="kpi-sub">+5.5% | 增量 7,408 台</div>
   </div>
 </div>
 
 <div class="insight-box"><h3>核心发现</h3>
-<p>5国总销量 <strong>133,965台</strong>，较上期 <span class="tag-up">+47.2%</span>；总销售额 <strong>$172.4M</strong>（<span class="tag-up">+80.8%</span>）。</p><p>各国变化：🇩🇪德国+33.3%、🇺🇸美国+98.7%、🇫🇷法国+10.9%、🇮🇹意大利+28.8%、🇪🇸西班牙+11.3%、🇬🇧英国+0.0%。</p><p>增长TOP3：Mammotion+97%、eufy+250%、Sunseeker+53%。</p><p>下跌TOP3：Lawnmaster-2%。</p><p>黑马品牌：eufy(+250%,7,361台)、Mammotion(+97%,40,708台)、Sunseeker(+53%,2,617台)。</p>
+<p>5国总销量 <strong>112,487台</strong>，较上期 <span class="tag-down">-16.0%</span>；总销售额 <strong>$132.7M</strong>（<span class="tag-down">-23.0%</span>）。</p><p>各国变化：🇩🇪德国-15.1%、🇺🇸美国-24.7%、🇫🇷法国-18.6%、🇮🇹意大利+5.5%、🇪🇸西班牙-3.3%、🇬🇧英国+1.7%。</p><p>增长TOP3：WORX+13%、YARDCARE+20%、Bosch+3%。</p><p>下跌TOP3：Mammotion-30%、NAVIMOW-22%、eufy-33%。</p><p>黑马品牌：YARDCARE(+20%,2,983台)。</p>
 </div>
 <div class="section-title">① 大盘风向标</div>
 <div class="section-desc">各国家销量、较上期变化及占比 — 条形长度 = 相对份额</div>
@@ -136,96 +151,96 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   <td>
     <div class="dual-bar-cell">
       <div class="dual-bar-fill" style="width:100.0%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">70,414台</div>
+      <div class="dual-bar-label">59,765台</div>
     </div>
   </td>
   <td>
     <div class="bi-bar-cell">
-      <div class="bi-bar-fill" style="left:50%;width:17%;background:#34c759;opacity:0.15;"></div>
-      <div class="bi-bar-label" style="color:#34c759;">▲ +33.3%</div>
+      <div class="bi-bar-fill" style="left:19%;width:31%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="bi-bar-label" style="color:#ff3b30;">▼ -15.1%</div>
     </div>
   </td>
-  <td class="share-cell">52.6%</td>
+  <td class="share-cell">53.1%</td>
 </tr>
 <tr>
   <td style="font-weight:600">🇺🇸 美国</td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:47.7%;background:#34c759;opacity:0.12;"></div>
-      <div class="dual-bar-label">33,584台</div>
+      <div class="dual-bar-fill" style="width:42.3%;background:#34c759;opacity:0.12;"></div>
+      <div class="dual-bar-label">25,273台</div>
     </div>
   </td>
   <td>
     <div class="bi-bar-cell">
-      <div class="bi-bar-fill" style="left:50%;width:50%;background:#34c759;opacity:0.15;"></div>
-      <div class="bi-bar-label" style="color:#34c759;">▲ +98.7%</div>
+      <div class="bi-bar-fill" style="left:0%;width:50%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="bi-bar-label" style="color:#ff3b30;">▼ -24.7%</div>
     </div>
   </td>
-  <td class="share-cell">25.1%</td>
+  <td class="share-cell">22.5%</td>
 </tr>
 <tr>
   <td style="font-weight:600">🇫🇷 法国</td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:22.5%;background:#ff9500;opacity:0.12;"></div>
-      <div class="dual-bar-label">15,875台</div>
+      <div class="dual-bar-fill" style="width:21.6%;background:#ff9500;opacity:0.12;"></div>
+      <div class="dual-bar-label">12,930台</div>
     </div>
   </td>
   <td>
     <div class="bi-bar-cell">
-      <div class="bi-bar-fill" style="left:50%;width:5%;background:#34c759;opacity:0.15;"></div>
-      <div class="bi-bar-label" style="color:#34c759;">▲ +10.9%</div>
+      <div class="bi-bar-fill" style="left:13%;width:37%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="bi-bar-label" style="color:#ff3b30;">▼ -18.6%</div>
     </div>
   </td>
-  <td class="share-cell">11.9%</td>
+  <td class="share-cell">11.5%</td>
 </tr>
 <tr>
   <td style="font-weight:600">🇮🇹 意大利</td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:10.0%;background:#5856d6;opacity:0.12;"></div>
-      <div class="dual-bar-label">7,020台</div>
+      <div class="dual-bar-fill" style="width:12.4%;background:#5856d6;opacity:0.12;"></div>
+      <div class="dual-bar-label">7,408台</div>
     </div>
   </td>
   <td>
     <div class="bi-bar-cell">
-      <div class="bi-bar-fill" style="left:50%;width:15%;background:#34c759;opacity:0.15;"></div>
-      <div class="bi-bar-label" style="color:#34c759;">▲ +28.8%</div>
+      <div class="bi-bar-fill" style="left:50%;width:11%;background:#34c759;opacity:0.15;"></div>
+      <div class="bi-bar-label" style="color:#34c759;">▲ +5.5%</div>
     </div>
   </td>
-  <td class="share-cell">5.2%</td>
+  <td class="share-cell">6.6%</td>
 </tr>
 <tr>
   <td style="font-weight:600">🇪🇸 西班牙</td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:2.4%;background:#ff3b30;opacity:0.12;"></div>
-      <div class="dual-bar-label">1,660台</div>
+      <div class="dual-bar-fill" style="width:2.7%;background:#ff3b30;opacity:0.12;"></div>
+      <div class="dual-bar-label">1,605台</div>
     </div>
   </td>
   <td>
     <div class="bi-bar-cell">
-      <div class="bi-bar-fill" style="left:50%;width:6%;background:#34c759;opacity:0.15;"></div>
-      <div class="bi-bar-label" style="color:#34c759;">▲ +11.3%</div>
+      <div class="bi-bar-fill" style="left:43%;width:7%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="bi-bar-label" style="color:#ff3b30;">▼ -3.3%</div>
     </div>
   </td>
-  <td class="share-cell">1.2%</td>
+  <td class="share-cell">1.4%</td>
 </tr>
 <tr>
   <td style="font-weight:600">🇬🇧 英国</td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:7.7%;background:#8e8e93;opacity:0.12;"></div>
-      <div class="dual-bar-label">5,412台</div>
+      <div class="dual-bar-fill" style="width:9.2%;background:#8e8e93;opacity:0.12;"></div>
+      <div class="dual-bar-label">5,506台</div>
     </div>
   </td>
   <td>
     <div class="bi-bar-cell">
-      <div class="bi-bar-fill" style="left:50%;width:0%;background:#34c759;opacity:0.15;"></div>
-      <div class="bi-bar-label" style="color:#34c759;">▲ +0.0%</div>
+      <div class="bi-bar-fill" style="left:50%;width:4%;background:#34c759;opacity:0.15;"></div>
+      <div class="bi-bar-label" style="color:#34c759;">▲ +1.7%</div>
     </div>
   </td>
-  <td class="share-cell">4.0%</td>
+  <td class="share-cell">4.9%</td>
 </tr>
 </tbody></table></div>
 <div class="section-title">② 竞争格局 — 品牌排名</div>
@@ -240,33 +255,33 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 </tr></thead><tbody>
 <tr>
   <td class="rank">#1</td>
-  <td style="font-weight:600">Mammotion <span class="badge-up">▲TOP3</span></td>
+  <td style="font-weight:600">Mammotion <span class="badge-down">▼TOP3</span></td>
   <td>
     <div class="dual-bar-cell">
       <div class="dual-bar-fill" style="width:100%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">40,708台</div>
+      <div class="dual-bar-label">28,311台</div>
     </div>
   </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:39%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +97.4%</div>
+      <div class="dual-bar-fill" style="width:93%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -30.5%</div>
     </div>
   </td>
 </tr>
 <tr>
   <td class="rank">#2</td>
-  <td style="font-weight:600">NAVIMOW </td>
+  <td style="font-weight:600">NAVIMOW <span class="badge-down">▼TOP3</span></td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:59%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">23,838台</div>
+      <div class="dual-bar-fill" style="width:66%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">18,680台</div>
     </div>
   </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:9%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +22.9%</div>
+      <div class="dual-bar-fill" style="width:66%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -21.6%</div>
     </div>
   </td>
 </tr>
@@ -275,14 +290,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   <td style="font-weight:600">Mova </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:31%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">12,452台</div>
+      <div class="dual-bar-fill" style="width:38%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">10,881台</div>
     </div>
   </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:7%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +17.1%</div>
+      <div class="dual-bar-fill" style="width:39%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -12.6%</div>
     </div>
   </td>
 </tr>
@@ -291,78 +306,78 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   <td style="font-weight:600">ECOVACS </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:24%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">9,812台</div>
+      <div class="dual-bar-fill" style="width:34%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">9,651台</div>
     </div>
   </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:13%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +31.4%</div>
+      <div class="dual-bar-fill" style="width:5%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -1.6%</div>
     </div>
   </td>
 </tr>
 <tr>
   <td class="rank">#5</td>
-  <td style="font-weight:600">WORX </td>
+  <td style="font-weight:600">WORX <span class="badge-up">▲TOP3</span></td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:20%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">8,042台</div>
+      <div class="dual-bar-fill" style="width:32%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">9,049台</div>
     </div>
   </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:12%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +29.0%</div>
+      <div class="dual-bar-fill" style="width:38%;background:#34c759;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#34c759;">▲ +12.5%</div>
     </div>
   </td>
 </tr>
 <tr>
   <td class="rank">#6</td>
-  <td style="font-weight:600">eufy <span class="badge-up">▲TOP3</span></td>
+  <td style="font-weight:600">ANTHBOT </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:18%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">7,361台</div>
+      <div class="dual-bar-fill" style="width:19%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">5,426台</div>
     </div>
   </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:100%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +249.9%</div>
+      <div class="dual-bar-fill" style="width:7%;background:#34c759;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#34c759;">▲ +2.3%</div>
     </div>
   </td>
 </tr>
 <tr>
   <td class="rank">#7</td>
-  <td style="font-weight:600">ANTHBOT </td>
+  <td style="font-weight:600">eufy <span class="badge-down">▼TOP3</span></td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:13%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">5,303台</div>
+      <div class="dual-bar-fill" style="width:18%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">4,956台</div>
     </div>
   </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:9%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +23.4%</div>
+      <div class="dual-bar-fill" style="width:100%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -32.7%</div>
     </div>
   </td>
 </tr>
 <tr>
   <td class="rank">#8</td>
-  <td style="font-weight:600">dreame </td>
+  <td style="font-weight:600">YARDCARE <span class="badge-up">▲TOP3</span></td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:7%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">2,795台</div>
+      <div class="dual-bar-fill" style="width:11%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">2,983台</div>
     </div>
   </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:11%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +26.5%</div>
+      <div class="dual-bar-fill" style="width:60%;background:#34c759;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#34c759;">▲ +19.5%</div>
     </div>
   </td>
 </tr>
@@ -371,46 +386,46 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   <td style="font-weight:600">Gardena </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:7%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">2,789台</div>
+      <div class="dual-bar-fill" style="width:9%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">2,640台</div>
     </div>
   </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:8%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +20.8%</div>
+      <div class="dual-bar-fill" style="width:16%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -5.3%</div>
     </div>
   </td>
 </tr>
 <tr>
   <td class="rank">#10</td>
-  <td style="font-weight:600">Sunseeker <span class="badge-up">▲TOP3</span></td>
+  <td style="font-weight:600">Sunseeker </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:6%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">2,617台</div>
+      <div class="dual-bar-fill" style="width:9%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">2,621台</div>
     </div>
   </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:21%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +52.5%</div>
+      <div class="dual-bar-fill" style="width:0%;background:#34c759;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#34c759;">▲ +0.2%</div>
     </div>
   </td>
 </tr>
 <tr>
   <td class="rank">#11</td>
-  <td style="font-weight:600">YARDCARE </td>
+  <td style="font-weight:600">dreame </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:6%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">2,496台</div>
+      <div class="dual-bar-fill" style="width:8%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">2,392台</div>
     </div>
   </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:4%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +10.4%</div>
+      <div class="dual-bar-fill" style="width:44%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -14.4%</div>
     </div>
   </td>
 </tr>
@@ -419,62 +434,62 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   <td style="font-weight:600">Greenworks </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:5%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">2,109台</div>
+      <div class="dual-bar-fill" style="width:6%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">1,675台</div>
     </div>
   </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:9%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +22.8%</div>
+      <div class="dual-bar-fill" style="width:63%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -20.6%</div>
     </div>
   </td>
 </tr>
 <tr>
   <td class="rank">#13</td>
-  <td style="font-weight:600">Bosch </td>
+  <td style="font-weight:600">Bosch <span class="badge-up">▲TOP3</span></td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:4%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">1,511台</div>
+      <div class="dual-bar-fill" style="width:5%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">1,555台</div>
     </div>
   </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:18%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +44.9%</div>
+      <div class="dual-bar-fill" style="width:9%;background:#34c759;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#34c759;">▲ +2.9%</div>
     </div>
   </td>
 </tr>
 <tr>
   <td class="rank">#14</td>
-  <td style="font-weight:600">Lawnmaster <span class="badge-down">▼TOP3</span></td>
+  <td style="font-weight:600">Lawnmaster </td>
   <td>
     <div class="dual-bar-cell">
       <div class="dual-bar-fill" style="width:4%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">1,470台</div>
+      <div class="dual-bar-label">1,205台</div>
     </div>
   </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:1%;background:#ff3b30;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#ff3b30;">▼ -1.9%</div>
+      <div class="dual-bar-fill" style="width:55%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -18.0%</div>
     </div>
   </td>
 </tr>
 <tr>
   <td class="rank">#15</td>
-  <td style="font-weight:600">Husqvarna </td>
+  <td style="font-weight:600">LawnMaster </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:3%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">1,274台</div>
+      <div class="dual-bar-fill" style="width:4%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">1,192台</div>
     </div>
   </td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:12%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +30.5%</div>
+      <div class="dual-bar-fill" style="width:4%;background:#34c759;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#34c759;">▲ +1.4%</div>
     </div>
   </td>
 </tr>
@@ -484,28 +499,33 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 <div class="brand-grid">
 <div class="chart-card">
 <h3>🇩🇪 德国</h3>
-<div class="sub">总量 70,414台</div>
+<div class="sub">总量 59,765台</div>
 <div class="chart-wrap"><canvas id="chartCB_DE"></canvas></div>
 </div>
 <div class="chart-card">
 <h3>🇺🇸 美国</h3>
-<div class="sub">总量 33,584台</div>
+<div class="sub">总量 25,273台</div>
 <div class="chart-wrap"><canvas id="chartCB_US"></canvas></div>
 </div>
 <div class="chart-card">
 <h3>🇫🇷 法国</h3>
-<div class="sub">总量 15,875台</div>
+<div class="sub">总量 12,930台</div>
 <div class="chart-wrap"><canvas id="chartCB_FR"></canvas></div>
 </div>
 <div class="chart-card">
 <h3>🇮🇹 意大利</h3>
-<div class="sub">总量 7,020台</div>
+<div class="sub">总量 7,408台</div>
 <div class="chart-wrap"><canvas id="chartCB_IT"></canvas></div>
 </div>
 <div class="chart-card">
 <h3>🇪🇸 西班牙</h3>
-<div class="sub">总量 1,660台</div>
+<div class="sub">总量 1,605台</div>
 <div class="chart-wrap"><canvas id="chartCB_ES"></canvas></div>
+</div>
+<div class="chart-card">
+<h3>🇬🇧 英国</h3>
+<div class="sub">总量 5,506台</div>
+<div class="chart-wrap"><canvas id="chartCB_GB"></canvas></div>
 </div>
 </div>
 <div class="section-title">④ 新兴势力雷达</div>
@@ -520,195 +540,217 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 </tr></thead><tbody>
 <tr>
   <td class="rank">#1</td>
-  <td style="font-weight:600">eufy</td>
+  <td style="font-weight:600">YARDCARE</td>
   <td>
     <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:18%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">7,361台</div>
+      <div class="dual-bar-fill" style="width:100%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">2,983台</div>
     </div>
   </td>
   <td>
     <div class="dual-bar-cell">
       <div class="dual-bar-fill" style="width:100%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +249.9%</div>
+      <div class="dual-bar-label" style="color:#34c759;">▲ +19.5%</div>
     </div>
   </td>
 </tr>
-<tr>
-  <td class="rank">#2</td>
-  <td style="font-weight:600">Mammotion</td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:100%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">40,708台</div>
-    </div>
-  </td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:39%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +97.4%</div>
-    </div>
-  </td>
+</tbody></table></div>
+<div class="section-title">⑤ 价位段分析</div>
+<div class="section-desc">各价位段销量规模及品牌分布 · 彩色标签=主卖品牌</div>
+<div class="data-table-wrap"><table class="pr-table"><thead><tr>
+<th>价位段</th><th class="num">总销量</th><th>主卖品牌 Top2</th></tr></thead><tbody>
+<tr><td><strong>500以下</strong></td><td class="num"><strong>20,689</strong></td><td><span class="tag-top1" style="background:#FF9500;">Mova(4286)</span> <span class="tag-top1" style="background:#FF2D55;">Sunseeker(2197)</span> </td></tr>
+<tr><td><strong>500-800</strong></td><td class="num"><strong>35,100</strong></td><td><span class="tag-top1" style="background:#007AFF;">Mammotion(11001)</span> <span class="tag-top1" style="background:#34C759;">NAVIMOW(5487)</span> </td></tr>
+<tr><td><strong>800-1000</strong></td><td class="num"><strong>19,715</strong></td><td><span class="tag-top1" style="background:#34C759;">NAVIMOW(5860)</span> <span class="tag-top1" style="background:#007AFF;">Mammotion(3571)</span> </td></tr>
+<tr><td><strong>1000-1300</strong></td><td class="num"><strong>12,010</strong></td><td><span class="tag-top1" style="background:#FF3B30;">ECOVACS(4099)</span> <span class="tag-top1" style="background:#AF52DE;">eufy(2412)</span> </td></tr>
+<tr><td><strong>1300-1500</strong></td><td class="num"><strong>6,515</strong></td><td><span class="tag-top1" style="background:#34C759;">NAVIMOW(2653)</span> <span class="tag-top1" style="background:#999;">Greenworks(1650)</span> </td></tr>
+<tr><td><strong>1500-1800</strong></td><td class="num"><strong>2,871</strong></td><td><span class="tag-top1" style="background:#007AFF;">Mammotion(1063)</span> <span class="tag-top1" style="background:#34C759;">NAVIMOW(966)</span> </td></tr>
+<tr><td><strong>1800-2000</strong></td><td class="num"><strong>159</strong></td><td><span class="tag-top1" style="background:#007AFF;">Mammotion(57)</span> <span class="tag-top1" style="background:#FF3B30;">ECOVACS(29)</span> </td></tr>
+<tr><td><strong>2000-2400</strong></td><td class="num"><strong>6,068</strong></td><td><span class="tag-top1" style="background:#007AFF;">Mammotion(4965)</span> <span class="tag-top1" style="background:#34C759;">NAVIMOW(639)</span> </td></tr>
+<tr><td><strong>2400以上</strong></td><td class="num"><strong>9,360</strong></td><td><span class="tag-top1" style="background:#007AFF;">Mammotion(5576)</span> <span class="tag-top1" style="background:#34C759;">NAVIMOW(1177)</span> </td></tr>
+</tbody></table></div>
+<div class="chart-card">
+<h3>🌍 全球 · 各价位品牌构成</h3>
+<div class="sub">累计柱状图 · 颜色=品牌 · 图例在图表下方</div>
+<div class="legend-grid" id="pr-legend-ov"></div>
+<div class="chart-wrap tall"><canvas id="prChartOverall"></canvas></div>
+</div>
+<div class="section-desc">各国各价位品牌构成</div>
+<div class="pr-grid">
+<div class="chart-card"><h3>🇩🇪 德国</h3>
+<div class="sub">总量 59,765 台</div>
+<div class="legend-grid" id="pr-legend-DE"></div>
+<div class="chart-wrap"><canvas id="prChartCountry-DE"></canvas></div>
+<table class="pr-table" style="margin-top:8px;"><thead><tr>
+<th>价位</th><th class="num">销量</th><th class="num">变化</th><th>主卖品牌</th></tr></thead><tbody>
+<tr><td><strong>500以下</strong></td><td class="num">11,823</td><td class="num"><span class="change-down">▼2.1%</span></td><td><span class="tag-top1" style="background:#FF9500;">Mova</span></td></tr>
+<tr><td><strong>500-800</strong></td><td class="num">23,021</td><td class="num"><span class="change-up">▲5.8%</span></td><td><span class="tag-top1" style="background:#007AFF;">Mammotion</span></td></tr>
+<tr><td><strong>800-1000</strong></td><td class="num">12,071</td><td class="num"><span class="change-down">▼29.2%</span></td><td><span class="tag-top1" style="background:#34C759;">NAVIMOW</span></td></tr>
+<tr><td><strong>1000-1300</strong></td><td class="num">7,826</td><td class="num"><span class="change-down">▼30.9%</span></td><td><span class="tag-top1" style="background:#FF3B30;">ECOVACS</span></td></tr>
+<tr><td><strong>1300-1500</strong></td><td class="num">2,514</td><td class="num"><span class="change-up">▲146.2%</span></td><td><span class="tag-top1" style="background:#34C759;">NAVIMOW</span></td></tr>
+<tr><td><strong>1500-1800</strong></td><td class="num">1,239</td><td class="num"><span class="change-down">▼78.9%</span></td><td><span class="tag-top1" style="background:#007AFF;">Mammotion</span></td></tr>
+<tr><td><strong>1800-2000</strong></td><td class="num">29</td><td class="num"><span style="color:#86868b;">-</span></td><td><span class="tag-top1" style="background:#FF3B30;">ECOVACS</span></td></tr>
+<tr><td><strong>2000-2400</strong></td><td class="num">206</td><td class="num"><span class="change-down">▼63.1%</span></td><td><span class="tag-top1" style="background:#999;">AIWEIYA</span></td></tr>
+<tr><td><strong>2400以上</strong></td><td class="num">1,036</td><td class="num"><span class="change-up">▲43.9%</span></td><td><span class="tag-top1" style="background:#34C759;">NAVIMOW</span></td></tr>
+</tbody></table></div>
+<div class="chart-card"><h3>🇺🇸 美国</h3>
+<div class="sub">总量 25,273 台</div>
+<div class="legend-grid" id="pr-legend-US"></div>
+<div class="chart-wrap"><canvas id="prChartCountry-US"></canvas></div>
+<table class="pr-table" style="margin-top:8px;"><thead><tr>
+<th>价位</th><th class="num">销量</th><th class="num">变化</th><th>主卖品牌</th></tr></thead><tbody>
+<tr><td><strong>500以下</strong></td><td class="num">1,248</td><td class="num"><span class="change-down">▼9.8%</span></td><td><span class="tag-top1" style="background:#2ECC71;">YARDCARE</span></td></tr>
+<tr><td><strong>500-800</strong></td><td class="num">3,668</td><td class="num"><span class="change-up">▲0.2%</span></td><td><span class="tag-top1" style="background:#FF3B30;">ECOVACS</span></td></tr>
+<tr><td><strong>800-1000</strong></td><td class="num">1,611</td><td class="num"><span class="change-down">▼45.1%</span></td><td><span class="tag-top1" style="background:#5856D6;">WORX</span></td></tr>
+<tr><td><strong>1000-1300</strong></td><td class="num">892</td><td class="num"><span class="change-down">▼22.8%</span></td><td><span class="tag-top1" style="background:#5856D6;">WORX</span></td></tr>
+<tr><td><strong>1300-1500</strong></td><td class="num">3,478</td><td class="num"><span class="change-up">▲446.0%</span></td><td><span class="tag-top1" style="background:#999;">Greenworks</span></td></tr>
+<tr><td><strong>1500-1800</strong></td><td class="num">441</td><td class="num"><span class="change-down">▼89.4%</span></td><td><span class="tag-top1" style="background:#999;">DREAME</span></td></tr>
+<tr><td><strong>1800-2000</strong></td><td class="num">100</td><td class="num"><span class="change-down">▼63.9%</span></td><td><span class="tag-top1" style="background:#007AFF;">Mammotion</span></td></tr>
+<tr><td><strong>2000-2400</strong></td><td class="num">5,716</td><td class="num"><span class="change-down">▼8.7%</span></td><td><span class="tag-top1" style="background:#007AFF;">Mammotion</span></td></tr>
+<tr><td><strong>2400以上</strong></td><td class="num">8,119</td><td class="num"><span class="change-down">▼38.1%</span></td><td><span class="tag-top1" style="background:#007AFF;">Mammotion</span></td></tr>
+</tbody></table></div>
+<div class="chart-card"><h3>🇫🇷 法国</h3>
+<div class="sub">总量 12,930 台</div>
+<div class="legend-grid" id="pr-legend-FR"></div>
+<div class="chart-wrap"><canvas id="prChartCountry-FR"></canvas></div>
+<table class="pr-table" style="margin-top:8px;"><thead><tr>
+<th>价位</th><th class="num">销量</th><th class="num">变化</th><th>主卖品牌</th></tr></thead><tbody>
+<tr><td><strong>500以下</strong></td><td class="num">1,863</td><td class="num"><span class="change-down">▼13.9%</span></td><td><span class="tag-top1" style="background:#FF2D55;">Sunseeker</span></td></tr>
+<tr><td><strong>500-800</strong></td><td class="num">4,678</td><td class="num"><span class="change-down">▼5.4%</span></td><td><span class="tag-top1" style="background:#007AFF;">Mammotion</span></td></tr>
+<tr><td><strong>800-1000</strong></td><td class="num">3,228</td><td class="num"><span class="change-down">▼33.3%</span></td><td><span class="tag-top1" style="background:#F15BB5;">dreame</span></td></tr>
+<tr><td><strong>1000-1300</strong></td><td class="num">1,834</td><td class="num"><span class="change-down">▼26.0%</span></td><td><span class="tag-top1" style="background:#007AFF;">Mammotion</span></td></tr>
+<tr><td><strong>1300-1500</strong></td><td class="num">273</td><td class="num"><span class="change-down">▼41.4%</span></td><td><span class="tag-top1" style="background:#007AFF;">Mammotion</span></td></tr>
+<tr><td><strong>1500-1800</strong></td><td class="num">826</td><td class="num"><span class="change-up">▲54.1%</span></td><td><span class="tag-top1" style="background:#34C759;">NAVIMOW</span></td></tr>
+<tr><td><strong>1800-2000</strong></td><td class="num">20</td><td class="num"><span class="change-up">▲233.3%</span></td><td><span class="tag-top1" style="background:#F15BB5;">dreame</span></td></tr>
+<tr><td><strong>2000-2400</strong></td><td class="num">90</td><td class="num"><span class="change-up">▲4.7%</span></td><td><span class="tag-top1" style="background:#999;">AIWEIYA</span></td></tr>
+<tr><td><strong>2400以上</strong></td><td class="num">118</td><td class="num"><span class="change-down">▼66.4%</span></td><td><span class="tag-top1" style="background:#34C759;">NAVIMOW</span></td></tr>
+</tbody></table></div>
+<div class="chart-card"><h3>🇮🇹 意大利</h3>
+<div class="sub">总量 7,408 台</div>
+<div class="legend-grid" id="pr-legend-IT"></div>
+<div class="chart-wrap"><canvas id="prChartCountry-IT"></canvas></div>
+<table class="pr-table" style="margin-top:8px;"><thead><tr>
+<th>价位</th><th class="num">销量</th><th class="num">变化</th><th>主卖品牌</th></tr></thead><tbody>
+<tr><td><strong>500以下</strong></td><td class="num">3,077</td><td class="num"><span class="change-up">▲26.5%</span></td><td><span class="tag-top1" style="background:#FF2D55;">Sunseeker</span></td></tr>
+<tr><td><strong>500-800</strong></td><td class="num">2,103</td><td class="num"><span class="change-down">▼7.9%</span></td><td><span class="tag-top1" style="background:#FF9500;">Mova</span></td></tr>
+<tr><td><strong>800-1000</strong></td><td class="num">940</td><td class="num"><span class="change-up">▲11.2%</span></td><td><span class="tag-top1" style="background:#34C759;">NAVIMOW</span></td></tr>
+<tr><td><strong>1000-1300</strong></td><td class="num">969</td><td class="num"><span class="change-down">▼5.6%</span></td><td><span class="tag-top1" style="background:#FF3B30;">ECOVACS</span></td></tr>
+<tr><td><strong>1300-1500</strong></td><td class="num">35</td><td class="num"><span class="change-down">▼52.1%</span></td><td><span class="tag-top1" style="background:#007AFF;">Mammotion</span></td></tr>
+<tr><td><strong>1500-1800</strong></td><td class="num">181</td><td class="num"><span class="change-down">▼15.4%</span></td><td><span class="tag-top1" style="background:#34C759;">NAVIMOW</span></td></tr>
+<tr><td><strong>2000-2400</strong></td><td class="num">44</td><td class="num"><span class="change-down">▼30.2%</span></td><td><span class="tag-top1" style="background:#999;">AIWEIYA</span></td></tr>
+<tr><td><strong>2400以上</strong></td><td class="num">59</td><td class="num"><span class="change-down">▼27.2%</span></td><td><span class="tag-top1" style="background:#34C759;">NAVIMOW</span></td></tr>
+</tbody></table></div>
+<div class="chart-card"><h3>🇪🇸 西班牙</h3>
+<div class="sub">总量 1,605 台</div>
+<div class="legend-grid" id="pr-legend-ES"></div>
+<div class="chart-wrap"><canvas id="prChartCountry-ES"></canvas></div>
+<table class="pr-table" style="margin-top:8px;"><thead><tr>
+<th>价位</th><th class="num">销量</th><th class="num">变化</th><th>主卖品牌</th></tr></thead><tbody>
+<tr><td><strong>500以下</strong></td><td class="num">365</td><td class="num"><span class="change-up">▲13.4%</span></td><td><span class="tag-top1" style="background:#AAA;">LawnMaster</span></td></tr>
+<tr><td><strong>500-800</strong></td><td class="num">674</td><td class="num"><span class="change-down">▼2.5%</span></td><td><span class="tag-top1" style="background:#007AFF;">Mammotion</span></td></tr>
+<tr><td><strong>800-1000</strong></td><td class="num">234</td><td class="num"><span class="change-up">▲35.3%</span></td><td><span class="tag-top1" style="background:#FF9500;">Mova</span></td></tr>
+<tr><td><strong>1000-1300</strong></td><td class="num">169</td><td class="num"><span class="change-down">▼17.6%</span></td><td><span class="tag-top1" style="background:#34C759;">NAVIMOW</span></td></tr>
+<tr><td><strong>1300-1500</strong></td><td class="num">73</td><td class="num"><span class="change-up">▲46.0%</span></td><td><span class="tag-top1" style="background:#5856D6;">WORX</span></td></tr>
+<tr><td><strong>1500-1800</strong></td><td class="num">55</td><td class="num"><span class="change-down">▼61.8%</span></td><td><span class="tag-top1" style="background:#007AFF;">Mammotion</span></td></tr>
+<tr><td><strong>2000-2400</strong></td><td class="num">12</td><td class="num"><span class="change-down">▼47.8%</span></td><td><span class="tag-top1" style="background:#999;">AIWEIYA</span></td></tr>
+<tr><td><strong>2400以上</strong></td><td class="num">23</td><td class="num"><span class="change-down">▼55.8%</span></td><td><span class="tag-top1" style="background:#999;">DREAME</span></td></tr>
+</tbody></table></div>
+<div class="chart-card"><h3>🇬🇧 英国</h3>
+<div class="sub">总量 5,506 台</div>
+<div class="legend-grid" id="pr-legend-GB"></div>
+<div class="chart-wrap"><canvas id="prChartCountry-GB"></canvas></div>
+<table class="pr-table" style="margin-top:8px;"><thead><tr>
+<th>价位</th><th class="num">销量</th><th class="num">变化</th><th>主卖品牌</th></tr></thead><tbody>
+<tr><td><strong>500以下</strong></td><td class="num">2,313</td><td class="num"><span class="change-up">▲6.6%</span></td><td><span class="tag-top1" style="background:#AAA;">LawnMaster</span></td></tr>
+<tr><td><strong>500-800</strong></td><td class="num">956</td><td class="num"><span class="change-up">▲21.8%</span></td><td><span class="tag-top1" style="background:#FF9500;">Mova</span></td></tr>
+<tr><td><strong>800-1000</strong></td><td class="num">1,631</td><td class="num"><span class="change-down">▼18.5%</span></td><td><span class="tag-top1" style="background:#34C759;">NAVIMOW</span></td></tr>
+<tr><td><strong>1000-1300</strong></td><td class="num">320</td><td class="num"><span class="change-up">▲1.9%</span></td><td><span class="tag-top1" style="background:#34C759;">NAVIMOW</span></td></tr>
+<tr><td><strong>1300-1500</strong></td><td class="num">142</td><td class="num"><span class="change-up">▲14.5%</span></td><td><span class="tag-top1" style="background:#007AFF;">Mammotion</span></td></tr>
+<tr><td><strong>1500-1800</strong></td><td class="num">129</td><td class="num"><span class="change-up">▲3125.0%</span></td><td><span class="tag-top1" style="background:#34C759;">NAVIMOW</span></td></tr>
+<tr><td><strong>1800-2000</strong></td><td class="num">10</td><td class="num"><span class="change-down">▼16.7%</span></td><td><span class="tag-top1" style="background:#999;">SYKEND</span></td></tr>
+<tr><td><strong>2400以上</strong></td><td class="num">5</td><td class="num"><span class="change-up">▲150.0%</span></td><td><span class="tag-top1" style="background:#8E44AD;">LYMOW</span></td></tr>
+</tbody></table></div>
+</div>
+<div class="data-table-wrap" style="overflow-x:auto;"><table class="pr-table" style="white-space:nowrap;"><thead><tr>
+<th>价位段</th>
+<th class="num">🇩🇪德国</th>
+<th class="num">🇺🇸美国</th>
+<th class="num">🇫🇷法国</th>
+<th class="num">🇮🇹意大利</th>
+<th class="num">🇪🇸西班牙</th>
+<th class="num">🇬🇧英国</th>
+</tr></thead><tbody>
+<tr><td><strong>500以下</strong></td>
+<td class="num"><span class="tag-top1" style="background:#FF9500;">Mova</span> 11,823<br><span style="color:#86868b;font-size:10px;">19.8%</span><br><span style="color:#48484a;font-size:10px;">MOVA ViAX 250 Mähroboter ...</span></td>
+<td class="num"><span class="tag-top1" style="background:#2ECC71;">YARDCARE</span> 1,248<br><span style="color:#86868b;font-size:10px;">4.9%</span><br><span style="color:#48484a;font-size:10px;">2026 New Robot Lawn Mower...</span></td>
+<td class="num"><span class="tag-top1" style="background:#FF2D55;">Sunseeker</span> 1,863<br><span style="color:#86868b;font-size:10px;">14.4%</span><br><span style="color:#48484a;font-size:10px;">Sunseeker V1 avec Garage,...</span></td>
+<td class="num"><span class="tag-top1" style="background:#FF2D55;">Sunseeker</span> 3,077<br><span style="color:#86868b;font-size:10px;">41.5%</span><br><span style="color:#48484a;font-size:10px;">Sunseeker V1 con Garage, ...</span></td>
+<td class="num"><span class="tag-top1" style="background:#AAA;">LawnMaster</span> 365<br><span style="color:#86868b;font-size:10px;">22.7%</span><br><span style="color:#48484a;font-size:10px;">Lawnmaster OcuMow®16 Robo...</span></td>
+<td class="num"><span class="tag-top1" style="background:#AAA;">LawnMaster</span> 2,313<br><span style="color:#86868b;font-size:10px;">42.0%</span><br><span style="color:#48484a;font-size:10px;">LawnMaster OcuMow® 16 Dro...</span></td>
 </tr>
-<tr>
-  <td class="rank">#3</td>
-  <td style="font-weight:600">Sunseeker</td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:6%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">2,617台</div>
-    </div>
-  </td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:21%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +52.5%</div>
-    </div>
-  </td>
+<tr><td><strong>500-800</strong></td>
+<td class="num"><span class="tag-top1" style="background:#007AFF;">Mammotion</span> 23,021<br><span style="color:#86868b;font-size:10px;">38.5%</span><br><span style="color:#48484a;font-size:10px;">MAMMOTION YUKA mini 2 500...</span></td>
+<td class="num"><span class="tag-top1" style="background:#FF3B30;">ECOVACS</span> 3,668<br><span style="color:#86868b;font-size:10px;">14.5%</span><br><span style="color:#48484a;font-size:10px;">ECOVACS Goat O1000 RTK Ca...</span></td>
+<td class="num"><span class="tag-top1" style="background:#007AFF;">Mammotion</span> 4,678<br><span style="color:#86868b;font-size:10px;">36.2%</span><br><span style="color:#48484a;font-size:10px;">MAMMOTION YUKA Mini 2 500...</span></td>
+<td class="num"><span class="tag-top1" style="background:#FF9500;">Mova</span> 2,103<br><span style="color:#86868b;font-size:10px;">28.4%</span><br><span style="color:#48484a;font-size:10px;">MOVA LiDAX Ultra 800 Robo...</span></td>
+<td class="num"><span class="tag-top1" style="background:#007AFF;">Mammotion</span> 674<br><span style="color:#86868b;font-size:10px;">42.0%</span><br><span style="color:#48484a;font-size:10px;">MAMMOTION YUKA Mini 2 500...</span></td>
+<td class="num"><span class="tag-top1" style="background:#FF9500;">Mova</span> 956<br><span style="color:#86868b;font-size:10px;">17.4%</span><br><span style="color:#48484a;font-size:10px;">MOVA ViAX 300 Robot Lawnm...</span></td>
 </tr>
-<tr>
-  <td class="rank">#4</td>
-  <td style="font-weight:600">Bosch</td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:4%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">1,511台</div>
-    </div>
-  </td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:18%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +44.9%</div>
-    </div>
-  </td>
+<tr><td><strong>800-1000</strong></td>
+<td class="num"><span class="tag-top1" style="background:#34C759;">NAVIMOW</span> 12,071<br><span style="color:#86868b;font-size:10px;">20.2%</span><br><span style="color:#48484a;font-size:10px;">Segway Navimow i208 LiDAR...</span></td>
+<td class="num"><span class="tag-top1" style="background:#5856D6;">WORX</span> 1,611<br><span style="color:#86868b;font-size:10px;">6.4%</span><br><span style="color:#48484a;font-size:10px;">WORX Landroid Vision Clou...</span></td>
+<td class="num"><span class="tag-top1" style="background:#F15BB5;">dreame</span> 3,228<br><span style="color:#86868b;font-size:10px;">25.0%</span><br><span style="color:#48484a;font-size:10px;">DREAME A1 Pro Robot Tonde...</span></td>
+<td class="num"><span class="tag-top1" style="background:#34C759;">NAVIMOW</span> 940<br><span style="color:#86868b;font-size:10px;">12.7%</span><br><span style="color:#48484a;font-size:10px;">Segway Navimow i208 LiDAR...</span></td>
+<td class="num"><span class="tag-top1" style="background:#FF9500;">Mova</span> 234<br><span style="color:#86868b;font-size:10px;">14.6%</span><br><span style="color:#48484a;font-size:10px;">MOVA LiDAX Ultra 800 Robo...</span></td>
+<td class="num"><span class="tag-top1" style="background:#34C759;">NAVIMOW</span> 1,631<br><span style="color:#86868b;font-size:10px;">29.6%</span><br><span style="color:#48484a;font-size:10px;">Segway Navimow i205 AWD R...</span></td>
 </tr>
-<tr>
-  <td class="rank">#5</td>
-  <td style="font-weight:600">ECOVACS</td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:24%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">9,812台</div>
-    </div>
-  </td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:13%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +31.4%</div>
-    </div>
-  </td>
+<tr><td><strong>1000-1300</strong></td>
+<td class="num"><span class="tag-top1" style="background:#FF3B30;">ECOVACS</span> 7,826<br><span style="color:#86868b;font-size:10px;">13.1%</span><br><span style="color:#48484a;font-size:10px;">ECOVACS GOAT A1600 LiDAR ...</span></td>
+<td class="num"><span class="tag-top1" style="background:#5856D6;">WORX</span> 892<br><span style="color:#86868b;font-size:10px;">3.5%</span><br><span style="color:#48484a;font-size:10px;">WORX Landroid Vision Clou...</span></td>
+<td class="num"><span class="tag-top1" style="background:#007AFF;">Mammotion</span> 1,834<br><span style="color:#86868b;font-size:10px;">14.2%</span><br><span style="color:#48484a;font-size:10px;">MAMMOTION YUKA Mini 2 100...</span></td>
+<td class="num"><span class="tag-top1" style="background:#FF3B30;">ECOVACS</span> 969<br><span style="color:#86868b;font-size:10px;">13.1%</span><br><span style="color:#48484a;font-size:10px;">ECOVACS Goat A1600 LiDAR ...</span></td>
+<td class="num"><span class="tag-top1" style="background:#34C759;">NAVIMOW</span> 169<br><span style="color:#86868b;font-size:10px;">10.5%</span><br><span style="color:#48484a;font-size:10px;">Segway Navimow i208 LiDAR...</span></td>
+<td class="num"><span class="tag-top1" style="background:#34C759;">NAVIMOW</span> 320<br><span style="color:#86868b;font-size:10px;">5.8%</span><br><span style="color:#48484a;font-size:10px;">Segway Navimow i208 LiDAR...</span></td>
 </tr>
-<tr>
-  <td class="rank">#6</td>
-  <td style="font-weight:600">WORX</td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:20%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">8,042台</div>
-    </div>
-  </td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:12%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +29.0%</div>
-    </div>
-  </td>
+<tr><td><strong>1300-1500</strong></td>
+<td class="num"><span class="tag-top1" style="background:#34C759;">NAVIMOW</span> 2,514<br><span style="color:#86868b;font-size:10px;">4.2%</span><br><span style="color:#48484a;font-size:10px;">Segway Navimow i210 LiDAR...</span></td>
+<td class="num"><span class="tag-top1" style="background:#999;">Greenworks</span> 3,478<br><span style="color:#86868b;font-size:10px;">13.8%</span><br><span style="color:#48484a;font-size:10px;">Greenworks C30Z Wire-Free...</span></td>
+<td class="num"><span class="tag-top1" style="background:#007AFF;">Mammotion</span> 273<br><span style="color:#86868b;font-size:10px;">2.1%</span><br><span style="color:#48484a;font-size:10px;">MAMMOTION LUBA Mini 2 AWD...</span></td>
+<td class="num"><span class="tag-top1" style="background:#007AFF;">Mammotion</span> 35<br><span style="color:#86868b;font-size:10px;">0.5%</span><br><span style="color:#48484a;font-size:10px;">MAMMOTION LUBA mini 2 AWD...</span></td>
+<td class="num"><span class="tag-top1" style="background:#5856D6;">WORX</span> 73<br><span style="color:#86868b;font-size:10px;">4.5%</span><br><span style="color:#48484a;font-size:10px;">Worx Landroid Vision Clou...</span></td>
+<td class="num"><span class="tag-top1" style="background:#007AFF;">Mammotion</span> 142<br><span style="color:#86868b;font-size:10px;">2.6%</span><br><span style="color:#48484a;font-size:10px;">MAMMOTION LUBA mini 2 AWD...</span></td>
 </tr>
-<tr>
-  <td class="rank">#7</td>
-  <td style="font-weight:600">dreame</td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:7%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">2,795台</div>
-    </div>
-  </td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:11%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +26.5%</div>
-    </div>
-  </td>
+<tr><td><strong>1500-1800</strong></td>
+<td class="num"><span class="tag-top1" style="background:#007AFF;">Mammotion</span> 1,239<br><span style="color:#86868b;font-size:10px;">2.1%</span><br><span style="color:#48484a;font-size:10px;">MAMMOTION LUBA mini 2 AWD...</span></td>
+<td class="num"><span class="tag-top1" style="background:#999;">DREAME</span> 441<br><span style="color:#86868b;font-size:10px;">1.7%</span><br><span style="color:#48484a;font-size:10px;">[All-Terrain Wire-Free] D...</span></td>
+<td class="num"><span class="tag-top1" style="background:#34C759;">NAVIMOW</span> 826<br><span style="color:#86868b;font-size:10px;">6.4%</span><br><span style="color:#48484a;font-size:10px;">Segway Navimow i210 LiDAR...</span></td>
+<td class="num"><span class="tag-top1" style="background:#34C759;">NAVIMOW</span> 181<br><span style="color:#86868b;font-size:10px;">2.4%</span><br><span style="color:#48484a;font-size:10px;">Segway Navimow i210 LiDAR...</span></td>
+<td class="num"><span class="tag-top1" style="background:#007AFF;">Mammotion</span> 55<br><span style="color:#86868b;font-size:10px;">3.4%</span><br><span style="color:#48484a;font-size:10px;">MAMMOTION LUBA Mini 2 AWD...</span></td>
+<td class="num"><span class="tag-top1" style="background:#34C759;">NAVIMOW</span> 129<br><span style="color:#86868b;font-size:10px;">2.3%</span><br><span style="color:#48484a;font-size:10px;">Segway Navimow i210 LiDAR...</span></td>
 </tr>
-<tr>
-  <td class="rank">#8</td>
-  <td style="font-weight:600">ANTHBOT</td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:13%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">5,303台</div>
-    </div>
-  </td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:9%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +23.4%</div>
-    </div>
-  </td>
+<tr><td><strong>1800-2000</strong></td>
+<td class="num"><span class="tag-top1" style="background:#FF3B30;">ECOVACS</span> 29<br><span style="color:#86868b;font-size:10px;">0.0%</span><br><span style="color:#48484a;font-size:10px;">ECOVACS Goat A3000 LiDAR ...</span></td>
+<td class="num"><span class="tag-top1" style="background:#007AFF;">Mammotion</span> 100<br><span style="color:#86868b;font-size:10px;">0.4%</span><br><span style="color:#48484a;font-size:10px;">Mammotion LUBA 3 AWD 1500...</span></td>
+<td class="num"><span class="tag-top1" style="background:#F15BB5;">dreame</span> 20<br><span style="color:#86868b;font-size:10px;">0.2%</span><br><span style="color:#48484a;font-size:10px;">DREAME A3 AWD Pro 3500 Ro...</span></td>
+<td class="num" style="color:#d2d2d7;">-</td>
+<td class="num" style="color:#d2d2d7;">-</td>
+<td class="num"><span class="tag-top1" style="background:#999;">SYKEND</span> 10<br><span style="color:#86868b;font-size:10px;">0.2%</span><br><span style="color:#48484a;font-size:10px;">Remote-Controlled Lawnmow...</span></td>
 </tr>
-<tr>
-  <td class="rank">#9</td>
-  <td style="font-weight:600">NAVIMOW</td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:59%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">23,838台</div>
-    </div>
-  </td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:9%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +22.9%</div>
-    </div>
-  </td>
+<tr><td><strong>2000-2400</strong></td>
+<td class="num"><span class="tag-top1" style="background:#999;">AIWEIYA</span> 206<br><span style="color:#86868b;font-size:10px;">0.3%</span><br><span style="color:#48484a;font-size:10px;">Mähroboter-Fernsteuerung ...</span></td>
+<td class="num"><span class="tag-top1" style="background:#007AFF;">Mammotion</span> 5,716<br><span style="color:#86868b;font-size:10px;">22.6%</span><br><span style="color:#48484a;font-size:10px;">Mammotion LUBA 3 AWD 3000...</span></td>
+<td class="num"><span class="tag-top1" style="background:#999;">AIWEIYA</span> 90<br><span style="color:#86868b;font-size:10px;">0.7%</span><br><span style="color:#48484a;font-size:10px;">Tondeuses Robot, Tondeuse...</span></td>
+<td class="num"><span class="tag-top1" style="background:#999;">AIWEIYA</span> 44<br><span style="color:#86868b;font-size:10px;">0.6%</span><br><span style="color:#48484a;font-size:10px;">Robot Tosaerba telecomand...</span></td>
+<td class="num"><span class="tag-top1" style="background:#999;">AIWEIYA</span> 12<br><span style="color:#86868b;font-size:10px;">0.7%</span><br><span style="color:#48484a;font-size:10px;">Robot Cortacesped,Cortado...</span></td>
+<td class="num" style="color:#d2d2d7;">-</td>
 </tr>
-<tr>
-  <td class="rank">#10</td>
-  <td style="font-weight:600">Greenworks</td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:5%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">2,109台</div>
-    </div>
-  </td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:9%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +22.8%</div>
-    </div>
-  </td>
-</tr>
-<tr>
-  <td class="rank">#11</td>
-  <td style="font-weight:600">Gardena</td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:7%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">2,789台</div>
-    </div>
-  </td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:8%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +20.8%</div>
-    </div>
-  </td>
-</tr>
-<tr>
-  <td class="rank">#12</td>
-  <td style="font-weight:600">Mova</td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:31%;background:#007aff;opacity:0.12;"></div>
-      <div class="dual-bar-label">12,452台</div>
-    </div>
-  </td>
-  <td>
-    <div class="dual-bar-cell">
-      <div class="dual-bar-fill" style="width:7%;background:#34c759;opacity:0.15;"></div>
-      <div class="dual-bar-label" style="color:#34c759;">▲ +17.1%</div>
-    </div>
-  </td>
+<tr><td><strong>2400以上</strong></td>
+<td class="num"><span class="tag-top1" style="background:#34C759;">NAVIMOW</span> 1,036<br><span style="color:#86868b;font-size:10px;">1.7%</span><br><span style="color:#48484a;font-size:10px;">Segway Navimow X420 Mähro...</span></td>
+<td class="num"><span class="tag-top1" style="background:#007AFF;">Mammotion</span> 8,119<br><span style="color:#86868b;font-size:10px;">32.1%</span><br><span style="color:#48484a;font-size:10px;">Mammotion LUBA 3 AWD 1500...</span></td>
+<td class="num"><span class="tag-top1" style="background:#34C759;">NAVIMOW</span> 118<br><span style="color:#86868b;font-size:10px;">0.9%</span><br><span style="color:#48484a;font-size:10px;">Segway Navimow X420 Robot...</span></td>
+<td class="num"><span class="tag-top1" style="background:#34C759;">NAVIMOW</span> 59<br><span style="color:#86868b;font-size:10px;">0.8%</span><br><span style="color:#48484a;font-size:10px;">Segway Navimow X420 robot...</span></td>
+<td class="num"><span class="tag-top1" style="background:#999;">DREAME</span> 23<br><span style="color:#86868b;font-size:10px;">1.4%</span><br><span style="color:#48484a;font-size:10px;">DREAME A3 AWD Pro 3500 Ro...</span></td>
+<td class="num"><span class="tag-top1" style="background:#8E44AD;">LYMOW</span> 5<br><span style="color:#86868b;font-size:10px;">0.1%</span><br><span style="color:#48484a;font-size:10px;">Lymow One Plus Robot Lawn...</span></td>
 </tr>
 </tbody></table></div>
 
@@ -716,7 +758,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 Chart.register(ChartDataLabels);
 Chart.defaults.plugins.datalabels.display = false;
 
-const DATA = {"countryBrands": {"DE": {"labels": ["NAVIMOW", "Mammotion", "Mova", "eufy", "WORX", "ECOVACS"], "sales": [18045, 13628, 8168, 6825, 5381, 4814], "growths": [23.9, 36.9, 17.4, 270.9, 18.5, 45.9]}, "US": {"labels": ["Mammotion", "ECOVACS", "NAVIMOW", "Greenworks", "ANTHBOT", "Mova"], "sales": [18200, 2950, 2436, 2096, 1022, 961], "growths": [508.1, 30.4, -26.2, 23.5, 32.2, -20.3]}, "FR": {"labels": ["Mammotion", "ANTHBOT", "Mova", "ECOVACS", "NAVIMOW", "WORX"], "sales": [6991, 1895, 1335, 1134, 1079, 876], "growths": [9.6, 20.5, 7.1, -2.2, 25.9, 51.0]}, "IT": {"labels": ["Mova", "Mammotion", "ECOVACS", "NAVIMOW", "Sunseeker", "WORX"], "sales": [1351, 981, 730, 722, 715, 473], "growths": [36.3, -1.1, 5.8, 37.5, 59.2, 2.6]}, "ES": {"labels": ["Mammotion", "Mova", "WORX", "NAVIMOW", "YARDCARE", "LawnMaster"], "sales": [344, 250, 216, 165, 153, 123], "growths": [11.7, 8.2, 13.7, 20.4, -3.2, 5.1]}}};
+const DATA = {"countryBrands": {"DE": {"labels": ["Mammotion", "NAVIMOW", "Mova", "WORX", "ECOVACS", "eufy"], "sales": [12383, 12234, 6955, 6035, 4912, 4402], "growths": [-9.1, -32.2, -14.9, 12.2, 2.0, -35.5]}, "US": {"labels": ["Mammotion", "ECOVACS", "NAVIMOW", "Greenworks", "WORX", "YARDCARE"], "sales": [10704, 2539, 2539, 1650, 1075, 950], "growths": [-41.2, -13.9, 4.2, -21.3, 65.6, 12.4]}, "FR": {"labels": ["Mammotion", "ANTHBOT", "NAVIMOW", "Mova", "ECOVACS", "WORX"], "sales": [3440, 2174, 1320, 1288, 1114, 818], "growths": [-50.8, 14.7, 22.3, -3.5, -1.8, -6.6]}, "IT": {"labels": ["Mova", "NAVIMOW", "Mammotion", "ECOVACS", "Sunseeker", "WORX"], "sales": [1400, 1024, 900, 897, 782, 461], "growths": [3.6, 41.8, -8.3, 22.9, 9.4, -2.5]}, "ES": {"labels": ["Mammotion", "Mova", "WORX", "NAVIMOW", "YARDCARE", "LawnMaster"], "sales": [324, 238, 209, 174, 147, 124], "growths": [-5.8, -4.8, -3.2, 5.5, -3.9, 0.8]}, "GB": {"labels": ["NAVIMOW", "LawnMaster", "Mammotion", "Bosch", "WORX", "Mova"], "sales": [1389, 929, 560, 493, 451, 404], "growths": [-0.1, 2.2, -0.7, 14.1, 0.9, 4.4]}}};
+const PR_STACKED = {"overall": {"labels": ["500以下", "500-800", "800-1000", "1000-1300", "1300-1500", "1500-1800", "1800-2000", "2000-2400", "2400以上"], "datasets": [{"label": "Mammotion", "data": [0, 11001, 3571, 1134, 944, 1063, 57, 4965, 5576], "backgroundColor": "#007AFF"}, {"label": "NAVIMOW", "data": [0, 5487, 5860, 1898, 2653, 966, 0, 639, 1177], "backgroundColor": "#34C759"}, {"label": "Mova", "data": [4286, 4956, 1064, 173, 117, 285, 0, 0, 0], "backgroundColor": "#FF9500"}, {"label": "ECOVACS", "data": [612, 3738, 428, 4099, 718, 0, 29, 4, 23], "backgroundColor": "#FF3B30"}, {"label": "WORX", "data": [649, 5175, 1339, 1717, 52, 15, 0, 4, 98], "backgroundColor": "#5856D6"}, {"label": "ANTHBOT", "data": [2195, 2171, 945, 93, 6, 16, 0, 0, 0], "backgroundColor": "#00C7BE"}, {"label": "eufy", "data": [0, 224, 2230, 2412, 55, 0, 0, 0, 35], "backgroundColor": "#AF52DE"}, {"label": "YARDCARE", "data": [2101, 764, 118, 0, 0, 0, 0, 0, 0], "backgroundColor": "#2ECC71"}, {"label": "Gardena", "data": [1407, 436, 777, 7, 4, 0, 9, 0, 0], "backgroundColor": "#9B59B6"}, {"label": "Sunseeker", "data": [2197, 410, 10, 4, 0, 0, 0, 0, 0], "backgroundColor": "#FF2D55"}, {"label": "dreame", "data": [0, 0, 2102, 4, 0, 3, 11, 0, 272], "backgroundColor": "#F15BB5"}, {"label": "其他", "data": [7242, 738, 1271, 469, 1966, 523, 53, 456, 2179], "backgroundColor": "rgba(201,199,204,0.7)"}], "totals": [20689, 35100, 19715, 12010, 6515, 2871, 159, 6068, 9360]}, "countries": {"DE": {"labels": ["500以下", "500-800", "800-1000", "1000-1300", "1300-1500", "1500-1800", "1800-2000", "2000-2400", "2400以上"], "datasets": [{"label": "Mammotion", "data": [0, 8143, 2917, 192, 460, 629, 0, 42, 0], "backgroundColor": "#007AFF"}, {"label": "NAVIMOW", "data": [0, 4650, 3784, 1024, 2045, 281, 0, 0, 450], "backgroundColor": "#34C759"}, {"label": "Mova", "data": [3679, 3044, 13, 0, 0, 219, 0, 0, 0], "backgroundColor": "#FF9500"}, {"label": "WORX", "data": [535, 4491, 43, 966, 0, 0, 0, 0, 0], "backgroundColor": "#5856D6"}, {"label": "ECOVACS", "data": [0, 1480, 304, 3095, 0, 0, 29, 4, 0], "backgroundColor": "#FF3B30"}, {"label": "eufy", "data": [0, 0, 2179, 2223, 0, 0, 0, 0, 0], "backgroundColor": "#AF52DE"}, {"label": "Gardena", "data": [1203, 377, 773, 0, 0, 0, 0, 0, 0], "backgroundColor": "#9B59B6"}, {"label": "ANTHBOT", "data": [1727, 7, 75, 0, 0, 16, 0, 0, 0], "backgroundColor": "#00C7BE"}, {"label": "dreame", "data": [0, 0, 1310, 0, 0, 0, 0, 0, 272], "backgroundColor": "#F15BB5"}, {"label": "Sunseeker", "data": [1106, 332, 0, 0, 0, 0, 0, 0, 0], "backgroundColor": "#FF2D55"}, {"label": "YARDCARE", "data": [835, 242, 6, 0, 0, 0, 0, 0, 0], "backgroundColor": "#2ECC71"}, {"label": "其他", "data": [2738, 255, 667, 326, 9, 94, 0, 160, 314], "backgroundColor": "rgba(201,199,204,0.7)"}], "totals": [11823, 23021, 12071, 7826, 2514, 1239, 29, 206, 1036]}, "US": {"labels": ["500以下", "500-800", "800-1000", "1000-1300", "1300-1500", "1500-1800", "1800-2000", "2000-2400", "2400以上"], "datasets": [{"label": "Mammotion", "data": [0, 0, 0, 0, 196, 22, 54, 4882, 5550], "backgroundColor": "#007AFF"}, {"label": "ECOVACS", "data": [0, 1782, 0, 16, 718, 0, 0, 0, 23], "backgroundColor": "#FF3B30"}, {"label": "NAVIMOW", "data": [0, 496, 266, 22, 504, 0, 0, 639, 612], "backgroundColor": "#34C759"}, {"label": "Greenworks", "data": [0, 0, 0, 0, 1650, 0, 0, 0, 0], "backgroundColor": "#999"}, {"label": "WORX", "data": [0, 84, 422, 487, 0, 0, 0, 0, 82], "backgroundColor": "#5856D6"}, {"label": "YARDCARE", "data": [615, 236, 99, 0, 0, 0, 0, 0, 0], "backgroundColor": "#2ECC71"}, {"label": "ANTHBOT", "data": [22, 674, 226, 0, 0, 0, 0, 0, 0], "backgroundColor": "#00C7BE"}, {"label": "LYMOW", "data": [0, 0, 0, 0, 0, 0, 0, 0, 662], "backgroundColor": "#8E44AD"}, {"label": "Mova", "data": [0, 0, 327, 166, 103, 0, 0, 0, 0], "backgroundColor": "#FF9500"}, {"label": "Husqvarna", "data": [0, 23, 0, 3, 0, 3, 0, 7, 558], "backgroundColor": "#E74C3C"}, {"label": "SUNSEEKER", "data": [0, 0, 250, 0, 280, 0, 0, 10, 0], "backgroundColor": "rgba(201,199,204,0.7)"}, {"label": "DREAME", "data": [0, 0, 0, 0, 0, 231, 17, 0, 182], "backgroundColor": "rgba(201,199,204,0.7)"}, {"label": "其他", "data": [611, 373, 21, 198, 27, 185, 29, 178, 450], "backgroundColor": "rgba(201,199,204,0.7)"}], "totals": [1248, 3668, 1611, 892, 3478, 441, 100, 5716, 8119]}, "FR": {"labels": ["500以下", "500-800", "800-1000", "1000-1300", "1300-1500", "1500-1800", "1800-2000", "2000-2400", "2400以上"], "datasets": [{"label": "Mammotion", "data": [0, 2004, 125, 826, 107, 337, 0, 41, 0], "backgroundColor": "#007AFF"}, {"label": "ANTHBOT", "data": [194, 1389, 591, 0, 0, 0, 0, 0, 0], "backgroundColor": "#00C7BE"}, {"label": "NAVIMOW", "data": [0, 45, 444, 171, 104, 470, 0, 0, 86], "backgroundColor": "#34C759"}, {"label": "Mova", "data": [0, 617, 657, 0, 14, 0, 0, 0, 0], "backgroundColor": "#FF9500"}, {"label": "ECOVACS", "data": [214, 294, 62, 544, 0, 0, 0, 0, 0], "backgroundColor": "#FF3B30"}, {"label": "WORX", "data": [0, 101, 504, 178, 0, 15, 0, 4, 16], "backgroundColor": "#5856D6"}, {"label": "dreame", "data": [0, 0, 792, 4, 0, 3, 11, 0, 0], "backgroundColor": "#F15BB5"}, {"label": "Sunseeker", "data": [387, 0, 0, 0, 0, 0, 0, 0, 0], "backgroundColor": "#FF2D55"}, {"label": "YARDCARE", "data": [224, 133, 0, 0, 0, 0, 0, 0, 0], "backgroundColor": "#2ECC71"}, {"label": "RoboUP", "data": [335, 21, 0, 0, 0, 0, 0, 0, 0], "backgroundColor": "rgba(201,199,204,0.7)"}, {"label": "Lawnmaster", "data": [214, 1, 0, 0, 0, 0, 0, 0, 0], "backgroundColor": "#1ABC9C"}, {"label": "其他", "data": [295, 73, 53, 111, 48, 0, 9, 45, 16], "backgroundColor": "rgba(201,199,204,0.7)"}], "totals": [1863, 4678, 3228, 1834, 273, 826, 20, 90, 118]}, "IT": {"labels": ["500以下", "500-800", "800-1000", "1000-1300", "1300-1500", "1500-1800", "1800-2000", "2000-2400", "2400以上"], "datasets": [{"label": "Mova", "data": [607, 720, 0, 7, 0, 66, 0, 0, 0], "backgroundColor": "#FF9500"}, {"label": "NAVIMOW", "data": [0, 18, 502, 398, 0, 77, 0, 0, 29], "backgroundColor": "#34C759"}, {"label": "Mammotion", "data": [0, 648, 137, 30, 29, 38, 0, 0, 18], "backgroundColor": "#007AFF"}, {"label": "ECOVACS", "data": [326, 139, 0, 432, 0, 0, 0, 0, 0], "backgroundColor": "#FF3B30"}, {"label": "Sunseeker", "data": [704, 78, 0, 0, 0, 0, 0, 0, 0], "backgroundColor": "#FF2D55"}, {"label": "WORX", "data": [41, 334, 0, 86, 0, 0, 0, 0, 0], "backgroundColor": "#5856D6"}, {"label": "Lawnmaster", "data": [412, 0, 0, 0, 0, 0, 0, 0, 0], "backgroundColor": "#1ABC9C"}, {"label": "STIGA", "data": [358, 0, 0, 0, 0, 0, 0, 0, 0], "backgroundColor": "rgba(201,199,204,0.7)"}, {"label": "YARDCARE", "data": [246, 82, 13, 0, 0, 0, 0, 0, 0], "backgroundColor": "#2ECC71"}, {"label": "DREAME", "data": [0, 0, 264, 0, 0, 0, 0, 0, 0], "backgroundColor": "rgba(201,199,204,0.7)"}, {"label": "Gloria", "data": [149, 0, 0, 0, 0, 0, 0, 0, 0], "backgroundColor": "rgba(201,199,204,0.7)"}, {"label": "其他", "data": [234, 84, 24, 16, 6, 0, 0, 44, 12], "backgroundColor": "rgba(201,199,204,0.7)"}], "totals": [3077, 2103, 940, 969, 35, 181, 0, 44, 59]}, "ES": {"labels": ["500以下", "500-800", "800-1000", "1000-1300", "1300-1500", "1500-1800", "1800-2000", "2000-2400", "2400以上"], "datasets": [{"label": "Mammotion", "data": [0, 189, 43, 31, 16, 37, 0, 0, 8], "backgroundColor": "#007AFF"}, {"label": "Mova", "data": [0, 171, 67, 0, 0, 0, 0, 0, 0], "backgroundColor": "#FF9500"}, {"label": "WORX", "data": [16, 141, 0, 0, 52, 0, 0, 0, 0], "backgroundColor": "#5856D6"}, {"label": "NAVIMOW", "data": [0, 0, 44, 112, 0, 18, 0, 0, 0], "backgroundColor": "#34C759"}, {"label": "YARDCARE", "data": [76, 71, 0, 0, 0, 0, 0, 0, 0], "backgroundColor": "#2ECC71"}, {"label": "LawnMaster", "data": [124, 0, 0, 0, 0, 0, 0, 0, 0], "backgroundColor": "#AAA"}, {"label": "DREAME", "data": [0, 0, 55, 0, 0, 0, 0, 0, 9], "backgroundColor": "rgba(201,199,204,0.7)"}, {"label": "Gardena", "data": [57, 0, 3, 0, 0, 0, 0, 0, 0], "backgroundColor": "#9B59B6"}, {"label": "ECOVACS", "data": [0, 43, 0, 12, 0, 0, 0, 0, 0], "backgroundColor": "#FF3B30"}, {"label": "ANTHBOT", "data": [0, 42, 9, 0, 0, 0, 0, 0, 0], "backgroundColor": "#00C7BE"}, {"label": "Bosch", "data": [49, 0, 0, 0, 0, 0, 0, 0, 0], "backgroundColor": "#F39C12"}, {"label": "Cecotec", "data": [20, 15, 0, 0, 0, 0, 0, 0, 0], "backgroundColor": "rgba(201,199,204,0.7)"}, {"label": "其他", "data": [23, 0, 13, 14, 0, 0, 0, 12, 6], "backgroundColor": "rgba(201,199,204,0.7)"}], "totals": [365, 674, 234, 169, 73, 55, 0, 12, 23]}, "GB": {"labels": ["500以下", "500-800", "800-1000", "1000-1300", "1300-1500", "1500-1800", "1800-2000", "2000-2400", "2400以上"], "datasets": [{"label": "NAVIMOW", "data": [0, 278, 820, 171, 0, 120, 0, 0, 0], "backgroundColor": "#34C759"}, {"label": "LawnMaster", "data": [929, 0, 0, 0, 0, 0, 0, 0, 0], "backgroundColor": "#AAA"}, {"label": "Mammotion", "data": [0, 17, 349, 55, 136, 0, 3, 0, 0], "backgroundColor": "#007AFF"}, {"label": "Bosch", "data": [493, 0, 0, 0, 0, 0, 0, 0, 0], "backgroundColor": "#F39C12"}, {"label": "WORX", "data": [57, 24, 370, 0, 0, 0, 0, 0, 0], "backgroundColor": "#5856D6"}, {"label": "Mova", "data": [0, 404, 0, 0, 0, 0, 0, 0, 0], "backgroundColor": "#FF9500"}, {"label": "ANTHBOT", "data": [252, 0, 30, 93, 0, 0, 0, 0, 0], "backgroundColor": "#00C7BE"}, {"label": "Flymo", "data": [244, 0, 0, 0, 0, 0, 0, 0, 0], "backgroundColor": "rgba(201,199,204,0.7)"}, {"label": "eufy", "data": [0, 224, 0, 1, 2, 0, 0, 0, 0], "backgroundColor": "#AF52DE"}, {"label": "ECOVACS", "data": [72, 0, 62, 0, 0, 0, 0, 0, 0], "backgroundColor": "#FF3B30"}, {"label": "YARDCARE", "data": [105, 0, 0, 0, 0, 0, 0, 0, 0], "backgroundColor": "#2ECC71"}, {"label": "其他", "data": [161, 9, 0, 0, 0, 9, 7, 0, 0], "backgroundColor": "rgba(201,199,204,0.7)"}], "totals": [2313, 956, 1631, 320, 142, 129, 10, 0, 5]}}};
 
 const COLORS = {
     positive: 'rgba(52,199,89,0.85)',
@@ -734,7 +777,7 @@ function fmtNum(n) {
 }
 
 // ── ③ 各国竞争格局 ──
-const countryCodes = ['DE', 'US', 'FR', 'IT', 'ES'];
+const countryCodes = ['DE', 'US', 'FR', 'IT', 'ES', 'GB'];
 countryCodes.forEach(code => {
     const el = document.getElementById('chartCB_' + code);
     if (!el) return;
@@ -796,6 +839,41 @@ countryCodes.forEach(code => {
         }
     });
 });
+
+// ── ⑤ 价位段 Stacked Bars ──
+const PR_DATA = PR_STACKED;
+if (PR_DATA && PR_DATA.overall) {
+    buildPrLegend('pr-legend-ov', PR_DATA.overall.datasets);
+    const ctxOv = document.getElementById('prChartOverall');
+    if (ctxOv) new Chart(ctxOv, {
+        type: 'bar', data: { labels: PR_DATA.overall.labels, datasets: PR_DATA.overall.datasets },
+        options: { responsive: true, maintainAspectRatio: false,
+            scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true, ticks: { callback: v => v>=1000? (v/1000).toFixed(0)+'k': v } } },
+            plugins: { legend: { display: false }, tooltip: { mode: 'nearest', intersect: true, callbacks: { title: items => items[0].label, label: item => item.dataset.label + ': ' + item.raw.toLocaleString() + '台' } } }
+        }
+    });
+    ['DE','US','FR','IT','ES','GB'].forEach(code => {
+        const cdata = PR_DATA.countries?.[code];
+        if (!cdata) return;
+        buildPrLegend('pr-legend-'+code, cdata.datasets);
+        const el = document.getElementById('prChartCountry-'+code);
+        if (!el) return;
+        new Chart(el, {
+            type: 'bar', data: { labels: cdata.labels, datasets: cdata.datasets },
+            options: { responsive: true, maintainAspectRatio: false,
+                scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true, ticks: { callback: v => v>=1000? (v/1000).toFixed(0)+'k': v } } },
+                plugins: { legend: { display: false }, tooltip: { mode: 'nearest', intersect: true, callbacks: { title: items => items[0].label, label: item => item.dataset.label + ': ' + item.raw.toLocaleString() + '台' } } }
+            }
+        });
+    });
+}
+function buildPrLegend(id, datasets) {
+    const el = document.getElementById(id);
+    if (!el || !datasets) return;
+    el.innerHTML = datasets.map(d =>
+        '<span class="legend-item"><span class="legend-dot" style="background:'+d.backgroundColor+'"></span>'+d.label+'</span>'
+    ).join('');
+}
 
 </script>
 </div></body></html>
