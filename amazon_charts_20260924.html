@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>割草机亚马逊数据看板</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+       background: #f5f7fa; color: #1d1d1f; padding: 24px 32px; }
+.container { max-width: 1100px; margin: 0 auto; }
+
+/* Top nav */
+.top-nav { display: flex; align-items: center; justify-content: space-between;
+           margin-bottom: 20px; padding: 12px 20px; background: #fff;
+           border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.top-nav .nav-brand { font-size: 15px; font-weight: 700; }
+.top-nav .nav-brand .nav-date { font-size: 12px; font-weight: 500; color: #86868b; margin-left: 8px; }
+.top-nav .nav-links a { font-size: 13px; color: #0071e3; text-decoration: none;
+                        margin-left: 18px; font-weight: 600; }
+.top-nav .nav-links a:hover { text-decoration: underline; }
+
+/* Section titles */
+.section-title { font-size: 20px; font-weight: 700; margin: 36px 0 16px 0; padding-bottom: 10px;
+                 border-bottom: 2px solid #e5e5ea; color: #1d1d1f; }
+.section-desc { font-size: 13px; color: #86868b; margin-bottom: 20px; line-height: 1.6; }
+
+/* KPI Cards */
+.kpi-row { display: flex; gap: 16px; margin-bottom: 24px; }
+.kpi-card { flex: 1; background: #fff; border-radius: 14px; padding: 24px 28px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.kpi-label { font-size: 12px; color: #86868b; font-weight: 600; letter-spacing: 0.3px; }
+.kpi-value { font-size: 32px; font-weight: 700; margin: 6px 0 2px 0; letter-spacing: -0.3px; }
+.kpi-change { font-size: 14px; font-weight: 600; }
+.kpi-up { color: #34c759; }
+.kpi-down { color: #ff3b30; }
+.kpi-sub { font-size: 12px; color: #86868b; margin-top: 3px; }
+
+/* Insight box */
+.insight-box { background: #fff; border-radius: 14px; padding: 20px 28px; margin-bottom: 24px;
+               box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.insight-box h3 { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+.insight-box p { font-size: 13.5px; line-height: 1.7; color: #48484a; margin-bottom: 6px; }
+.insight-box .tag-up { color: #34c759; font-weight: 600; }
+.insight-box .tag-down { color: #ff3b30; font-weight: 600; }
+
+/* Table with inline bars */
+.data-table-wrap { background: #fff; border-radius: 14px; padding: 20px 24px; margin-bottom: 20px;
+                   box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.data-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.data-table th { text-align: left; padding: 10px 8px 8px 8px; font-size: 11px; color: #86868b;
+                 font-weight: 600; letter-spacing: 0.3px; border-bottom: 1px solid #e5e5ea; }
+.data-table td { padding: 10px 8px; border-bottom: 1px solid #f0f0f2; vertical-align: middle; }
+.data-table tr:last-child td { border-bottom: none; }
+
+.bar-cell { position: relative; min-width: 180px; }
+.bar-bg { position: absolute; left: 0; top: 3px; height: 24px; border-radius: 4px;
+          opacity: 0.12; z-index: 0; }
+.bar-text { position: relative; z-index: 1; display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.bar-text .num { font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums; }
+.bar-text .label { font-weight: 400; color: #86868b; font-size: 12px; }
+
+.tag-up { display: inline-flex; align-items: center; gap: 2px; color: #34c759; font-weight: 600; font-size: 13px; }
+.tag-down { display: inline-flex; align-items: center; gap: 2px; color: #ff3b30; font-weight: 600; font-size: 13px; }
+.tag-neutral { color: #86868b; font-size: 13px; }
+.share-cell { color: #86868b; font-size: 12px; }
+
+/* Highlight badges */
+.badge-up { display: inline-block; background: #34c759; color: #fff; font-size: 9px;
+            font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-left: 6px; vertical-align: middle; }
+.badge-down { display: inline-block; background: #ff3b30; color: #fff; font-size: 9px;
+              font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-left: 6px; vertical-align: middle; }
+
+/* Chart cards */
+.chart-card { background: #fff; border-radius: 14px; padding: 20px 24px; margin-bottom: 20px;
+              box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.chart-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.chart-card .sub { font-size: 12px; color: #86868b; margin-bottom: 14px; }
+.chart-wrap { position: relative; height: 340px; }
+.chart-wrap.tall { height: 420px; }
+
+/* Country brand grid */
+.brand-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media (max-width: 900px) { .brand-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .brand-grid { grid-template-columns: 1fr; } }
+.brand-grid .chart-card { margin-bottom: 0; }
+
+/* Emerging table */
+.emerging-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.emerging-table th { text-align: left; padding: 8px; font-size: 11px; color: #86868b;
+                     font-weight: 600; border-bottom: 1px solid #e5e5ea; }
+.emerging-table td { padding: 10px 8px; border-bottom: 1px solid #f0f0f2; }
+.emerging-table .rank { font-size: 12px; color: #86868b; width: 28px; }
+.emerging-bar-bg { display: inline-block; height: 20px; border-radius: 4px; min-width: 4px; }
+.dual-bar-cell { position: relative; min-width: 120px; height: 24px; display: flex; align-items: center; }
+.dual-bar-fill { position: absolute; left: 0; top: 2px; height: 20px; border-radius: 4px; z-index: 0; }
+.dual-bar-label { position: relative; z-index: 1; font-weight: 600; font-size: 13px; padding-left: 8px; }
+
+/* Bidirectional bar for growth (positive=right green, negative=left red) */
+.bi-bar-cell { position: relative; height: 24px; }
+.bi-bar-fill { position: absolute; top: 2px; height: 20px; border-radius: 4px; z-index: 0; }
+.bi-bar-label { position: relative; z-index: 1; text-align: center; font-weight: 600; font-size: 12px; line-height: 24px; }
+
+/* Price range */
+.tag-top1 { display: inline-block; background: #007aff; color: #fff; font-size: 10px; font-weight: 700;
+             padding: 0 5px; border-radius: 3px; white-space: nowrap; }
+.change-up { color: #34c759; font-weight: 600; font-size: 12px; }
+.change-down { color: #ff3b30; font-weight: 600; font-size: 12px; }
+.legend-grid { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 12px; font-size: 12px; }
+.legend-item { display: flex; align-items: center; gap: 4px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.pr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 800px) { .pr-grid { grid-template-columns: 1fr; } }
+.pr-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.pr-table th { text-align: left; padding: 6px 4px; font-size: 10px; color: #86868b;
+               font-weight: 600; border-bottom: 1px solid #e5e5ea; white-space: nowrap; }
+.pr-table td { padding: 6px 4px; border-bottom: 1px solid #f0f0f2; white-space: nowrap; font-size: 12px; }
+.pr-table .num { font-variant-numeric: tabular-nums; text-align: right; }
+.pr-table tr:last-child td { border-bottom: none; }
+</style>
+</head>
+<body>
+<div class="container">
+
+
+<div class="top-nav">
+  <div class="nav-brand">🗺️ 割草机亚马逊数据看板<span class="nav-date">2026-09-24 期（近30天累计）</span></div>
+  <div class="nav-links">
+    <a href="archive.html">📚 往期索引</a>
+    <a href="amazon_charts_latest.html">最新一期</a>
+    <a href="index.html">首页</a>
+  </div>
+</div>
+
+
+<div class="kpi-row">
+  <div class="kpi-card">
+    <div class="kpi-label">6国总销量</div>
+    <div class="kpi-value">27,033 台</div>
+    <div class="kpi-change kpi-down">▼ -5.5%</div>
+    <div class="kpi-sub">上期 28,596 台</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">6国总销售额</div>
+    <div class="kpi-value">$28.0M</div>
+    <div class="kpi-change kpi-down">▼ -10.1%</div>
+    <div class="kpi-sub">上期 $31.1M</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">增长引擎</div>
+    <div class="kpi-value" style="font-size:24px;">🇫🇷 法国</div>
+    <div class="kpi-sub">+12.9% | 增量 2,579 台</div>
+  </div>
+</div>
+
+<div class="insight-box"><h3>核心发现</h3>
+<p>6国总销量 <strong>27,033台</strong>，较上期 <span class="tag-down">-5.5%</span>；总销售额 <strong>$28.0M</strong>（<span class="tag-down">-10.1%</span>）。</p><p>各国变化：🇩🇪德国-4.5%、🇺🇸美国-17.8%、🇫🇷法国+12.9%、🇮🇹意大利+4.0%、🇪🇸西班牙+11.1%、🇬🇧英国+2.6%。</p><p>增长TOP3：MOVA+5%、dreame+9%、Bosch+8%。</p><p>下跌TOP3：NAVIMOW-13%、Greenworks-38%、eufy-17%。</p>
+</div>
+<div class="section-title">① 大盘风向标</div>
+<div class="section-desc">各国家销量、较上期变化及占比 — 条形长度 = 相对份额</div>
+<div class="data-table-wrap">
+<table class="data-table">
+<thead><tr>
+  <th style="width:72px">国家</th>
+  <th style="min-width:240px">▸ 月销量</th>
+  <th style="min-width:140px">▸ 较上期变化</th>
+  <th style="width:52px">占比</th>
+</tr></thead><tbody>
+<tr>
+  <td style="font-weight:600">🇩🇪 德国</td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:100.0%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">12,337台</div>
+    </div>
+  </td>
+  <td>
+    <div class="bi-bar-cell">
+      <div class="bi-bar-fill" style="left:37%;width:13%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="bi-bar-label" style="color:#ff3b30;">▼ -4.5%</div>
+    </div>
+  </td>
+  <td class="share-cell">45.6%</td>
+</tr>
+<tr>
+  <td style="font-weight:600">🇺🇸 美国</td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:56.6%;background:#34c759;opacity:0.12;"></div>
+      <div class="dual-bar-label">6,981台</div>
+    </div>
+  </td>
+  <td>
+    <div class="bi-bar-cell">
+      <div class="bi-bar-fill" style="left:0%;width:50%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="bi-bar-label" style="color:#ff3b30;">▼ -17.8%</div>
+    </div>
+  </td>
+  <td class="share-cell">25.8%</td>
+</tr>
+<tr>
+  <td style="font-weight:600">🇫🇷 法国</td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:20.9%;background:#ff9500;opacity:0.12;"></div>
+      <div class="dual-bar-label">2,579台</div>
+    </div>
+  </td>
+  <td>
+    <div class="bi-bar-cell">
+      <div class="bi-bar-fill" style="left:50%;width:36%;background:#34c759;opacity:0.15;"></div>
+      <div class="bi-bar-label" style="color:#34c759;">▲ +12.9%</div>
+    </div>
+  </td>
+  <td class="share-cell">9.5%</td>
+</tr>
+<tr>
+  <td style="font-weight:600">🇮🇹 意大利</td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:21.6%;background:#5856d6;opacity:0.12;"></div>
+      <div class="dual-bar-label">2,661台</div>
+    </div>
+  </td>
+  <td>
+    <div class="bi-bar-cell">
+      <div class="bi-bar-fill" style="left:50%;width:11%;background:#34c759;opacity:0.15;"></div>
+      <div class="bi-bar-label" style="color:#34c759;">▲ +4.0%</div>
+    </div>
+  </td>
+  <td class="share-cell">9.8%</td>
+</tr>
+<tr>
+  <td style="font-weight:600">🇪🇸 西班牙</td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:7.4%;background:#ff3b30;opacity:0.12;"></div>
+      <div class="dual-bar-label">919台</div>
+    </div>
+  </td>
+  <td>
+    <div class="bi-bar-cell">
+      <div class="bi-bar-fill" style="left:50%;width:31%;background:#34c759;opacity:0.15;"></div>
+      <div class="bi-bar-label" style="color:#34c759;">▲ +11.1%</div>
+    </div>
+  </td>
+  <td class="share-cell">3.4%</td>
+</tr>
+<tr>
+  <td style="font-weight:600">🇬🇧 英国</td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:12.6%;background:#8e8e93;opacity:0.12;"></div>
+      <div class="dual-bar-label">1,556台</div>
+    </div>
+  </td>
+  <td>
+    <div class="bi-bar-cell">
+      <div class="bi-bar-fill" style="left:50%;width:7%;background:#34c759;opacity:0.15;"></div>
+      <div class="bi-bar-label" style="color:#34c759;">▲ +2.6%</div>
+    </div>
+  </td>
+  <td class="share-cell">5.8%</td>
+</tr>
+</tbody></table></div>
+<div class="section-title">② 竞争格局 — 品牌排名</div>
+<div class="section-desc">Top 15品牌 · 🟢正增长TOP3高亮 · 🔴负增长TOP3高亮</div>
+<div class="data-table-wrap">
+<table class="emerging-table">
+<thead><tr>
+  <th style="width:24px"></th>
+  <th>品牌</th>
+  <th style="min-width:180px">▸ 月销量</th>
+  <th style="min-width:180px">▸ 较上期变化</th>
+</tr></thead><tbody>
+<tr>
+  <td class="rank">#1</td>
+  <td style="font-weight:600">WORX </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:100%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">3,573台</div>
+    </div>
+  </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:2%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -0.7%</div>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td class="rank">#2</td>
+  <td style="font-weight:600">MOVA <span class="badge-up">▲TOP3</span></td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:97%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">3,478台</div>
+    </div>
+  </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:14%;background:#34c759;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#34c759;">▲ +5.1%</div>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td class="rank">#3</td>
+  <td style="font-weight:600">Mammotion </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:84%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">2,988台</div>
+    </div>
+  </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:7%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -2.6%</div>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td class="rank">#4</td>
+  <td style="font-weight:600">ECOVACS </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:82%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">2,933台</div>
+    </div>
+  </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:29%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -10.9%</div>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td class="rank">#5</td>
+  <td style="font-weight:600">NAVIMOW <span class="badge-down">▼TOP3</span></td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:81%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">2,895台</div>
+    </div>
+  </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:34%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -12.7%</div>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td class="rank">#6</td>
+  <td style="font-weight:600">YARDCARE </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:30%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">1,087台</div>
+    </div>
+  </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:30%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -11.3%</div>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td class="rank">#7</td>
+  <td style="font-weight:600">dreame <span class="badge-up">▲TOP3</span></td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:28%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">985台</div>
+    </div>
+  </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:25%;background:#34c759;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#34c759;">▲ +9.2%</div>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td class="rank">#8</td>
+  <td style="font-weight:600">Greenworks <span class="badge-down">▼TOP3</span></td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:27%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">975台</div>
+    </div>
+  </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:100%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -37.5%</div>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td class="rank">#9</td>
+  <td style="font-weight:600">LawnMaster </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:25%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">900台</div>
+    </div>
+  </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:12%;background:#34c759;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#34c759;">▲ +4.5%</div>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td class="rank">#10</td>
+  <td style="font-weight:600">Sunseeker </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:24%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">873台</div>
+    </div>
+  </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:31%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -11.5%</div>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td class="rank">#11</td>
+  <td style="font-weight:600">ANTHBOT </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:22%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">803台</div>
+    </div>
+  </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:16%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -6.0%</div>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td class="rank">#12</td>
+  <td style="font-weight:600">Bosch <span class="badge-up">▲TOP3</span></td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:22%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">776台</div>
+    </div>
+  </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:22%;background:#34c759;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#34c759;">▲ +8.2%</div>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td class="rank">#13</td>
+  <td style="font-weight:600">Gardena </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:20%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">732台</div>
+    </div>
+  </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:15%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -5.5%</div>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td class="rank">#14</td>
+  <td style="font-weight:600">Husqvarna </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:16%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">573台</div>
+    </div>
+  </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:0%;background:#34c759;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#34c759;">▲ +0.2%</div>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td class="rank">#15</td>
+  <td style="font-weight:600">eufy <span class="badge-down">▼TOP3</span></td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:12%;background:#007aff;opacity:0.12;"></div>
+      <div class="dual-bar-label">443台</div>
+    </div>
+  </td>
+  <td>
+    <div class="dual-bar-cell">
+      <div class="dual-bar-fill" style="width:46%;background:#ff3b30;opacity:0.15;"></div>
+      <div class="dual-bar-label" style="color:#ff3b30;">▼ -17.2%</div>
+    </div>
+  </td>
+</tr>
+</tbody></table></div>
+<div class="section-title">③ 各国竞争格局 — 品牌销量与增长率</div>
+<div class="section-desc">各国内Top品牌排行 · 柱状图=销量 · 标签含增长率</div>
+<div class="brand-grid">
+<div class="chart-card">
+<h3>🇩🇪 德国</h3>
+<div class="sub">总量 12,337台</div>
+<div class="chart-wrap"><canvas id="chartCB_DE"></canvas></div>
+</div>
+<div class="chart-card">
+<h3>🇺🇸 美国</h3>
+<div class="sub">总量 6,981台</div>
+<div class="chart-wrap"><canvas id="chartCB_US"></canvas></div>
+</div>
+<div class="chart-card">
+<h3>🇫🇷 法国</h3>
+<div class="sub">总量 2,579台</div>
+<div class="chart-wrap"><canvas id="chartCB_FR"></canvas></div>
+</div>
+<div class="chart-card">
+<h3>🇮🇹 意大利</h3>
+<div class="sub">总量 2,661台</div>
+<div class="chart-wrap"><canvas id="chartCB_IT"></canvas></div>
+</div>
+<div class="chart-card">
+<h3>🇪🇸 西班牙</h3>
+<div class="sub">总量 919台</div>
+<div class="chart-wrap"><canvas id="chartCB_ES"></canvas></div>
+</div>
+</div>
+<div class="section-title">④ 新兴势力雷达</div>
+<div class="section-desc">增速>15%且月销量>50台的品牌 · 左右两列各自用条形展示规模</div>
+<div class="data-table-wrap"><p style="color:#86868b;">本周无异动品牌</p></div>
+
+<script>
+Chart.register(ChartDataLabels);
+Chart.defaults.plugins.datalabels.display = false;
+
+const DATA = {"countryBrands": {"DE": {"labels": ["WORX", "MOVA", "NAVIMOW", "Mammotion", "ECOVACS", "Gardena"], "sales": [2139, 1743, 1457, 1455, 1273, 635], "growths": [-8.5, 3.8, -16.5, -5.0, 0.3, -6.1]}, "US": {"labels": ["Greenworks", "ECOVACS", "NAVIMOW", "WORX", "Mammotion", "Husqvarna"], "sales": [964, 890, 879, 565, 516, 367], "growths": [-38.0, -36.7, -10.0, 20.2, -23.4, 2.8]}, "FR": {"labels": ["Mammotion", "MOVA", "ECOVACS", "WORX", "NAVIMOW", "Sunseeker"], "sales": [527, 469, 350, 312, 197, 106], "growths": [15.8, 12.5, 48.9, 12.6, 3.7, 15.2]}, "IT": {"labels": ["MOVA", "ECOVACS", "Sunseeker", "WORX", "YARDCARE", "LawnMaster"], "sales": [623, 264, 260, 258, 248, 237], "growths": [-0.6, 8.2, -17.5, 10.7, 13.8, 8.7]}, "ES": {"labels": ["MOVA", "WORX", "YARDCARE", "Mammotion", "NAVIMOW", "LawnMaster"], "sales": [159, 134, 112, 94, 75, 63], "growths": [-8.1, 25.2, 16.7, 49.2, -2.6, 37.0]}}};
+
+const COLORS = {
+    positive: 'rgba(52,199,89,0.85)',
+    positiveBorder: 'rgba(52,199,89,1)',
+    negative: 'rgba(255,59,48,0.85)',
+    negativeBorder: 'rgba(255,59,48,1)',
+    neutral: 'rgba(142,142,147,0.5)',
+    grid: 'rgba(0,0,0,0.06)',
+};
+
+function fmtNum(n) {
+    if (n >= 10000) return (n/10000).toFixed(1) + '\u4e07';
+    if (n >= 1000) return (n/1000).toFixed(1) + 'k';
+    return n.toString();
+}
+
+// ── ③ 各国竞争格局 ──
+const countryCodes = ['DE', 'US', 'FR', 'IT', 'ES'];
+countryCodes.forEach(code => {
+    const el = document.getElementById('chartCB_' + code);
+    if (!el) return;
+    const cd = DATA.countryBrands[code];
+    if (!cd || !cd.labels.length) return;
+
+    const barColors = cd.growths.map(g => g >= 0 ? 'rgba(52,199,89,0.7)' : 'rgba(255,59,48,0.7)');
+    const barBorders = cd.growths.map(g => g >= 0 ? '#34c759' : '#ff3b30');
+
+    new Chart(el, {
+        type: 'bar',
+        data: {
+            labels: cd.labels,
+            datasets: [{
+                data: cd.sales,
+                backgroundColor: barColors,
+                borderColor: barBorders,
+                borderWidth: 1,
+                borderRadius: 3,
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            clip: false,
+            layout: {
+                padding: { right: 30, left: 5, top: 5, bottom: 5 }
+            },
+            plugins: {
+                legend: { display: false },
+                datalabels: {
+                    display: true,
+                    anchor: 'end',
+                    align: 'end',
+                    offset: 2,
+                    formatter: (v, ctx) => {
+                        const g = cd.growths[ctx.dataIndex];
+                        let txt = fmtNum(v);
+                        if (g !== 0) {
+                            const p = g > 0 ? '+' : '';
+                            txt += ' (' + p + g.toFixed(0) + '%)';
+                        }
+                        return txt;
+                    },
+                    font: { size: 9, weight: '600' },
+                    color: (ctx) => {
+                        const g = cd.growths[ctx.dataIndex];
+                        if (g > 0) return '#34c759';
+                        if (g < 0) return '#ff3b30';
+                        return '#86868b';
+                    }
+                }
+            },
+            scales: {
+                x: { display: false, grid: { display: false } },
+                y: { grid: { display: false }, ticks: { font: { size: 9 } } }
+            }
+        }
+    });
+});
+
+// ── ⑤ 价位段 Stacked Bars ──
+const PR_DATA = null;
+if (PR_DATA && PR_DATA.overall) {
+    // Overall
+    buildPrLegend('pr-legend-ov', PR_DATA.overall.datasets);
+    const ctxPrOv = document.getElementById('prChartOverall');
+    if (ctxPrOv) {
+        new Chart(ctxPrOv, {
+            type: 'bar',
+            data: {
+                labels: PR_DATA.overall.labels,
+                datasets: PR_DATA.overall.datasets.map(ds => ({
+                    label: ds.label, data: ds.data,
+                    backgroundColor: ds.backgroundColor,
+                    borderWidth: 0.5,
+                }))
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { stacked: true, grid: { display: false }, ticks: { font: { size: 10, weight: '600' } } },
+                    y: { stacked: true, beginAtZero: true, grid: { color: 'rgba(0,0,0,0.06)' }, ticks: { font: { size: 10 } } }
+                }
+            }
+        });
+    }
+
+    // Country charts
+    Object.keys(PR_DATA.countries).forEach(code => {
+        const cd = PR_DATA.countries[code];
+        buildPrLegend('pr-legend-' + code, cd.datasets);
+        const el = document.getElementById('prChartCountry-' + code);
+        if (!el) return;
+        new Chart(el, {
+            type: 'bar',
+            data: {
+                labels: cd.labels,
+                datasets: cd.datasets.map(ds => ({
+                    label: ds.label, data: ds.data,
+                    backgroundColor: ds.backgroundColor,
+                    borderWidth: 0.5,
+                }))
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { stacked: true, grid: { display: false }, ticks: { font: { size: 9 } } },
+                    y: { stacked: true, beginAtZero: true, grid: { color: 'rgba(0,0,0,0.06)' }, ticks: { font: { size: 9 } } }
+                }
+            }
+        });
+    });
+}
+
+function buildPrLegend(containerId, datasets) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    datasets.forEach(ds => {
+        const item = document.createElement('span');
+        item.className = 'legend-item';
+        item.innerHTML = '<span class="legend-dot" style="background:' + ds.backgroundColor + '"></span>' + ds.label;
+        container.appendChild(item);
+    });
+}
+</script>
+</div></body></html>
