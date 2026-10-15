@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>四国割草机器人大盘 · 季节性与同比（2025–2026）</title>
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232e7d5b'/><path d='M22 68 L50 30 L78 68' stroke='%23fff' stroke-width='10' fill='none' stroke-linecap='round' stroke-linejoin='round'/><rect x='26' y='66' width='48' height='10' rx='5' fill='%23fff'/></svg>">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script>window.echarts||document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"><\/script>')</script>
+<style>
+:root{
+  --y25:#9b998f; --y26:#2a78d6;
+  --plane:#f9f9f7; --surface:#fcfcfb;
+  --ink-1:#0b0b0b; --ink-2:#52514e; --ink-muted:#898781;
+  --grid:#e7e6df; --axis:#c3c2b7; --ring:rgba(11,11,11,.10);
+  --band25:rgba(155,153,143,.16); --band26:rgba(42,120,214,.10);
+  --up:#1b7a55; --down:#c0392b;
+  --cDE:#2a78d6; --cFR:#d97b3a; --cIT:#2e7d5b; --cUS:#7a5fd0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--plane);color:var(--ink-1);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;}
+.wrap{max-width:1200px;margin:0 auto;padding:28px 28px 64px;}
+h1{font-size:22px;font-weight:700;letter-spacing:-.01em;}
+.sub{font-size:13px;color:var(--ink-2);margin-top:6px;line-height:1.7;}
+.sec{margin-top:28px;}
+.sec>h2{font-size:15px;font-weight:700;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+.sec>h2 small{font-size:11.5px;color:var(--ink-muted);font-weight:500;}
+.findings{background:var(--surface);border:1px solid var(--ring);border-radius:14px;padding:16px 20px;margin-top:16px;}
+.findings h2{font-size:14px;margin-bottom:8px;}
+.findings ul{list-style:none;}
+.findings li{font-size:13px;color:var(--ink-2);line-height:1.85;padding:4px 0 4px 16px;position:relative;}
+.findings li::before{content:"";position:absolute;left:0;top:13px;width:6px;height:6px;border-radius:50%;background:var(--y26);}
+.findings b{color:var(--ink-1);}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+.card{background:var(--surface);border:1px solid var(--ring);border-radius:14px;padding:18px 20px 14px;min-width:0;}
+.card h3{font-size:15px;font-weight:700;}
+.cap{font-size:12px;color:var(--ink-muted);margin-top:3px;margin-bottom:8px;line-height:1.6;}
+.chart-wrap{position:relative;height:340px;}
+.card.wide{grid-column:1/-1;}
+.pstat{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 10px;}
+.pchip{flex:1 1 auto;min-width:190px;border:1px solid var(--grid);border-radius:8px;padding:8px 14px;font-size:12.5px;color:var(--ink-2);background:var(--plane);}
+.pchip b{font-size:13px;color:var(--ink-1);margin-right:5px;}
+.legend2{display:flex;gap:18px;font-size:12px;color:var(--ink-2);margin-bottom:8px;flex-wrap:wrap;}
+.legend2 span{display:inline-flex;align-items:center;gap:6px;}
+.sw{width:18px;height:3px;border-radius:2px;display:inline-block;}
+.sw.dash{height:0;border-top:3px solid var(--y25);border-radius:0;}
+.band{width:14px;height:10px;border-radius:2px;display:inline-block;}
+.tabs{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.tab{padding:8px 20px;border:1px solid var(--axis);background:var(--surface);border-radius:999px;font-size:13.5px;color:var(--ink-2);cursor:pointer;font-family:inherit;transition:all .15s;}
+.tab:hover{border-color:var(--ink-2);color:var(--ink-1);}
+.tab.on{background:var(--y26);border-color:var(--y26);color:#fff;font-weight:600;}
+.country-block{margin-top:14px;display:none;}
+.country-block.on{display:block;}
+.insights{display:flex;flex-direction:column;gap:8px;margin-top:2px;}
+.insight{background:var(--surface);border:1px solid var(--ring);border-left:3px solid var(--y26);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--ink-2);line-height:1.75;}
+.insight b{color:var(--ink-1);}
+table{border-collapse:collapse;width:100%;font-size:12.5px;font-variant-numeric:tabular-nums;}
+th,td{padding:6px 10px;text-align:right;border-bottom:1px solid var(--grid);white-space:nowrap;}
+th:first-child,td:first-child{text-align:left;}
+th{color:var(--ink-muted);font-weight:600;border-bottom:1px solid var(--axis);}
+tr:hover td{background:rgba(127,127,127,.06);}
+.up{color:var(--up);} .down{color:var(--down);}
+.tbl-scroll{overflow-x:auto;}
+.tbl-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+.tbl-grid .card{margin:0;}
+.foot{font-size:11.5px;color:var(--ink-muted);line-height:1.8;margin-top:20px;}
+.foot p{margin-top:4px;}
+.foot b{color:var(--ink-2);}
+@media(max-width:900px){.grid{grid-template-columns:1fr;}.tbl-grid{grid-template-columns:1fr;}.chart-wrap{height:320px;}
+.tab{min-height:44px;padding:10px 0;text-align:center;}
+.findings li,.insight{font-size:14px;}
+.sub,.cap{font-size:13px;}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>四国割草机器人大盘 · 销量与均价的季节性、同比（2025–2026）</h1>
+  <div class="sub">数据来源：卖家精灵「市场分析」· DE/FR/IT/US 四国站割草机器人类目 · 2025-01 至 2026-09 月度数据｜均价＝月销售额÷月销量（欧元三国 € / 美国 $）｜2026 年仅 1–9 月，同比按同期对齐</div>
+
+  <div class="findings">
+    <h2>关键结论（四国总体）</h2>
+    <ul id="findingsList"></ul>
+  </div>
+
+  <div class="sec">
+    <h2>四国对比 <small>2025 vs 2026 · 销量 / 节奏 / 价格</small></h2>
+    <div class="grid">
+      <div class="card">
+        <h3>2025 vs 2026 同期销量（1–9 月累计）</h3>
+        <div class="cap">柱顶标注为同比增速；口径＝2026 年 1–9 月 ÷ 2025 年同期累计。</div>
+        <div class="chart-wrap"><div id="cCmpBar" style="width:100%;height:100%"></div></div>
+      </div>
+      <div class="card">
+        <h3>2026 分月销量走势（四国）</h3>
+        <div class="cap">绝对量级对比：德国量级最大（6 月峰值约 8 万台），其余三国绝对量较小，月度节奏见归一化曲线与分国详情。</div>
+        <div class="chart-wrap"><div id="cCmp26" style="width:100%;height:100%"></div></div>
+      </div>
+      <div class="card">
+        <h3>季节性归一化曲线（2026，峰值＝100）</h3>
+        <div class="cap">各月销量 ÷ 该国 2026 年峰值月销量 ×100，只比较季节节奏、不看量级。</div>
+        <div class="chart-wrap"><div id="cCmpSea" style="width:100%;height:100%"></div></div>
+      </div>
+      <div class="card">
+        <h3>价位段：月度均价区间（2026 1–9 月）</h3>
+        <div class="cap">各国 1–9 月月度均价 min–max 区间条：灰＝2025、蓝＝2026，菱形＝2026 均值；各国独立币种，不跨币种比较。</div>
+        <div class="chart-wrap"><div id="cCmpPRange" style="width:100%;height:100%"></div></div>
+      </div>
+      <div class="card wide">
+        <h3>销量：月度同比（2026 1–9 月）</h3>
+        <div class="cap">各国当月销量同比%；绿区＝同比为正（销量增长）、红区＝同比为负（销量下滑），黑色实线为 0% 基准；年度销量摘要见顶部结论与同期柱图。</div>
+        <div class="chart-wrap"><div id="cCmpQYoy" style="width:100%;height:100%"></div></div>
+      </div>
+      <div class="card wide">
+        <h3>均价：月度同比（2026 1–9 月）</h3>
+        <div class="cap">各国当月均价同比%；绿区＝同比为正（均价上涨）、红区＝同比为负（均价下跌），黑色实线为 0% 基准；年度均价摘要见顶部色块。</div>
+        <div class="pstat" id="pstatRow"></div>
+        <div class="chart-wrap"><div id="cCmpP" style="width:100%;height:100%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>分国详情 <small>销量 / 均价 / 月度同比 · 旺季＝月销量 ≥ 当年 1–9 月月均</small></h2>
+    <div class="tabs" id="tabs">
+      <button class="tab on" data-c="DE">德国 DE</button>
+      <button class="tab" data-c="FR">法国 FR</button>
+      <button class="tab" data-c="IT">意大利 IT</button>
+      <button class="tab" data-c="US">美国 US</button>
+    </div>
+    <div id="countryWrap"></div>
+  </div>
+
+  <div class="foot">
+    <p><b>口径注释：</b>① 旺季判定标准＝月销量 ≥ 当年 1–9 月平均月销量（两年统一用 1–9 月口径以便对比）；② 环比＝相对上月增速，同比＝2026 与 2025 同月对比，2025 年 1 月无环比、10–12 月无同比；③ 销量与销售额为卖家精灵估算值，均价为派生指标；④ 分国图中下方柱状为 2026 年各月同比增速（正绿负红，10–12 月无 2026 年数据）；⑤ 德国单国旧版看板 de-seasonality.html 保留，本页为四国升级版；⑥ 本页数据取自《卖家精灵-割草机大盘销量与销售额统计表.xlsx》，为固定快照，换数据源需重新生成。</p>
+  </div>
+</div>
+
+<script>
+const M = {"labels12": ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"], "labels9": ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月"], "labels21": ["2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09"], "order": ["DE", "FR", "IT", "US"], "names": {"DE": "德国", "FR": "法国", "IT": "意大利", "US": "美国"}, "cur": {"DE": "€", "FR": "€", "IT": "€", "US": "$"}, "countries": {"DE": {"q25": [1867.0, 2859.0, 14380.0, 32229.0, 39690.0, 30818.0, 45394.0, 27086.0, 11409.0, 12017.0, 16916.0, 6029.0], "p25": [1024.17, 699.39, 1081.6, 1056.96, 1067.85, 935.12, 934.6, 834.28, 791.5, 891.97, 851.68, 688.41], "q26": [3152.0, 6870.0, 35644.0, 46341.0, 64040.0, 79888.0, 23086.0, 15788.0, 11892.0, null, null, null], "p26": [824.34, 841.45, 766.6, 787.23, 1039.15, 945.77, 892.74, 809.55, 718.53, null, null, null], "yoyQ": [68.8, 140.3, 147.9, 43.8, 61.4, 159.2, -49.1, -41.7, 4.2, null, null, null], "yoyP": [-19.5, 20.3, -29.1, -25.5, -2.7, 1.1, -4.5, -3.0, -9.2, null, null, null], "band25": [3, 7], "band26": [2, 5], "peak25": 7, "peak26": 6, "sea25Txt": "4–8月", "sea26Txt": "3–6月", "insights": ["<b>量增价降、以价换量：</b>2026 年 1–9 月累计销量 286,701 台（四国最大，占 59.1%），同比 +39.4%；整体均价 €894，同比 -7.5%。", "<b>旺季前移且更集中：</b>2025 年峰值 7 月（45,394 台）、旺季 4–8月；2026 年峰值 6 月（79,888 台）、旺季 3–6月，7 月环比骤降 -71.1%。", "<b>价格压力集中在 3–4 月：</b>2026 年 3 月均价 €767、4 月 €787，同比分别 -29.1%、-25.5%，5 月起同比价差明显收窄。"]}, "FR": {"q25": [981.0, 1301.0, 4753.0, 10406.0, 16622.0, 9245.0, 9592.0, 5056.0, 2805.0, 3788.0, 5655.0, 3508.0], "p25": [1018.53, 972.56, 1150.88, 1308.78, 1074.56, 1044.64, 1001.19, 946.9, 802.73, 1053.65, 961.43, 864.91], "q26": [2572.0, 2578.0, 15641.0, 14431.0, 11869.0, 16908.0, 6366.0, 2564.0, 2350.0, null, null, null], "p26": [880.86, 997.66, 1086.95, 1059.63, 1019.53, 961.85, 976.16, 871.5, 776.94, null, null, null], "yoyQ": [162.2, 98.2, 229.1, 38.7, -28.6, 82.9, -33.6, -49.3, -16.2, null, null, null], "yoyP": [-13.5, 2.6, -5.6, -19.0, -5.1, -7.9, -2.5, -8.0, -3.2, null, null, null], "band25": [3, 6], "band26": [2, 5], "peak25": 5, "peak26": 6, "sea25Txt": "4–7月", "sea26Txt": "3–6月", "insights": ["<b>增速四国最慢：</b>2026 年 1–9 月累计销量 75,279 台，同比 +23.9%；整体均价 €1,007，同比 -6.7%。", "<b>旺季启动提前、峰值后移：</b>2025 年旺季 4–7月、峰值 5 月（16,622 台）；2026 年旺季提前至 3–6月（3 月同比 +229.1% 启动放量），峰值移至 6 月（16,908 台），5 月同比 -28.6%。", "<b>旺季启动更早更猛：</b>2026 年 3 月单月 15,641 台已达峰值（6 月）的 92.5%，而 2025 年 3 月仅占当年峰值的 28.6%。"]}, "IT": {"q25": [392.0, 447.0, 2943.0, 4206.0, 3957.0, 3725.0, 4982.0, 3055.0, 2176.0, 1793.0, 2227.0, 1775.0], "p25": [646.75, 1070.47, 967.24, 1000.36, 951.48, 922.74, 811.78, 747.71, 649.09, 688.08, 762.49, 699.03], "q26": [679.0, 1059.0, 5587.0, 6584.0, 4891.0, 6809.0, 2902.0, 2353.0, 2381.0, null, null, null], "p26": [598.19, 703.56, 800.19, 751.92, 835.03, 805.76, 710.09, 621.84, 657.72, null, null, null], "yoyQ": [73.2, 136.9, 89.8, 56.5, 23.6, 82.8, -41.8, -23.0, 9.4, null, null, null], "yoyP": [-7.5, -34.3, -17.3, -24.8, -12.2, -12.7, -12.5, -16.8, 1.3, null, null, null], "band25": [2, 7], "band26": [2, 5], "peak25": 7, "peak26": 6, "sea25Txt": "3–8月", "sea26Txt": "3–6月", "insights": ["<b>四国中体量最小：</b>2026 年 1–9 月累计销量 33,245 台，同比 +28.4%；整体均价 €759，同比 -13.6%（欧元三国降幅最大）。", "<b>旺季前移：</b>2025 年峰值 7 月（4,982 台）、旺季 3–8月；2026 年旺季 3–6月、峰值 6 月（6,809 台），3 月同比 +89.8% 启动放量。", "<b>价格整体走低：</b>多数月份均价同比降幅在 12%–25%，8 月均价 €622 为两年最低（同比 -16.8%）。"]}, "US": {"q25": [481.0, 1136.0, 3743.0, 7442.0, 10594.0, 12024.0, 10175.0, 4956.0, 3787.0, 3335.0, 2654.0, 2379.0], "p25": [1064.28, 1052.39, 1090.73, 1313.57, 1003.21, 1402.65, 1157.9, 1164.41, 1112.95, 1258.09, 1009.45, 995.94], "q26": [1793.0, 2436.0, 8486.0, 13167.0, 11662.0, 26358.0, 10483.0, 8308.0, 6834.0, null, null, null], "p26": [1199.42, 1312.61, 1271.23, 1194.54, 1319.1, 2028.19, 1325.35, 1304.67, 1310.53, null, null, null], "yoyQ": [272.8, 114.4, 126.7, 76.9, 10.1, 119.2, 3.0, 67.6, 80.5, null, null, null], "yoyP": [12.7, 24.7, 16.5, -9.1, 31.5, 44.6, 14.5, 12.0, 17.8, null, null, null], "band25": [3, 6], "band26": [3, 6], "peak25": 6, "peak26": 6, "sea25Txt": "4–7月", "sea26Txt": "4–7月", "insights": ["<b>增速四国第一：</b>2026 年 1–9 月累计销量 89,527 台，同比 +64.8%；整体均价 $1,501，同比 +25.8%（四国唯一上涨）。", "<b>6 月异常放量：</b>单月 26,358 台、销售额 $5,345.9万（当月均价 $2,028），占其 1–9 月销量的 29.4%，是增速与均价抬升的共同主因。", "<b>季节节奏最稳定：</b>两年旺季均为 4–7 月、峰值均在 6 月；淡季（1–2 月）基数小弹性大，1 月同比 +272.8%、2 月同比 +114.4%。"]}}, "cmp": {"tot25Arr": [205732.0, 60761.0, 25883.0, 54338.0], "tot26Arr": [286701.0, 75279.0, 33245.0, 89527.0], "yoy": {"DE": 39.4, "FR": 23.9, "IT": 28.4, "US": 64.8}, "annP": {"DE": {"p25": 966.2280150875897, "p26": 893.6983163644354, "pyoy": -7.5}, "FR": {"p25": 1078.2481855137341, "p26": 1006.5007372574024, "pyoy": -6.7}, "IT": {"p25": 878.1548506741877, "p26": 759.0029177319898, "pyoy": -13.6}, "US": {"p25": 1193.0212558430565, "p26": 1501.1749751471623, "pyoy": 25.8}}, "m26": {"DE": [3152.0, 6870.0, 35644.0, 46341.0, 64040.0, 79888.0, 23086.0, 15788.0, 11892.0], "FR": [2572.0, 2578.0, 15641.0, 14431.0, 11869.0, 16908.0, 6366.0, 2564.0, 2350.0], "IT": [679.0, 1059.0, 5587.0, 6584.0, 4891.0, 6809.0, 2902.0, 2353.0, 2381.0], "US": [1793.0, 2436.0, 8486.0, 13167.0, 11662.0, 26358.0, 10483.0, 8308.0, 6834.0]}, "norm26": {"DE": [3.9, 8.6, 44.6, 58.0, 80.2, 100.0, 28.9, 19.8, 14.9], "FR": [15.2, 15.2, 92.5, 85.4, 70.2, 100.0, 37.7, 15.2, 13.9], "IT": [10.0, 15.6, 82.1, 96.7, 71.8, 100.0, 42.6, 34.6, 35.0], "US": [6.8, 9.2, 32.2, 50.0, 44.2, 100.0, 39.8, 31.5, 25.9]}, "price21": {"DE": [1024.17, 699.39, 1081.6, 1056.96, 1067.85, 935.12, 934.6, 834.28, 791.5, 891.97, 851.68, 688.41, 824.34, 841.45, 766.6, 787.23, 1039.15, 945.77, 892.74, 809.55, 718.53], "FR": [1018.53, 972.56, 1150.88, 1308.78, 1074.56, 1044.64, 1001.19, 946.9, 802.73, 1053.65, 961.43, 864.91, 880.86, 997.66, 1086.95, 1059.63, 1019.53, 961.85, 976.16, 871.5, 776.94], "IT": [646.75, 1070.47, 967.24, 1000.36, 951.48, 922.74, 811.78, 747.71, 649.09, 688.08, 762.49, 699.03, 598.19, 703.56, 800.19, 751.92, 835.03, 805.76, 710.09, 621.84, 657.72], "US": [1064.28, 1052.39, 1090.73, 1313.57, 1003.21, 1402.65, 1157.9, 1164.41, 1112.95, 1258.09, 1009.45, 995.94, 1199.42, 1312.61, 1271.23, 1194.54, 1319.1, 2028.19, 1325.35, 1304.67, 1310.53]}, "us21": [1064.28, 1052.39, 1090.73, 1313.57, 1003.21, 1402.65, 1157.9, 1164.41, 1112.95, 1258.09, 1009.45, 995.94, 1199.42, 1312.61, 1271.23, 1194.54, 1319.1, 2028.19, 1325.35, 1304.67, 1310.53]}, "findings": ["<b>四国大盘高增：</b>2026 年 1–9 月累计销量 484,752 台（≈48.5 万台），同比 +39.8%（2025 同期 346,714 台）；德国 286,701 台、占 59.1%，仍为最大单一市场。", "<b>增速分化：</b>美国 +64.8%、德国 +39.4%、意大利 +28.4%、法国 +23.9%；德国贡献绝对增量最大（+80,969 台，占四国总增量的 58.7%）。", "<b>旺季时点跨国差异：</b>欧洲三国 2026 年 3 月即集中放量——FR/IT 当月已达各自峰值的 92.5%/82.1%，DE 为 44.6%；美国节奏偏晚，3 月仅 32.2%、6 月才达峰。欧洲旺季后回落更陡（DE 7 月仅峰值的 28.9%），美国回落更缓（7–8 月仍为峰值的 39.8%/31.5%）。", "<b>价格走向分化：</b>欧元三国均价全面下行——IT -13.6%（€878→€759）、DE -7.5%（€966→€894）、FR -6.7%（€1,078→€1,007），以价换量特征明显；美国均价逆势上涨 +25.8%（$1,193→$1,501）。", "<b>美国 6 月为四国单月峰值：</b>单月销量 26,358 台、销售额 $5,345.9 万（当月均价 $2,028），占美国 1–9 月销量的 29.4%，是推升美国增速与均价的共同主因。"]};
+if(!window.echarts){
+  document.querySelectorAll('.chart-wrap').forEach(el=>el.innerHTML='<p style="padding:24px;color:#898781;font-size:12px;line-height:1.8">图表库加载失败（需要联网加载 ECharts CDN），请检查网络后刷新页面。</p>');
+}
+const $=id=>document.getElementById(id);
+const labels12=M.labels12, labels9=M.labels9, labels21=M.labels21;
+const ORDER=M.order, NAMES=M.names, CUR=M.cur;
+const CS={DE:'--cDE',FR:'--cFR',IT:'--cIT',US:'--cUS'};
+const cssv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const C25=cssv('--y25'), C26=cssv('--y26'), UP=cssv('--up'), DOWN=cssv('--down');
+const GRID=cssv('--grid'), MUT=cssv('--ink-muted'), I2=cssv('--ink-2'), AXIS=cssv('--axis');
+const B25=cssv('--band25'), B26=cssv('--band26');
+const CCOL=ORDER.reduce((o,c)=>(o[c]=cssv(CS[c]),o),{});
+const fmtN=n=>n==null?'—':Math.round(n).toLocaleString('en-US');
+const fmtV=(v,c)=>v==null?'—':(CUR[c]+Math.round(v).toLocaleString('en-US'));
+const pctS=v=>v==null?'—':(v>=0?'+':'')+v.toFixed(1)+'%';
+const kfmt=v=>v>=1000?(v/1000).toFixed(1)+'k':v;
+const pfmt=(v,c)=>c==='US'?'$'+Math.round(v).toLocaleString('en-US'):'€'+Math.round(v).toLocaleString('en-US');
+const pct=(a,b)=>a==null||b==null||b===0?'—':(a-b)/b*100;
+const pctCell=v=>v==='—'?'<td>—</td>':`<td class="${v>=0?'up':'down'}">${v>=0?'+':''}${v.toFixed(1)}%</td>`;
+const axisBase={grid:{color:GRID,drawTicks:false},axisLine:{show:false},axisTick:{show:false}};
+let allCharts=[];
+
+function mkChart(el,opt){ if(!window.echarts) return null; const ch=echarts.init(el); ch.setOption(opt); allCharts.push(ch); return ch; }
+function kill(chs){ (chs||[]).forEach(ch=>ch&&ch.dispose()); }
+
+/* ===== 四国对比 ===== */
+function renderCompare(){
+  const t=M.cmp;
+  // 1) 分组柱：2025 vs 2026 同期累计 + 同比%
+  mkChart($('cCmpBar'),{
+    animation:false,
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},
+      formatter:ps=>{let s=ps[0].axisValue;ps.forEach(p=>{s+='<br>'+p.marker+p.seriesName+'：'+fmtN(p.value);});const c=ORDER[ps[0].dataIndex];s+='<br>同比：<b>'+pctS(t.yoy[c])+'</b>';return s;}},
+    legend:{top:0,data:['2025 同期','2026 同期'],textStyle:{color:I2},itemWidth:14,itemHeight:9},
+    grid:{left:58,right:18,top:34,bottom:28},
+    xAxis:{type:'category',data:ORDER.map(c=>NAMES[c]),axisLabel:{color:MUT},axisLine:{lineStyle:{color:AXIS}},axisTick:{show:false}},
+    yAxis:{type:'value',...axisBase,axisLabel:{color:MUT,formatter:kfmt}},
+    series:[
+      {name:'2025 同期',type:'bar',data:t.tot25Arr,barWidth:26,itemStyle:{color:C25},
+       label:{show:true,position:'top',color:MUT,fontSize:10,formatter:p=>fmtN(p.value)}},
+      {name:'2026 同期',type:'bar',data:t.tot26Arr,barWidth:26,itemStyle:{color:C26},
+       label:{show:true,position:'top',color:'#0b0b0b',fontSize:11,fontWeight:700,formatter:p=>pctS(t.yoy[ORDER[p.dataIndex]])}}
+    ]
+  });
+  // 2) 2026 分月销量四国
+  mkChart($('cCmp26'),{
+    animation:false,
+    tooltip:{trigger:'axis',formatter:ps=>{let s=ps[0].axisValue+'<br>';ps.forEach(p=>{s+=p.marker+p.seriesName+'：'+fmtN(p.value)+' 台<br>';});return s;}},
+    legend:{top:0,data:ORDER.map(c=>NAMES[c]),textStyle:{color:I2},itemWidth:14,itemHeight:9},
+    grid:{left:58,right:18,top:34,bottom:28},
+    xAxis:{type:'category',data:labels9,axisLabel:{color:MUT},axisLine:{lineStyle:{color:AXIS}},axisTick:{show:false}},
+    yAxis:{type:'value',...axisBase,axisLabel:{color:MUT,formatter:kfmt}},
+    series:ORDER.map(c=>({name:NAMES[c],type:'line',data:t.m26[c],symbol:'circle',symbolSize:5,
+      lineStyle:{width:2,color:CCOL[c]},itemStyle:{color:CCOL[c]},emphasis:{focus:'series'}}))
+  });
+  // 3) 季节性归一化
+  mkChart($('cCmpSea'),{
+    animation:false,
+    tooltip:{trigger:'axis',valueFormatter:v=>v==null?'—':v.toFixed(1)+'（峰值=100）'},
+    legend:{top:0,data:ORDER.map(c=>NAMES[c]),textStyle:{color:I2},itemWidth:14,itemHeight:9},
+    grid:{left:58,right:18,top:34,bottom:28},
+    xAxis:{type:'category',data:labels9,axisLabel:{color:MUT},axisLine:{lineStyle:{color:AXIS}},axisTick:{show:false}},
+    yAxis:{type:'value',...axisBase,axisLabel:{color:MUT,formatter:v=>Math.round(v)+'%'},max:110},
+    series:ORDER.map(c=>({name:NAMES[c],type:'line',data:t.norm26[c],symbol:'circle',symbolSize:5,
+      lineStyle:{width:2,color:CCOL[c]},itemStyle:{color:CCOL[c]},emphasis:{focus:'series'}}))
+  });
+  // 3b) 销量：月度同比（四国，正负分区）
+  mkChart($('cCmpQYoy'),{
+    animation:false,
+    tooltip:{trigger:'axis',formatter:ps=>{let s=ps[0].axisValue+'<br>';ps.forEach(p=>{s+=p.marker+p.seriesName+'：'+pctS(p.value)+'<br>';});return s;}},
+    legend:{top:0,data:ORDER.map(c=>NAMES[c]),textStyle:{color:I2},itemWidth:14,itemHeight:9},
+    grid:{left:44,right:14,top:32,bottom:22},
+    xAxis:{type:'category',data:labels9,axisLabel:{color:MUT,fontSize:10},axisLine:{lineStyle:{color:AXIS}},axisTick:{show:false}},
+    yAxis:{type:'value',axisLabel:{color:MUT,fontSize:10,formatter:v=>v+'%'},splitLine:{lineStyle:{color:GRID}},axisLine:{show:false},axisTick:{show:false}},
+    series:ORDER.map((c,i)=>({name:NAMES[c],type:'line',data:M.countries[c].yoyQ.slice(0,9),symbol:'circle',symbolSize:4,
+      lineStyle:{width:2,color:CCOL[c]},itemStyle:{color:CCOL[c]},
+      markLine:(i===0?{silent:true,symbol:'none',lineStyle:{color:'#0b0b0b',width:1.2},data:[{yAxis:0}],label:{show:false}}:undefined),
+      markArea:(i===0?{silent:true,
+        data:[
+          [{yAxis:0,name:'正同比',itemStyle:{color:'rgba(27,122,85,.2)'},
+            label:{show:true,color:'rgba(27,122,85,.9)',fontSize:10,fontWeight:600,position:'insideBottomLeft'}},
+           {yAxis:'max',itemStyle:{color:'rgba(27,122,85,.2)'}}],
+          [{yAxis:'min',itemStyle:{color:'rgba(192,57,43,.2)'}},
+           {yAxis:0,name:'负同比',itemStyle:{color:'rgba(192,57,43,.2)'},
+            label:{show:true,color:'rgba(192,57,43,.9)',fontSize:10,fontWeight:600,position:'insideTopLeft'}}]
+        ]}:undefined)}))
+  });
+  // 4) 均价：年度摘要 + 月度同比多线 + 价位段区间
+  $('pstatRow').innerHTML=ORDER.map(c=>{
+    const a=M.cmp.annP[c];
+    return `<div class="pchip"><b>${NAMES[c]}</b>${CUR[c]}${Math.round(a.p25).toLocaleString('en-US')}→${CUR[c]}${Math.round(a.p26).toLocaleString('en-US')} <span class="${a.pyoy>=0?'up':'down'}">${pctS(a.pyoy)}</span></div>`;
+  }).join('');
+  mkChart($('cCmpP'),{
+    animation:false,
+    tooltip:{trigger:'axis',formatter:ps=>{let s=ps[0].axisValue+'<br>';ps.forEach(p=>{s+=p.marker+p.seriesName+'：'+pctS(p.value)+'<br>';});return s;}},
+    legend:{top:0,data:ORDER.map(c=>NAMES[c]),textStyle:{color:I2},itemWidth:14,itemHeight:9},
+    grid:{left:44,right:14,top:32,bottom:22},
+    xAxis:{type:'category',data:labels9,axisLabel:{color:MUT,fontSize:10},axisLine:{lineStyle:{color:AXIS}},axisTick:{show:false}},
+    yAxis:{type:'value',axisLabel:{color:MUT,fontSize:10,formatter:v=>v+'%'},splitLine:{lineStyle:{color:GRID}},axisLine:{show:false},axisTick:{show:false}},
+    series:ORDER.map((c,i)=>({name:NAMES[c],type:'line',data:M.countries[c].yoyP.slice(0,9),symbol:'circle',symbolSize:4,
+      lineStyle:{width:2,color:CCOL[c]},itemStyle:{color:CCOL[c]},
+      markLine:(i===0?{silent:true,symbol:'none',lineStyle:{color:'#0b0b0b',width:1.2},data:[{yAxis:0}],label:{show:false}}:undefined),
+      markArea:(i===0?{silent:true,
+        data:[
+          [{yAxis:0,name:'正同比',itemStyle:{color:'rgba(27,122,85,.2)'},
+            label:{show:true,color:'rgba(27,122,85,.9)',fontSize:10,fontWeight:600,position:'insideBottomLeft'}},
+           {yAxis:'max',itemStyle:{color:'rgba(27,122,85,.2)'}}],
+          [{yAxis:'min',itemStyle:{color:'rgba(192,57,43,.2)'}},
+           {yAxis:0,name:'负同比',itemStyle:{color:'rgba(192,57,43,.2)'},
+            label:{show:true,color:'rgba(192,57,43,.9)',fontSize:10,fontWeight:600,position:'insideTopLeft'}}]
+        ]}:undefined)}))
+  });
+  const rg=(c,yr)=>{const a=M.countries[c][yr].slice(0,9).filter(v=>v!=null);return [Math.min(...a),Math.max(...a)];};
+  const lo25=ORDER.map(c=>rg(c,'p25')[0]), hi25=ORDER.map(c=>rg(c,'p25')[1]);
+  const lo26=ORDER.map(c=>rg(c,'p26')[0]), hi26=ORDER.map(c=>rg(c,'p26')[1]);
+  const mn=c=>{const a=M.countries[c].p26.slice(0,9).filter(v=>v!=null);return a.reduce((s,v)=>s+v,0)/a.length;};
+  const m26=ORDER.map(c=>mn(c));
+  const rngTip=(p,lo,hi)=>p.marker+p.seriesName+'：'+CUR[ORDER[p.dataIndex]]+Math.round(lo[p.dataIndex]).toLocaleString('en-US')+' – '+CUR[ORDER[p.dataIndex]]+Math.round(hi[p.dataIndex]).toLocaleString('en-US');
+  mkChart($('cCmpPRange'),{
+    animation:false,
+    tooltip:{trigger:'item',formatter:p=>{
+      if(p.seriesName==='2026 均值'){return p.marker+p.seriesName+'：'+CUR[ORDER[p.dataIndex]]+Math.round(p.value).toLocaleString('en-US');}
+      if(p.seriesName==='2025 区间'){return rngTip(p,lo25,hi25);}
+      return rngTip(p,lo26,hi26);
+    }},
+    legend:{top:0,data:['2025 区间','2026 区间','2026 均值'],textStyle:{color:I2},itemWidth:14,itemHeight:9},
+    grid:{left:44,right:14,top:32,bottom:22},
+    xAxis:{type:'category',data:ORDER.map(c=>NAMES[c]),axisLabel:{color:MUT,fontSize:10},axisLine:{lineStyle:{color:AXIS}},axisTick:{show:false}},
+    yAxis:{type:'value',axisLabel:{color:MUT,fontSize:10,formatter:v=>v>=1000?(v/1000).toFixed(1)+'k':v},splitLine:{lineStyle:{color:GRID}},axisLine:{show:false},axisTick:{show:false}},
+    series:[
+      {name:'2025 区间（底）',type:'bar',data:lo25,barWidth:16,stack:'s25',itemStyle:{color:'rgba(0,0,0,0)'},silent:true,tooltip:{show:false}},
+      {name:'2025 区间',type:'bar',data:ORDER.map((c,i)=>hi25[i]-lo25[i]),barWidth:16,stack:'s25',
+       itemStyle:{color:'rgba(155,153,143,.85)',borderColor:'#9b998f',borderWidth:1,borderRadius:3}},
+      {name:'2026 区间（底）',type:'bar',data:lo26,barWidth:16,stack:'s26',itemStyle:{color:'rgba(0,0,0,0)'},silent:true,tooltip:{show:false}},
+      {name:'2026 区间',type:'bar',data:ORDER.map((c,i)=>hi26[i]-lo26[i]),barWidth:16,stack:'s26',
+       itemStyle:{color:'rgba(42,120,214,.85)',borderColor:'#2a78d6',borderWidth:1,borderRadius:3},
+       label:{show:true,position:'top',fontSize:10,color:MUT,formatter:p=>CUR[ORDER[p.dataIndex]]+Math.round(lo26[p.dataIndex])+'–'+Math.round(hi26[p.dataIndex])}},
+      {name:'2026 均值',type:'scatter',data:m26,symbol:'diamond',symbolSize:10,itemStyle:{color:C26}}
+    ]
+  });
+}
+
+/* ===== 分国详情 ===== */
+function countryOpt(code,kind){
+  const d=M.countries[code], isQ=kind==='q';
+  const s25=isQ?d.q25:d.p25, s26=isQ?d.q26:d.p26, yoy=isQ?d.yoyQ:d.yoyP;
+  const yaxis=isQ
+    ? {type:'value',gridIndex:0,axisLabel:{color:MUT,formatter:kfmt},splitLine:{lineStyle:{color:GRID}}}
+    : {type:'value',gridIndex:0,axisLabel:{color:MUT,formatter:v=>pfmt(v,code)},splitLine:{lineStyle:{color:GRID}}};
+  return {
+    animation:false,
+    tooltip:{trigger:'axis',axisPointer:{type:'line'},
+      formatter:ps=>{
+        let s=ps[0].axisValue+'<br>';
+        ps.forEach(p=>{
+          if(p.seriesName==='2026 销量同比'||p.seriesName==='2026 均价同比'){ s+=p.marker+p.seriesName+'：'+pctS(p.value)+'<br>'; }
+          else{ s+=p.marker+p.seriesName+'：'+(isQ?fmtN(p.value)+' 台':fmtV(p.value,code))+'<br>'; }
+        });
+        return s;
+      }},
+    legend:{show:false},
+    axisPointer:{link:[{xAxisIndex:'all'}]},
+    grid:[{left:60,right:18,top:24,height:'50%'},{left:60,right:18,top:'78%',height:'16%'}],
+    xAxis:[
+      {type:'category',data:labels12,gridIndex:0,axisLabel:{color:MUT},axisLine:{lineStyle:{color:AXIS}},axisTick:{show:false}},
+      {type:'category',data:labels12,gridIndex:1,axisLabel:{color:MUT,fontSize:10},axisLine:{lineStyle:{color:AXIS}},axisTick:{show:false}}
+    ],
+    yAxis:[
+      yaxis,
+      {type:'value',gridIndex:1,axisLabel:{color:MUT,formatter:v=>v+'%'},splitLine:{lineStyle:{color:GRID}},axisLine:{show:false},axisTick:{show:false}}
+    ],
+    series:[
+      {name:'2025 销量',type:'line',data:s25,symbol:'circle',symbolSize:3.5,lineStyle:{width:2,color:C25,type:'dashed'},itemStyle:{color:C25},
+       markArea:{silent:true,itemStyle:{color:B25},data:[[{xAxis:labels12[d.band25[0]]},{xAxis:labels12[d.band25[1]]}]]}},
+      {name:'2026 销量',type:'line',data:s26,symbol:'circle',symbolSize:4,lineStyle:{width:2.5,color:C26},itemStyle:{color:C26},
+       markArea:{silent:true,itemStyle:{color:B26},data:[[{xAxis:labels12[d.band26[0]]},{xAxis:labels12[d.band26[1]]}]]}},
+      {name:isQ?'2026 销量同比':'2026 均价同比',type:'bar',xAxisIndex:1,yAxisIndex:1,data:yoy,
+       barWidth:'55%',itemStyle:{color:p=>p.value==null?'rgba(0,0,0,0)':(p.value>=0?UP:DOWN)},
+       label:{show:true,position:'top',fontSize:9,color:MUT,formatter:p=>p.value==null?'':pctS(p.value)}}
+    ]
+  };
+}
+
+function buildTable(kind,code){
+  const d=M.countries[code], isQ=kind==='q';
+  const a25=isQ?d.q25:d.p25, a26=isQ?d.q26:d.p26;
+  let h='<tr><th>月份</th><th>2025</th><th>环比</th><th>2026</th><th>环比</th><th>同比</th></tr>';
+  for(let i=0;i<12;i++){
+    const v25=a25[i], v26=a26[i];
+    const m25=i>0?pct(v25,a25[i-1]):'—';
+    const m26=(i>0&&v26!=null&&a26[i-1]!=null)?pct(v26,a26[i-1]):'—';
+    const yoy=v26!=null?pct(v26,v25):'—';
+    const cell=v=>isQ?fmtN(v):(v==null?'—':fmtV(v,code));
+    h+=`<tr><td>${labels12[i]}</td><td>${cell(v25)}</td>${pctCell(m25)}<td>${cell(v26)}</td>${pctCell(m26)}${pctCell(yoy)}</tr>`;
+  }
+  return h;
+}
+
+let countryCharts=[];
+function renderCountry(code){
+  const d=M.countries[code];
+  kill(countryCharts); countryCharts=[];
+  const w=$('countryWrap');
+  w.innerHTML=`
+    <div class="insights">
+      ${d.insights.map(s=>'<div class="insight">'+s+'</div>').join('')}
+    </div>
+    <div class="grid" style="margin-top:14px">
+      <div class="card">
+        <h3>月销量：2025 vs 2026（${NAMES[code]}）</h3>
+        <div class="cap">双折线＝2025（灰虚线）/ 2026（蓝实线）；色带＝旺季区间（月销量≥当年1–9月月均，灰=2025、蓝=2026）；下方柱状＝2026年各月销量同比增速。</div>
+        <div class="legend2">
+          <span><i class="sw dash"></i>2025 年</span>
+          <span><i class="sw" style="background:${C26}"></i>2026 年</span>
+          <span><i class="band" style="background:${B25}"></i>2025 旺季</span>
+          <span><i class="band" style="background:${B26}"></i>2026 旺季</span>
+        </div>
+        <div class="chart-wrap"><div id="cQty" style="width:100%;height:100%"></div></div>
+      </div>
+      <div class="card">
+        <h3>月均成交价：2025 vs 2026（${CUR[code]}）</h3>
+        <div class="cap">均价＝月销售额÷月销量；色带含义同上；下方柱状＝2026年各月均价同比增速。</div>
+        <div class="legend2">
+          <span><i class="sw dash"></i>2025 年</span>
+          <span><i class="sw" style="background:${C26}"></i>2026 年</span>
+          <span><i class="band" style="background:${B25}"></i>2025 旺季</span>
+          <span><i class="band" style="background:${B26}"></i>2026 旺季</span>
+        </div>
+        <div class="chart-wrap"><div id="cPrice" style="width:100%;height:100%"></div></div>
+      </div>
+    </div>
+    <div class="tbl-grid">
+      <div class="card"><h3>销量明细（台）</h3><div class="tbl-scroll"><table id="tQty"></table></div></div>
+      <div class="card"><h3>均价明细（${CUR[code]}）</h3><div class="tbl-scroll"><table id="tPrice"></table></div></div>
+    </div>`;
+  countryCharts.push(mkChart($('cQty'),countryOpt(code,'q')));
+  countryCharts.push(mkChart($('cPrice'),countryOpt(code,'p')));
+  $('tQty').innerHTML=buildTable('q',code);
+  $('tPrice').innerHTML=buildTable('p',code);
+}
+
+/* ===== 初始化 ===== */
+$('findingsList').innerHTML=M.findings.map(s=>'<li>'+s+'</li>').join('');
+renderCompare();
+renderCountry(ORDER[0]);
+document.querySelectorAll('#tabs .tab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#tabs .tab').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    renderCountry(btn.dataset.c);
+  });
+});
+window.addEventListener('resize',()=>allCharts.forEach(ch=>ch&&ch.resize()));
+</script>
+</body>
+</html>
