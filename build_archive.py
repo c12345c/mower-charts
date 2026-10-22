@@ -87,6 +87,7 @@ h1 {{ font-size:24px; font-weight:700; margin:8px 0 4px; }}
       <a href="amazon_charts_latest.html">最新一期</a>
       <a href="price_trend.html">📈 价格趋势</a>
       <a href="market_seasonality.html">🌦️ 大盘趋势</a>
+      <a href="gfk_germany_dashboard.html">🇩🇪 GfK德国看板</a>
       <a href="index.html">首页</a>
     </div>
   </div>
