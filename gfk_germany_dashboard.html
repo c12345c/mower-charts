@@ -96,12 +96,20 @@ canvas{max-width:100%}
 @media(max-width:900px){.chgrid{grid-template-columns:1fr}}
 .foot{margin-top:40px;font-size:12px;color:var(--ink2);border-top:1px solid var(--baseline);padding-top:14px}
 .foot li{margin-bottom:4px}
+.langbtn{position:fixed;top:14px;right:18px;z-index:60;display:flex;border:1px solid var(--baseline);
+  border-radius:8px;overflow:hidden;font-size:12.5px;box-shadow:0 1px 3px rgba(11,11,11,.12);background:var(--surface)}
+.langbtn button{border:0;background:var(--surface);padding:5px 13px;cursor:pointer;color:var(--ink2);font:inherit}
+.langbtn button.on{background:var(--ink);color:#fff}
 </style>
 </head>
 <body>
+<div class="langbtn" id="langbtn">
+  <button type="button" data-lang="zh" class="on">中文</button>
+  <button type="button" data-lang="en">EN</button>
+</div>
 <div class="wrap">
 
-<h1>德国割草机器人市场看板</h1>
+<h1 id="h1title">德国割草机器人市场看板</h1>
 <div class="sub">数据源：GfK 德国面板（线下 POS）2022.2–2026.6 ｜ 线上印证：Amazon.de 监测 2026.6（0703 期，180 个 ASIN）｜ 销售额单位 Million €，所有品牌占比均为销售额占比</div>
 
 <div class="grid g4">
@@ -250,6 +258,44 @@ canvas{max-width:100%}
   <div class="card"><b>园艺中心</b><br><span class="note">Dehner、Pflanzen-Kölle。以花草苗木为主，大型机械销量可忽略（0.1 Million €），Gardena 一家 100%。</span></div>
 </div>
 
+<h2 id="exdealer">④+ 剔除专业经销商 Dealer ｜ 德国零售大盘真相 <span class="tag">新视角</span></h2>
+<div class="note">口径：GfK 四渠道中剔除「专业经销商 Dealer（农机园艺专卖）」，仅保留 DIY 超市＋综合大卖场＋园艺中心，即我方可直接触达的<b>现代零售大盘</b>。品牌金额＝渠道总额 × 渠道内品牌份额（估算，与④口径一致）。受底表所限，仅 4 个快照（2025.6、2026.4–6），无长历史。</div>
+<div class="takeaway"><span class="t-title">核心结论</span>
+<div class="t-sub">① 增长引擎</div>
+<ul>
+<li><b>剔除 Dealer 后零售大盘 2026.6 为 38M€，占全渠道 49%；同比 +33%</b>，而全渠道仅 +17%、Dealer 仅 +5%——<b>这一轮市场增长几乎全部由零售渠道贡献</b>，Dealer 是停滞的半壁江山。</li>
+</ul>
+<div class="t-sub">② 品牌格局重排</div>
+<ul>
+<li>零售口径下 <b>Segway 23% 第一、我方（MOVA+追觅）22% 第二，差距仅 1.2pp</b>；Ecovacs 19%、WORX 18% 紧随。去年同期的第一是 WORX（21%），一年间 Segway 与我方完成反超。</li>
+<li><b>Husqvarna（全渠道 30% 第一）、Kress（9%）、Stihl（5%）在零售口径份额为 0</b>——剔除 Dealer 后传统专业派集体消失，我方与 Ecovacs、WORX 的全渠道份额近乎翻倍。</li>
+<li>Gardena 零售份额 11%→4%（-7pp）崩塌，Sunseeker 从 0 新进至 2.3%；Mammotion 3%→4%。</li>
+</ul>
+<div class="t-sub">③ 季节节奏</div>
+<ul>
+<li>零售渠道在安装旺季前的 <b>4–5 月占全渠道六成</b>（57%/60%），6 月 Dealer 凭借安装/维保旺季反超至 51%——两个阵营卖的是不同季节、不同客群。</li>
+</ul>
+<div class="t-sub">④ 战略含义</div>
+<ul>
+<li>在「可触达大盘」里我方已是第二、咬住第一；剩下唯一的空白增量是 <b>40M€ 的 Dealer 堡垒</b>（Husqvarna 58% 的基本盘、+5% 停滞），破门需本地经销与服务网络，Segway（Dealer 依赖度 39%）是唯一两栖样本。</li>
+</ul>
+</div>
+<div class="chgrid">
+  <div class="card"><h3>Dealer vs 零售大盘：月度销售额堆叠（Million €）</h3>
+    <div style="height:300px"><canvas id="c_exd_stack"></canvas></div>
+    <div class="note">柱内%＝零售口径占全渠道比例；2026.6 同比：零售 <b class="up">+33%</b> ｜ 全渠道 +17% ｜ Dealer +5%。</div>
+  </div>
+  <div class="card"><h3>品牌份额：全渠道 vs 剔除Dealer零售口径（2026.6）</h3>
+    <div style="height:300px"><canvas id="c_exd_share"></canvas></div>
+    <div class="note">灰＝全渠道份额，彩＝零售口径份额；Husqvarna/Kress/Stihl 在零售口径归零，我方/Ecovacs/WORX 近翻倍。</div>
+  </div>
+</div>
+<div class="card" style="margin-top:14px">
+  <h3>Dealer × 零售｜品牌双向站位（2026.6 销售额 M€）</h3>
+  <div style="height:440px"><canvas id="c_exd_scat"></canvas></div>
+  <div class="note">每行一个品牌，<b>蓝条向左＝专业经销商 Dealer 额，绿条向右＝零售（DIY＋大卖场＋园艺）额</b>，条末标数值；我方行以粉色高亮。绝大多数品牌只在一侧有销售，<b>Segway 是唯一两渠道都具规模的两栖品牌</b>。</div>
+</div>
+
 <h2>⑤ 线上线下互相印证 ｜ GfK × Amazon.de</h2>
 <div class="note">GfK 为德国线下 POS 面板（H1 2026 份额），Amazon.de 为单一线上平台监测（2026.6）。两源口径不同、<b>不可相加</b>，仅做方向性印证。</div>
 <div class="takeaway wine"><span class="t-title">核心结论</span><ul>
@@ -277,7 +323,6 @@ canvas{max-width:100%}
 <b>数据口径与精度说明</b>
 <ul>
 <li>看板中所有品牌占比均为<b>销售额占比</b>，非台数（销量）占比；高价品牌占比被相对放大。占比为整数百分比，单个数值误差 ±0.5pp，月度加总可能不恰为 100%。</li>
-<li>GfK 原表“Ths. EUR”单位标签有误，实际为 <b>Million EUR（百万欧元）</b>（千分位逗号被识别为小数点）。</li>
 <li>overview 月表的金额（Million）、销量（千台）为四舍五入值：2022 年小月份误差可达 ±15–25%，仅用于趋势；2025 年后误差 ±1% 左右。</li>
 <li>导航类别仅 CAMERA / RANDOM / GPS / CAMERA+GPS 四类，<b>缺 LASER 激光</b>；2026 年残差约 24%，图表中以“LASER 等（残差）”虚线柱提示，残差不等于 LASER 精确规模。</li>
 <li>TOP20 两表为 2026 年 6 月单月精确值（销量/销售额到个位，单价取整欧元）；TOP20 销量榜覆盖大盘约一半台数。</li>
@@ -289,6 +334,50 @@ canvas{max-width:100%}
 </div>
 <script>
 const D = {"months": [{"ym": "2022-02", "label": "22/02", "year": 2022, "m": 2, "value": 5.0, "units": 6.0, "price": 841.0, "yoy_units": null, "yoy_value": null}, {"ym": "2022-03", "label": "22/03", "year": 2022, "m": 3, "value": 22.0, "units": 24.0, "price": 942.0, "yoy_units": null, "yoy_value": null}, {"ym": "2022-04", "label": "22/04", "year": 2022, "m": 4, "value": 29.0, "units": 31.0, "price": 921.0, "yoy_units": null, "yoy_value": null}, {"ym": "2022-05", "label": "22/05", "year": 2022, "m": 5, "value": 48.0, "units": 49.0, "price": 989.0, "yoy_units": null, "yoy_value": null}, {"ym": "2022-06", "label": "22/06", "year": 2022, "m": 6, "value": 35.0, "units": 35.0, "price": 1020.0, "yoy_units": null, "yoy_value": null}, {"ym": "2022-07", "label": "22/07", "year": 2022, "m": 7, "value": 26.0, "units": 22.0, "price": 1066.0, "yoy_units": null, "yoy_value": null}, {"ym": "2022-08", "label": "22/08", "year": 2022, "m": 8, "value": 15.0, "units": 12.0, "price": 1223.0, "yoy_units": null, "yoy_value": null}, {"ym": "2022-09", "label": "22/09", "year": 2022, "m": 9, "value": 14.0, "units": 9.0, "price": 1530.0, "yoy_units": null, "yoy_value": null}, {"ym": "2022-10", "label": "22/10", "year": 2022, "m": 10, "value": 13.0, "units": 9.0, "price": 1425.0, "yoy_units": null, "yoy_value": null}, {"ym": "2022-11", "label": "22/11", "year": 2022, "m": 11, "value": 11.0, "units": 9.0, "price": 1338.0, "yoy_units": null, "yoy_value": null}, {"ym": "2022-12", "label": "22/12", "year": 2022, "m": 12, "value": 4.0, "units": 3.0, "price": 1287.0, "yoy_units": null, "yoy_value": null}, {"ym": "2023-01", "label": "23/01", "year": 2023, "m": 1, "value": 4.0, "units": 3.0, "price": 1226.0, "yoy_units": -0.1, "yoy_value": 48.7}, {"ym": "2023-02", "label": "23/02", "year": 2023, "m": 2, "value": 4.0, "units": 5.0, "price": 897.0, "yoy_units": -14.3, "yoy_value": -8.6}, {"ym": "2023-03", "label": "23/03", "year": 2023, "m": 3, "value": 17.0, "units": 16.0, "price": 1085.0, "yoy_units": -33.1, "yoy_value": -22.9}, {"ym": "2023-04", "label": "23/04", "year": 2023, "m": 4, "value": 34.0, "units": 34.0, "price": 993.0, "yoy_units": 8.8, "yoy_value": 17.1}, {"ym": "2023-05", "label": "23/05", "year": 2023, "m": 5, "value": 51.0, "units": 48.0, "price": 1070.0, "yoy_units": -1.7, "yoy_value": 6.3}, {"ym": "2023-06", "label": "23/06", "year": 2023, "m": 6, "value": 38.0, "units": 30.0, "price": 1271.0, "yoy_units": -14.5, "yoy_value": 8.5}, {"ym": "2023-07", "label": "23/07", "year": 2023, "m": 7, "value": 32.0, "units": 25.0, "price": 1279.0, "yoy_units": 0.3, "yoy_value": 20.3}, {"ym": "2023-08", "label": "23/08", "year": 2023, "m": 8, "value": 25.0, "units": 18.0, "price": 1361.0, "yoy_units": 52.3, "yoy_value": 67.5}, {"ym": "2023-09", "label": "23/09", "year": 2023, "m": 9, "value": 23.0, "units": 17.0, "price": 1345.0, "yoy_units": 79.0, "yoy_value": 59.1}, {"ym": "2023-10", "label": "23/10", "year": 2023, "m": 10, "value": 10.0, "units": 8.0, "price": 1274.0, "yoy_units": -10.6, "yoy_value": -20.1}, {"ym": "2023-11", "label": "23/11", "year": 2023, "m": 11, "value": 7.0, "units": 5.0, "price": 1248.0, "yoy_units": -38.7, "yoy_value": -49.9}, {"ym": "2023-12", "label": "23/12", "year": 2023, "m": 12, "value": 4.0, "units": 3.0, "price": 1535.0, "yoy_units": -25.0, "yoy_value": -10.5}, {"ym": "2024-01", "label": "24/01", "year": 2024, "m": 1, "value": 3.0, "units": 2.0, "price": 1327.0, "yoy_units": -28.8, "yoy_value": -23.0}, {"ym": "2024-02", "label": "24/02", "year": 2024, "m": 2, "value": 5.0, "units": 4.0, "price": 928.0, "yoy_units": -3.2, "yoy_value": 0.1}, {"ym": "2024-03", "label": "24/03", "year": 2024, "m": 3, "value": 17.0, "units": 19.0, "price": 902.0, "yoy_units": 23.0, "yoy_value": 2.3}, {"ym": "2024-04", "label": "24/04", "year": 2024, "m": 4, "value": 43.0, "units": 41.0, "price": 1038.0, "yoy_units": 21.7, "yoy_value": 27.2}, {"ym": "2024-05", "label": "24/05", "year": 2024, "m": 5, "value": 66.0, "units": 66.0, "price": 843.0, "yoy_units": null, "yoy_value": 7.8}, {"ym": "2024-06", "label": "24/06", "year": 2024, "m": 6, "value": 48.0, "units": 40.0, "price": 1172.0, "yoy_units": 38.5, "yoy_value": 28.5}, {"ym": "2024-07", "label": "24/07", "year": 2024, "m": 7, "value": 42.0, "units": 36.0, "price": 1196.0, "yoy_units": 45.3, "yoy_value": 33.2}, {"ym": "2024-08", "label": "24/08", "year": 2024, "m": 8, "value": 30.0, "units": 22.0, "price": 1293.0, "yoy_units": 25.1, "yoy_value": 20.3}, {"ym": "2024-09", "label": "24/09", "year": 2024, "m": 9, "value": 22.0, "units": 16.0, "price": 1507.0, "yoy_units": -12.7, "yoy_value": -3.3}, {"ym": "2024-10", "label": "24/10", "year": 2024, "m": 10, "value": 16.0, "units": 10.0, "price": 1555.0, "yoy_units": 24.8, "yoy_value": 52.1}, {"ym": "2024-11", "label": "24/11", "year": 2024, "m": 11, "value": 11.0, "units": 6.0, "price": 1391.0, "yoy_units": 44.0, "yoy_value": 60.4}, {"ym": "2024-12", "label": "24/12", "year": 2024, "m": 12, "value": 6.0, "units": 4.0, "price": 1390.0, "yoy_units": 54.0, "yoy_value": 39.5}, {"ym": "2025-01", "label": "25/01", "year": 2025, "m": 1, "value": 5.0, "units": 3.0, "price": 1309.0, "yoy_units": 37.0, "yoy_value": 35.2}, {"ym": "2025-02", "label": "25/02", "year": 2025, "m": 2, "value": 6.0, "units": 5.0, "price": 1026.0, "yoy_units": 18.8, "yoy_value": 31.2}, {"ym": "2025-03", "label": "25/03", "year": 2025, "m": 3, "value": 30.0, "units": 34.0, "price": 883.0, "yoy_units": 74.5, "yoy_value": 70.9}, {"ym": "2025-04", "label": "25/04", "year": 2025, "m": 4, "value": 64.0, "units": 60.0, "price": 1062.0, "yoy_units": 48.6, "yoy_value": 50.0}, {"ym": "2025-05", "label": "25/05", "year": 2025, "m": 5, "value": 80.0, "units": 75.0, "price": 1076.0, "yoy_units": 13.9, "yoy_value": 45.3}, {"ym": "2025-06", "label": "25/06", "year": 2025, "m": 6, "value": 67.0, "units": 54.0, "price": 1225.0, "yoy_units": 35.3, "yoy_value": 38.5}, {"ym": "2025-07", "label": "25/07", "year": 2025, "m": 7, "value": 59.0, "units": 55.0, "price": 1084.0, "yoy_units": 50.9, "yoy_value": 39.5}, {"ym": "2025-08", "label": "25/08", "year": 2025, "m": 8, "value": 40.0, "units": 28.0, "price": 1209.0, "yoy_units": 41.1, "yoy_value": 31.9}, {"ym": "2025-09", "label": "25/09", "year": 2025, "m": 9, "value": 26.0, "units": 20.0, "price": 1308.0, "yoy_units": 33.9, "yoy_value": 16.3}, {"ym": "2025-10", "label": "25/10", "year": 2025, "m": 10, "value": 18.0, "units": 16.0, "price": 1263.0, "yoy_units": 40.1, "yoy_value": 13.8}, {"ym": "2025-11", "label": "25/11", "year": 2025, "m": 11, "value": 16.0, "units": 14.0, "price": 829.0, "yoy_units": 107.4, "yoy_value": 23.7}, {"ym": "2025-12", "label": "25/12", "year": 2025, "m": 12, "value": 8.0, "units": 8.0, "price": 1089.0, "yoy_units": 98.5, "yoy_value": 53.9}, {"ym": "2026-01", "label": "26/01", "year": 2026, "m": 1, "value": 6.0, "units": 4.0, "price": 1533.0, "yoy_units": 33.3, "yoy_value": 56.2}, {"ym": "2026-02", "label": "26/02", "year": 2026, "m": 2, "value": 7.0, "units": 7.0, "price": 1005.0, "yoy_units": 28.4, "yoy_value": 25.7}, {"ym": "2026-03", "label": "26/03", "year": 2026, "m": 3, "value": 34.0, "units": 43.0, "price": 789.0, "yoy_units": 27.2, "yoy_value": 13.6}, {"ym": "2026-04", "label": "26/04", "year": 2026, "m": 4, "value": 74.0, "units": 79.0, "price": 932.0, "yoy_units": 30.8, "yoy_value": 14.8}, {"ym": "2026-05", "label": "26/05", "year": 2026, "m": 5, "value": 97.0, "units": 111.0, "price": 866.0, "yoy_units": 40.1, "yoy_value": 20.0}, {"ym": "2026-06", "label": "26/06", "year": 2026, "m": 6, "value": 78.0, "units": 76.0, "price": 1034.0, "yoy_units": 38.4, "yoy_value": 16.8}], "annual": [{"year": 2022, "value": 222.0, "units": 209.0, "months": 11}, {"year": 2023, "value": 249.0, "units": 212.0, "months": 12}, {"year": 2024, "value": 309.0, "units": 266.0, "months": 12}, {"year": 2025, "value": 419.0, "units": 372.0, "months": 12}, {"year": 2026, "value": 296.0, "units": 320.0, "months": 6}], "period_labels": ["25/06", "25/07", "25/08", "25/09", "25/10", "25/11", "25/12", "26/01", "26/02", "26/03", "26/04", "26/05", "26/06"], "brand_series": {"Segway": {"h1_25": 16.0, "h1_26": 17.0, "monthly": [13.0, 16.0, 15.0, 7.0, 6.0, 4.0, 3.0, 5.0, 12.0, 16.0, 15.0, 21.0, 18.0]}, "WORX": {"h1_25": 13.0, "h1_26": 12.0, "monthly": [9.0, 7.0, 7.0, 6.0, 5.0, 6.0, 5.0, 2.0, 8.0, 15.0, 16.0, 13.0, 9.0]}, "Ecovacs 科沃斯": {"h1_25": 12.0, "h1_26": 10.0, "monthly": [8.0, 7.0, 6.0, 3.0, 5.0, 9.0, 4.0, 8.0, 8.0, 9.0, 9.0, 11.0, 9.0]}, "Husqvarna": {"h1_25": 31.0, "h1_26": 27.0, "monthly": [36.0, 34.0, 36.0, 46.0, 39.0, 34.0, 33.0, 62.0, 46.0, 21.0, 29.0, 22.0, 30.0]}, "MOVA（我方）": {"h1_25": 2.0, "h1_26": 8.0, "monthly": [4.0, 4.0, 5.0, 5.0, 5.0, 3.0, 3.0, null, 8.0, 13.0, 7.0, 6.0, 7.0]}, "Gardena": {"h1_25": 6.0, "h1_26": 3.0, "monthly": [5.0, 4.0, 3.0, null, 3.0, 3.0, 3.0, 3.0, 6.0, 5.0, 3.0, null, null]}, "追觅 dreame（我方）": {"h1_25": 3.0, "h1_26": 4.0, "monthly": [4.0, 6.0, 4.0, null, 5.0, 11.0, 13.0, 4.0, 3.0, 9.0, 4.0, 4.0, 3.0]}, "Kress": {"h1_25": 8.0, "h1_26": 6.0, "monthly": [13.0, 12.0, 12.0, 10.0, 16.0, 13.0, 22.0, 9.0, null, 2.0, 4.0, 6.0, 9.0]}, "其他品牌": {"h1_25": 9.0, "h1_26": 13.0, "monthly": [8.0, 10.0, 12.0, 23.0, 16.0, 17.0, 14.0, 7.0, 9.0, 10.0, 13.0, 17.0, 15.0]}}, "ours_sum": {"h1_25": 5.0, "h1_26": 12.0, "monthly": [8.0, 10.0, 9.0, 5.0, 10.0, 14.0, 16.0, 4.0, 11.0, 22.0, 11.0, 10.0, 10.0]}, "cr": {"h1_25": {"cr3": 60, "cr5": 81}, "h1_26": {"cr3": 57, "cr5": 79}}, "mkt_total": {"h1_25": 250.829, "h1_26": 295.393, "h1_yoy": 17.8}, "nav": [{"name": "TOTAL (整体)", "brands": {"Segway": [13.0, 15.0, 21.0, 18.0], "WORX": [9.0, 16.0, 13.0, 9.0], "Ecovacs 科沃斯": [8.0, 9.0, 11.0, 9.0], "Husqvarna": [36.0, 29.0, 22.0, 30.0], "MOVA（我方）": [4.0, 7.0, 6.0, 7.0], "c": [null, 4.0, 4.0, 6.0], "Gardena": [5.0, 3.0, null, null], "追觅 dreame（我方）": [4.0, 4.0, 4.0, 3.0], "Kress": [13.0, 4.0, 6.0, 9.0], "Mammotion": [null, 2.0, 4.0, null], "其他品牌": [8.0, 7.0, 9.0, 9.0]}, "total": [66.923, 73.619, 96.505, 78.194], "yoy": [null, 14.8, 20.0, 16.8]}, {"name": "CAMERA (视觉)", "brands": {"Segway": [37.0, 10.0, 11.0, 8.0], "WORX": [33.0, 30.0, 29.0, 17.0], "Ecovacs 科沃斯": [16.0, 6.0, 6.0, 6.0], "Husqvarna": [null, 34.0, 36.0, 47.0], "MOVA（我方）": [null, 7.0, 6.0, 9.0], "Sunseeker": [null, 5.0, 6.0, 4.0], "追觅 dreame（我方）": [6.0, null, null, null], "其他品牌": [8.0, 8.0, 6.0, 9.0]}, "total": [14.444, 22.365, 24.604, 20.542], "yoy": [null, 3.9, 21.9, 42.2]}, {"name": "RANDOM (随机/边界)", "brands": {"WORX": [10.0, 7.0, 5.0, 4.0], "Einhell 安海": [null, 19.0, 24.0, 10.0], "Husqvarna": [28.0, 20.0, 13.0, 27.0], "Bosch 博世": [13.0, 7.0, 7.0, 14.0], "Gardena": [10.0, 16.0, 12.0, 14.0], "Kress": [14.0, 3.0, null, 9.0], "Tradebrand 自有品牌": [8.0, 16.0, 22.0, 7.0], "其他品牌": [17.0, 12.0, 17.0, 15.0]}, "total": [10.236, 7.954, 9.885, 6.308], "yoy": [null, -16.5, -26.4, -38.4]}, {"name": "GPS (单GPS)", "brands": {"Segway": [3.0, 5.0, 4.0, 3.0], "Husqvarna": [62.0, 63.0, 52.0, 85.0], "MOVA（我方）": [4.0, 4.0, 2.0, null], "Gardena": [7.0, 7.0, 6.0, 5.0], "Kress": [19.0, null, 11.0, null], "Mammotion": [null, 7.0, 13.0, null], "其他品牌": [5.0, 14.0, 12.0, 7.0]}, "total": [33.797, 9.756, 11.068, 8.398], "yoy": [null, -63.2, -70.2, -75.2]}, {"name": "CAMERA + GPS (融合)", "brands": {"Segway": [35.0, 15.0, 15.0, 16.0], "WORX": [null, 8.0, 9.0, 6.0], "Ecovacs 科沃斯": [32.0, null, null, null], "Husqvarna": [null, 36.0, 24.0, 21.0], "MOVA（我方）": [null, 12.0, 14.0, 11.0], "Sunseeker": [13.0, 9.0, 10.0, 14.0], "Kress": [8.0, 13.0, 19.0, 26.0], "Mammotion": [6.0, null, 3.0, null], "其他品牌": [6.0, 7.0, 6.0, 6.0]}, "total": [6.628, 17.163, 22.52, 23.804], "yoy": [null, 264.5, 213.2, 259.1]}], "channel": [{"name": "Panelmarket (整体)", "brands": {"Segway": [13.0, 15.0, 21.0, 18.0], "WORX": [9.0, 16.0, 13.0, 9.0], "Ecovacs 科沃斯": [8.0, 9.0, 11.0, 9.0], "Husqvarna": [36.0, 29.0, 22.0, 30.0], "MOVA（我方）": [4.0, 7.0, 6.0, 7.0], "Sunseeker": [null, 4.0, 4.0, 6.0], "Gardena": [5.0, 3.0, null, null], "追觅 dreame（我方）": [4.0, 4.0, 4.0, 3.0], "Kress": [13.0, 4.0, 6.0, 9.0], "其他品牌": [8.0, 9.0, 13.0, 9.0]}, "total": [66.923, 73.619, 96.505, 78.194], "yoy": [null, 14.8, 20.0, 16.8]}, {"name": "Mass Merchandisers (大卖场)", "brands": {"Segway": [null, null, 17.0, 10.0], "WORX": [18.0, 15.0, 11.0, 19.0], "Ecovacs 科沃斯": [32.0, 31.0, 29.0, 25.0], "MOVA（我方）": [11.0, 19.0, 14.0, 20.0], "Gardena": [13.0, 6.0, 4.0, 6.0], "追觅 dreame（我方）": [13.0, 13.0, 9.0, 9.0], "Tradebrand 自有品牌": [7.0, 11.0, 12.0, 5.0], "其他品牌": [6.0, 5.0, 4.0, 6.0]}, "total": [11.104, 11.59, 19.473, 16.086], "yoy": [null, -2.9, 19.0, 44.9]}, {"name": "DIY Superstores (DIY超市)", "brands": {"Segway": [31.0, 20.0, 26.0, 33.0], "WORX": [23.0, 33.0, 27.0, 17.0], "Ecovacs 科沃斯": [9.0, 11.0, 12.0, 14.0], "MOVA（我方）": [8.0, 10.0, 9.0, 11.0], "Sunseeker": [null, 4.0, 5.0, 4.0], "Gardena": [10.0, 5.0, 3.0, 3.0], "追觅 dreame（我方）": [7.0, 5.0, 4.0, 6.0], "Mammotion": [5.0, 6.0, 9.0, 7.0], "其他品牌": [7.0, 6.0, 5.0, 5.0]}, "total": [17.363, 30.179, 38.732, 21.885], "yoy": [null, 27.8, 68.3, 26.0]}, {"name": "Garden Centers (园艺中心)", "brands": {"Gardena": [99.0, 99.0, 100.0, 100.0]}, "total": [0.069, 0.092, 0.127, 0.064], "yoy": [null, 181.6, 299.9, -7.4]}, {"name": "Motorists / Garden Mach. Spec (农机园艺专卖)", "brands": {"Segway": [9.0, 15.0, 17.0, 14.0], "Husqvarna": [62.0, 66.0, 54.0, 58.0], "Stihl": [null, 5.0, 6.0, 9.0], "Kress": [22.0, 8.0, 15.0, 17.0], "其他品牌": [7.0, 6.0, 8.0, 2.0]}, "total": [38.387, 31.758, 38.173, 40.159], "yoy": [null, 11.3, -6.9, 4.6]}], "hgrowth": [{"cat": "TOTAL (整体)", "h1": 18.0, "monthly": [56.0, 26.0, 14.0, 15.0, 20.0, 17.0]}, {"cat": "CAMERA (视觉导航)", "h1": 16.0, "monthly": [40.0, -9.0, -2.0, 4.0, 22.0, 42.0]}, {"cat": "RANDOM (随机/边界线导航)", "h1": -28.0, "monthly": [-52.0, -44.0, -29.0, -16.0, -26.0, -38.0]}, {"cat": "GPS (单 GPS 导航)", "h1": -62.0, "monthly": [108.0, 52.0, -47.0, -63.0, -70.0, -75.0]}, {"cat": "CAMERA + GPS (融合导航)", "h1": 220.0, "monthly": [20.0, 55.0, 91.0, 265.0, 213.0, 259.0]}, {"cat": "LASER (激光导航)", "h1": null, "monthly": [69.0, 18.0, 138.0, 47.0, 30.0, 22.0]}], "top_units": [{"rank": 1, "brand": "Segway", "brand_raw": "SEGWAY", "item": "NAVIMOW I206E AWD", "units": 3281, "value": 2265597, "price": 691}, {"rank": 2, "brand": "Segway", "brand_raw": "SEGWAY", "item": "NAVIMOW I105E", "units": 2653, "value": 1646903, "price": 621}, {"rank": 3, "brand": "Husqvarna", "brand_raw": "HUSQVARNA", "item": "AUTOMOWER 308V", "units": 2477, "value": 3199169, "price": 1292}, {"rank": 4, "brand": "MOVA（我方）", "brand_raw": "MOVA", "item": "LIDAX ULTRA 1000", "units": 2260, "value": 1745477, "price": 772}, {"rank": 5, "brand": "Ecovacs 科沃斯", "brand_raw": "ECOVACS", "item": "GOAT O800 RTK", "units": 2195, "value": 1292730, "price": 589}, {"rank": 6, "brand": "Segway", "brand_raw": "SEGWAY", "item": "NAVIMOW I210 LIDAR", "units": 2055, "value": 1722122, "price": 838}, {"rank": 7, "brand": "Ecovacs 科沃斯", "brand_raw": "ECOVACS", "item": "GOAT A1600 LIDAR PRO", "units": 1968, "value": 1789187, "price": 909}, {"rank": 8, "brand": "Sunseeker", "brand_raw": "SUNSEEKER", "item": "V1", "units": 1839, "value": 691652, "price": 376}, {"rank": 9, "brand": "Ecovacs 科沃斯", "brand_raw": "ECOVACS", "item": "GOAT O1200 LIDAR PRO", "units": 1827, "value": 1619743, "price": 887}, {"rank": 10, "brand": "MOVA（我方）", "brand_raw": "MOVA", "item": "VIAX 250", "units": 1764, "value": 805115, "price": 456}, {"rank": 11, "brand": "Segway", "brand_raw": "SEGWAY", "item": "NAVIMOW I208 LIDAR", "units": 1663, "value": 1514988, "price": 911}, {"rank": 12, "brand": "Ecovacs 科沃斯", "brand_raw": "ECOVACS", "item": "GOAT A1600 LIDAR PRO CARE KIT", "units": 1637, "value": 1628112, "price": 995}, {"rank": 13, "brand": "追觅 dreame（我方）", "brand_raw": "DREAME", "item": "A1 PRO", "units": 1552, "value": 1276511, "price": 822}, {"rank": 14, "brand": "MOVA（我方）", "brand_raw": "MOVA", "item": "VIAX 500", "units": 1456, "value": 772601, "price": 531}, {"rank": 15, "brand": "Kress", "brand_raw": "KRESS", "item": "KR260ES", "units": 1395, "value": 1959582, "price": 1405}, {"rank": 16, "brand": "WORX", "brand_raw": "WORX", "item": "WR303E", "units": 1287, "value": 716721, "price": 557}, {"rank": 17, "brand": "Tradebrand 自有品牌", "brand_raw": "TRADEBRAND", "item": "TRADEBRAND", "units": 1268, "value": 262833, "price": 207}, {"rank": 18, "brand": "WORX", "brand_raw": "WORX", "item": "WR305E", "units": 1257, "value": 896969, "price": 714}, {"rank": 19, "brand": "Ecovacs 科沃斯", "brand_raw": "ECOVACS", "item": "GOAT O600 RTK", "units": 1244, "value": 659915, "price": 531}, {"rank": 20, "brand": "MOVA（我方）", "brand_raw": "MOVA", "item": "ULTRA 800", "units": 1229, "value": 907334, "price": 738}, {"rank": null, "brand": "OTHERS", "brand_raw": "OTHERS", "item": "OTHERS", "units": 39313, "value": 50821158, "price": 1293}], "top_value": [{"rank": 1, "brand": "Husqvarna", "brand_raw": "HUSQVARNA", "item": "AUTOMOWER 430V NERA", "units": 1097, "value": 4379422, "price": 3993}, {"rank": 2, "brand": "Husqvarna", "brand_raw": "HUSQVARNA", "item": "AUTOMOWER 308V", "units": 2477, "value": 3199169, "price": 1292}, {"rank": 3, "brand": "Husqvarna", "brand_raw": "HUSQVARNA", "item": "AUTOMOWER 405VE NERA", "units": 1109, "value": 2824070, "price": 2547}, {"rank": 4, "brand": "Segway", "brand_raw": "SEGWAY", "item": "NAVIMOW I206E AWD", "units": 3281, "value": 2265597, "price": 691}, {"rank": 5, "brand": "Kress", "brand_raw": "KRESS", "item": "KR260ES", "units": 1395, "value": 1959582, "price": 1405}, {"rank": 6, "brand": "Ecovacs 科沃斯", "brand_raw": "ECOVACS", "item": "GOAT A1600 LIDAR PRO", "units": 1968, "value": 1789187, "price": 909}, {"rank": 7, "brand": "MOVA（我方）", "brand_raw": "MOVA", "item": "LIDAX ULTRA 1000", "units": 2260, "value": 1745477, "price": 772}, {"rank": 8, "brand": "Husqvarna", "brand_raw": "HUSQVARNA", "item": "AUTOMOWER 410VE NERA", "units": 584, "value": 1737219, "price": 2977}, {"rank": 9, "brand": "Segway", "brand_raw": "SEGWAY", "item": "NAVIMOW I210 LIDAR", "units": 2055, "value": 1722122, "price": 838}, {"rank": 10, "brand": "Segway", "brand_raw": "SEGWAY", "item": "NAVIMOW I105E", "units": 2653, "value": 1646903, "price": 621}, {"rank": 11, "brand": "Ecovacs 科沃斯", "brand_raw": "ECOVACS", "item": "GOAT A1600 LIDAR PRO CARE KIT", "units": 1637, "value": 1628112, "price": 995}, {"rank": 12, "brand": "Ecovacs 科沃斯", "brand_raw": "ECOVACS", "item": "GOAT O1200 LIDAR PRO", "units": 1827, "value": 1619743, "price": 887}, {"rank": 13, "brand": "Segway", "brand_raw": "SEGWAY", "item": "NAVIMOW I208 LIDAR", "units": 1663, "value": 1514988, "price": 911}, {"rank": 14, "brand": "Kress", "brand_raw": "KRESS", "item": "KR281E", "units": 468, "value": 1351750, "price": 2888}, {"rank": 15, "brand": "Ecovacs 科沃斯", "brand_raw": "ECOVACS", "item": "GOAT O800 RTK", "units": 2195, "value": 1292730, "price": 589}, {"rank": 16, "brand": "追觅 dreame（我方）", "brand_raw": "DREAME", "item": "A1 PRO", "units": 1552, "value": 1276511, "price": 822}, {"rank": 17, "brand": "Husqvarna", "brand_raw": "HUSQVARNA", "item": "AUTOMOWER 312V", "units": 762, "value": 1203737, "price": 1581}, {"rank": 18, "brand": "Sunseeker", "brand_raw": "SUNSEEKER", "item": "X5 GEN2", "units": 472, "value": 959092, "price": 2030}, {"rank": 19, "brand": "Husqvarna", "brand_raw": "HUSQVARNA", "item": "AUTOMOWER 450V NERA", "units": 199, "value": 937753, "price": 4703}, {"rank": 20, "brand": "Segway", "brand_raw": "SEGWAY", "item": "NAVIMOW CM240M1", "units": 133, "value": 916907, "price": 6911}, {"rank": null, "brand": "OTHERS", "brand_raw": "OTHERS", "item": "OTHERS", "units": 45832, "value": 42224347, "price": 921}], "top_brand_models": [{"brand": "Husqvarna", "models": 6, "units": 6228, "value": 14281370, "avg_price": 2293}, {"brand": "Segway", "models": 5, "units": 9785, "value": 8066517, "avg_price": 824}, {"brand": "Ecovacs 科沃斯", "models": 4, "units": 7627, "value": 6329772, "avg_price": 830}, {"brand": "Kress", "models": 2, "units": 1863, "value": 3311332, "avg_price": 1777}, {"brand": "MOVA（我方）", "models": 1, "units": 2260, "value": 1745477, "avg_price": 772}, {"brand": "追觅 dreame（我方）", "models": 1, "units": 1552, "value": 1276511, "avg_price": 822}, {"brand": "Sunseeker", "models": 1, "units": 472, "value": 959092, "avg_price": 2032}], "amz_shares": {"Ecovacs 科沃斯": {"share": 7.6, "units": 4814, "us_share": 6.8, "asins": 12}, "Gardena": {"share": 2.3, "units": 2496, "us_share": 3.5, "asins": 11}, "Husqvarna": {"share": 0.7, "units": 684, "us_share": 1.0, "asins": 7}, "MOVA（我方）": {"share": 8.2, "units": 8168, "us_share": 11.6, "asins": 7}, "Mammotion": {"share": 17.9, "units": 13628, "us_share": 19.4, "asins": 16}, "Segway": {"share": 29.5, "units": 18045, "us_share": 25.6, "asins": 17}, "Sunseeker": {"share": 1.1, "units": 1566, "us_share": 2.2, "asins": 2}, "WORX": {"share": 8.6, "units": 5381, "us_share": 7.6, "asins": 11}, "eufy 安克": {"share": 13.4, "units": 6825, "us_share": 9.7, "asins": 3}, "追觅 dreame（我方）": {"share": 3.6, "units": 1970, "us_share": 2.8, "asins": 2}, "其他品牌": {"share": 7.1, "units": 6837, "us_share": 9.7, "asins": 92}}, "amz_overview": {"value_m": 64.5, "units_k": 70.4, "asins": 180, "brands": 42}, "amz_units_yoy": null, "amz_yoy_cover": 0, "price_dist": [{"bucket": "<500", "amz": 17.2}, {"bucket": "500–1000", "amz": 55.1}, {"bucket": "1000–1500", "amz": 17.5}, {"bucket": "1500–2500", "amz": 9.8}, {"bucket": ">2500", "amz": 0.4}], "avg_price": {"amz": 916, "gfk_market": 1034.0}, "top20_cov": 48, "premium": [{"brand": "Husqvarna", "item": "AUTOMOWER 430V NERA", "price": 3993, "units": 1097}, {"brand": "Husqvarna", "item": "AUTOMOWER 405VE NERA", "price": 2547, "units": 1109}, {"brand": "Husqvarna", "item": "AUTOMOWER 410VE NERA", "price": 2977, "units": 584}, {"brand": "Kress", "item": "KR281E", "price": 2888, "units": 468}, {"brand": "Husqvarna", "item": "AUTOMOWER 450V NERA", "price": 4703, "units": 199}, {"brand": "Segway", "item": "NAVIMOW CM240M1", "price": 6911, "units": 133}]};
+/* ================= i18n ================= */
+const EN = {"德国割草机器人市场看板": "Germany Robotic Lawn Mower Market Dashboard", "大盘月销售额（2026.6）": "Market monthly sales value (Jun 2026)", "2026 上半年累计": "H1 2026 cumulative", "我方 H1 销售额占比（MOVA+追觅）": "Our H1 value share (MOVA + dreame)", "头部集中度：前 3 / 前 5 品牌合计份额": "Concentration: combined share of top 3 / top 5 brands", "▲ 同比 +16.8%": "▲ YoY +16.8%", "▲ 同比 +17.8%": "▲ YoY +17.8%", "60% / 81%（H1 2025）· 缓慢分散": "60% / 81% (H1 2025) · slowly de-concentrating", "General ｜ 大盘四年成长轨迹 略": "General | Four-year market growth", "核心结论": "Key takeaways", "市场四年翻倍：年销售额 222 Million €（2022，11 个月口径）→ 419 Million €（2025 全年），年销量 21 万 → 37 万台。": "The market doubled in four years: annual value 222 Million € (2022, 11-month basis) → 419 Million € (full-year 2025); annual units 210k → 370k.", "季节性极强，4–6 月旺季占全年约一半；长期增长主要靠旺季逐年抬高。": "Highly seasonal — the Apr–Jun peak accounts for about half of the year; long-term growth is driven mainly by the peak rising each year.", "2022 年仅含 2–12 月（11 个月）；2022 年早期月度数据经四舍五入误差较大（±15–25%），只看趋势，不做精确比较。": "2022 covers Feb–Dec only (11 months); early-2022 monthly figures carry large rounding error (±15–25%) — use for trend only, not precise comparison.", "年度销售额（Million €）": "Annual sales value (Million €)", "年度销量（千台）": "Annual sales units (thousands)", "月度销售额（Million €，53 个月）": "Monthly sales value (Million €, 53 months)", "① 大盘风向标 ｜ 2025→2026 的市场变化": "① Market direction | The 2025→2026 shift", "2026 上半年大盘 295 Million €，同比 +17.8%；旺季 3–6 月每月保持 +14%~+31% 正增长，市场仍在扩容。": "H1 2026 market reached 295 Million €, +17.8% YoY; every peak-month from Mar to Jun grew +14%~+31% — the market is still expanding.", "但增速较 2025 同期（+30%~+70%）明显回落，进入高基数下的中速增长新常态。": "But growth has decelerated sharply vs 2025 (+30%~+70% in the same period) — a mid-growth new normal on a high base.", "近 13 个月大盘销售额（Million €）": "Market sales value, last 13 months (Million €)", "销售额同比增速（%）": "YoY sales-value growth (%)", "② 竞争格局 ｜ 全景梯队 + 重点对手": "② Competitive landscape | Tiers + key rivals", "① 静态格局（2026 H1，销售额占比）": "① Static landscape (H1 2026, value share)", "一家独大、中端混战：Husqvarna 27% 居首（约 80 Million €）；具名品牌中 Segway 17% 第二，我方 MOVA 8%＋追觅 4%＝12%，与 WORX 12% 持平、已跻身主力梯队；Ecovacs 10%、Kress 6%、Gardena 3%；另有其他品牌合计 13%。": "One leader, mid-pack scrum: Husqvarna leads at 27% (~80 Million €); Segway is second among named brands at 17%; our MOVA 8% + dreame 4% = 12%, level with WORX at 12% and now in the main tier; Ecovacs 10%, Kress 6%, Gardena 3%; other brands total 13%.", "我方是最大赢家：5%→12%（+7pp）、约 13→35 Million €（+23M、近三倍），是所有具名品牌中绝对额增量最大的一家，MOVA 2%→8% 为主力。": "We are the biggest winner: 5%→12% (+7pp), ~13→35 Million € (+23M, nearly 3x) — the largest absolute gain of any named brand, led by MOVA 2%→8%.", "② 一年动态（H1 2025 → H1 2026）": "② One-year dynamics (H1 2025 → H1 2026)", "霸主停滞、格局分散：Husqvarna 31%→27% 但靠大盘 +18% 托住，金额约 78→80 Million € 基本持平；Gardena 6%→3%（约 15→9M）；前 3 品牌合计份额 60%→57%。": "Stalled leader, fragmenting field: Husqvarna 31%→27%, held flat in value (~78→80 Million €) only by the +18% market growth; Gardena 6%→3% (~15→9M); top-3 combined share 60%→57%.", "线上另成格局：Mammotion、eufy、Sunseeker 在 GfK 全市场榜未单列（计入其他品牌），但在线上分别做到 17.9% / 13.4% / 1.1%，见板块⑤。": "Online is a different landscape: Mammotion, eufy and Sunseeker are not broken out in the GfK total-market table (folded into Other brands), yet reach 17.9% / 13.4% / 1.1% online — see section ⑤.", "品牌销售额：H1 2025 vs H1 2026（Million €，估算）": "Brand sales value: H1 2025 vs H1 2026 (Million €, estimated)", "品牌月度销售额占比迁徙（2025.6–2026.6，%）": "Brand monthly value-share migration (Jun 2025–Jun 2026, %)", "左图品牌 H1 销售额 = 大盘 H1 销售额 × 品牌销售额占比（估算，非 GfK 直接披露）；半年加总摊薄了占比取整误差（±0.5pp）。右图为销售额占比 %。": "Left chart: brand H1 value = market H1 value × brand value share (estimated, not directly disclosed by GfK); H1 aggregation dilutes the ±0.5pp share-rounding error. Right chart shows value share %.", "重点对手追踪（H1 销售额占比 %）": "Key-rival tracker (H1 value share %)", "品牌": "Brand", "变化": "Change", "TOP20 上榜型号的品牌站位（2026.6，精确值）": "Brand footprint among TOP20 models (Jun 2026, exact)", "上榜型号": "Models listed", "销量(台)": "Units", "金额(Million €)": "Value (Million €)", "加权均价": "Wgt. avg price", "仅统计销售额 TOP20 榜内型号，非全品牌口径。": "Only models on the value TOP20 list; not a whole-brand measure.", "品牌定位站位（价格 × 渠道）": "Brand positioning (price × channel)", "定位梯队": "Positioning tier", "TOP20 上榜型号价格区间": "Price range of TOP20 models", "主力渠道": "Primary channel", "高端专业": "Premium / professional", "中端主流": "Mid-market mainstream", "两个定位梯队：高端专业＝Husqvarna（上榜型号 €1,292–4,703）、Kress（€1,405–2,888），靠专业经销商守利润；中端主流 €500–1,000＝Segway / Ecovacs / WORX 与我方，也是本轮增长最集中的甜区。": "Two tiers: premium/professional — Husqvarna (listed models €1,292–4,703) and Kress (€1,405–2,888), defending margin via dealers; €500–1,000 mainstream — Segway / Ecovacs / WORX and us, the sweet spot where current growth concentrates.", "价格为 TOP20 两张榜（销量 / 销售额）上榜型号的标价区间（2026.6 单月），非全品牌均价；未上榜不代表无销售。另有经销商白牌 Tradebrand（€207）。": "Price ranges are list-price spans of models on either TOP20 list (units / value) for Jun 2026 only — not whole-brand averages; absence from the lists does not mean no sales. Also includes dealer private label Tradebrand (€207).", "TOP20 销量榜 / 销售额榜产品「销量 × 销售额」站位（2026 年 6 月，气泡大小 = 单价）": "Units-TOP20 / value-TOP20 models on a units × value plane (Jun 2026; bubble size = unit price)", "仅含两张 TOP20 榜的去重上榜型号（28 款，2026 年 6 月单月）。淡色区块＝当月 TOP20 上榜门槛（按两张榜各自第 20 名动态划分）；机型至少上一张榜，故左下角为空。销量 TOP20 合计约覆盖大盘 48% 台数，不代表全市场。虚线为等价位参考线（斜率＝单价），越陡单价越高；气泡越大单价越高。三区：量额齐高（双榜在列）／高价高收入（仅销售额榜，Husqvarna NERA、Kress）／薄利多销（仅销量榜，我方 / WORX / 白牌）。": "28 de-duplicated models appearing on either TOP20 list (Jun 2026). Shaded bands = that month's TOP20 thresholds (set dynamically by the 20th model on each list); every model makes at least one list, so the bottom-left is empty. The units TOP20 covers ~48% of market units — not the whole market. Dashed lines are iso-price references (slope = unit price): steeper = pricier; larger bubble = pricier. Three zones: high on both (on both lists) / high price, high revenue (value list only — Husqvarna NERA, Kress) / thin margin, high volume (units list only — us / WORX / private label).", "我方的短板＝高端与赚钱效率：4 款上榜型号全部 ≤ €822、无 €1,500+ 机型；Husqvarna 一款 430V NERA（1,097 台 / 4.38M）≈ 我方 4 款合计（6,709 台 / 4.23M），约 1/6 台数做出同等金额——向上突破需产品与经销渠道一起补。": "Our weakness = premium and monetisation: all 4 listed models are ≤€822, with nothing above €1,500; one Husqvarna 430V NERA (1,097 units / 4.38M) ≈ our 4 models combined (6,709 units / 4.23M) — one-sixth the units for the same revenue. Moving up requires both product and dealer-channel build-out.", "注：Kress 与 WORX 同属中资宝时得 Positec（Kress 为其 2017 年收购的 1928 年德国老牌），分别卡位专业渠道与 DIY 大卖场；Gardena 属 Husqvarna 集团；MOVA 与追觅（dreame）为同一家（我方）。": "Note: Kress and WORX both belong to the Chinese-owned Positec Group (Kress is the 1928 German brand it acquired in 2017), positioned in dealers vs DIY mass retail respectively; Gardena belongs to the Husqvarna Group; MOVA and dreame are the same company (us).", "③ 技术趋势 ｜ 导航技术王座更迭": "③ Technology trends | The navigation crown changes hands", "① 静态格局（2026.6 技术结构）": "① Static landscape (Jun 2026)", "视觉系已成主流：视觉 26%＋融合 30%＝56%；旧技术单GPS 11%＋随机 8%＝19% 退居边角；另有 激光雷达类占 24%（四大类之外的残差，GfK 不提供品牌明细，高增长但不可量化）。": "Vision is now mainstream: vision 26% + fusion 30% = 56%; legacy single-GPS 11% + random 8% = 19%, pushed to the margins; LiDAR-type is 24% (the residual outside the four classes — GfK provides no brand detail; fast-growing but not quantifiable).", "王座更迭：单GPS 51%→11%（6 月 −75%）、融合 10%→30%（+259%）、激光雷达类 3%→24%；视觉 22%→26%（+42%）稳健扩容。": "Regime change: single-GPS 51%→11% (−75% in June), fusion 10%→30% (+259%), LiDAR-type 3%→24%; vision 22%→26% (+42%) expanding steadily.", "融合赛道领导权换人：Kress 8%→26% 登顶，Husqvarna 从无到 21% 猛扑，Segway 35%→16% 掉队，MOVA 新进入到 11%。": "Fusion leadership changed hands: Kress 8%→26% to take the crown, Husqvarna surged from zero to 21%, Segway fell back 35%→16%, MOVA newly entered at 11%.", "转型暴露度（新兴视觉系占自身比例）：Sunseeker、Ecovacs、MOVA 均 100% 在视觉系，WORX 95%、Segway 96%、Kress 92%；Husqvarna 仅 62%，仍有约 7.1M 押在崩塌的单GPS 上（大象转身）；Bosch / Einhell / Gardena / 白牌仍以随机旧技术为主。": "Transition exposure (share of own sales in emerging vision types): Sunseeker, Ecovacs and MOVA are 100% vision-based; WORX 95%, Segway 96%, Kress 92%; Husqvarna only 62%, with ~7.1M still riding the collapsing single-GPS category (the elephant turns slowly); Bosch / Einhell / Gardena / private labels still rely mainly on legacy random tech.", "追觅（dreame）在四大类内几乎无记录——其视觉+雷达/纯视觉/单雷达产品主要被 GfK 归入无品牌明细的激光雷达类，故此板块品牌图中追觅\"不可见\"，是数据口径盲区，非未销售。": "Dreame has almost no records within the four navigation classes — its vision+LiDAR / pure-vision / single-LiDAR products are mostly assigned by GfK to the LiDAR class, which has no brand detail. dreame is therefore \"invisible\" in this section's brand charts: a data-coverage blind spot, not an absence of sales.", "② 一年动态（2025.6 → 2026.6）": "② One-year dynamics (Jun 2025 → Jun 2026)", "各导航类别月度销售额（Million €）": "Monthly sales value by navigation class (Million €)", "同比增速（%，2026 逐月）": "YoY growth (%, monthly 2026)", "品牌 × 导航类别 销售额（Million €，2026.6 估算）": "Brand × navigation class, sales value (Million €, Jun 2026 estimated)", "类别规模 × 品牌销售额占比，可跨类别直接比大小；列标题 ↑↓ 为该类 6 月同比。仅四大类，不含激光雷达类（无品牌明细）。": "Class size × brand value share, directly comparable across classes; ↑↓ in headers is the class's June YoY. Covers the four classes only, excluding the LiDAR class (no brand detail).", "各品牌新兴技术暴露度（条长＝销售额 M€）": "Each brand's exposure to emerging tech (bar length = value M€)", "条长＝该品牌四大类销售额，段上%＝新兴（视觉+融合，蓝）与衰退（随机+单GPS，灰）占比；仅四大类，故追觅不在图中。": "Bar length = the brand's value across the four classes; segment % = share of emerging (vision + fusion, blue) vs declining (random + single-GPS, grey). Four classes only, so dreame is absent.", "④ 渠道特点 ｜ 家电化进行时": "④ Channels | The \"consumer-electronics shift\" underway", "① 静态格局（2026.6）": "① Static landscape (Jun 2026)", "专业经销商（Dealer）仍占 51%（40M）刚过半，DIY 28%（22M）、大卖场 21%（16M），园艺中心可忽略。": "Dealers still hold 51% (40M), just over half; DIY 28% (22M), mass merchandisers 21% (16M); garden centres negligible.", "两种渠道阵营泾渭分明：Husqvarna / Kress / Stihl 的销售 100% 来自专业经销商；Ecovacs / WORX / 我方 / Mammotion / Sunseeker 100% 来自 DIY＋大卖场；Segway 是唯一两边都强的品牌。": "Two distinct channel camps: Husqvarna / Kress / Stihl sell 100% through dealers; Ecovacs / WORX / us / Mammotion / Sunseeker 100% through DIY + mass retail; Segway is the only brand strong on both sides.", "我方（MOVA+追觅）在大卖场合计 29%，已超 Ecovacs 25% 居该渠道第一；但在占半壁江山的专业经销商完全空白。": "We (MOVA + dreame) total 29% in mass merchandisers, overtaking Ecovacs at 25% to rank first there; yet we are entirely absent from dealers, which account for half the market.", "“家电化”迁移 6pp：大卖场 17%→21%（+45%）、DIY 26%→28%（+26%），合计 +6pp 恰等于 Dealer 让出的 57%→51%（Dealer 绝对额仅 +5%、见顶停滞）。": "A 6pp \"consumer-electronics shift\": mass merchandisers 17%→21% (+45%) and DIY 26%→28% (+26%); the combined +6pp exactly matches the share dealers gave up (57%→51%), while dealer value grew only +5% — plateauing.", "专业堡垒在松动：Dealer 内 Husqvarna 62%→58%、Kress 22%→17%，Segway 9%→14%、Stihl 新进至 9%；大卖场 MOVA 11%→20% 紧逼 Ecovacs 32%→25%。": "The dealer fortress is loosening: within dealer, Husqvarna 62%→58%, Kress 22%→17%, Segway 9%→14%, Stihl newly at 9%; in mass merchandisers MOVA 11%→20% closes in on Ecovacs 32%→25%.", "冲高单价必须补本地经销与服务网络；Kress（1928 德国老牌、2017 起属宝时得、与 WORX 同门）是目前唯一打进专业渠道的中资背景品牌（17%）。": "Capturing higher price points requires building local dealer and service networks; Kress (the 1928 German brand, Positec-owned since 2017 and sister brand to WORX) is currently the only Chinese-backed brand inside the dealer channel (17%).", "各渠道月度销售额（Million €）": "Monthly sales value by channel (Million €)", "渠道销售额占比（Jun 2025 vs Jun 2026，虚线＝分界迁移）": "Channel value share (Jun 2025 vs Jun 2026; dashed line = boundary shift)", "品牌 × 渠道 销售额（Million €，2026.6 估算）": "Brand × channel, sales value (Million €, Jun 2026 estimated)", "渠道规模 × 品牌销售额占比，可跨渠道直接比大小；列标题 ↑↓ 为该渠道 6 月同比。": "Channel size × brand value share, directly comparable across channels; ↑↓ in headers is the channel's June YoY.", "各品牌渠道战略（条长＝销售额 M€）": "Each brand's channel strategy (bar length = value M€)", "条长＝该品牌四渠道销售额，段上%＝各渠道占比；一眼区分“专业堡垒派（蓝）”与“现代零售派（绿/橙）”。": "Bar length = the brand's value across all four channels; segment % = each channel's share. Instantly separates the \"dealer camp\" (blue) from the \"modern-retail camp\" (green/orange).", "专业经销商 Dealer / Fachhändler": "Dealers", "独立园艺机械专卖店、Husqvarna/Stihl 专营店及签约服务商；提供勘测、埋线安装、维保。高端大花园与承包商客群，门槛高。Husqvarna 58% 的大本营，占大盘 51%，同比仅 +5%。": "Independent garden-machinery specialists, Husqvarna/Stihl franchise stores and authorised service partners; site survey, boundary-wire install and maintenance. High-end large-garden and contractor customers; high entry barriers. Husqvarna's stronghold at 58%; 51% of the market and only +5% YoY.", "DIY 超市": "DIY", "Bauhaus、Obi、Hornbach、Toom、Hagebau。中产自助安装、性价比主战场，+26%。Segway 33%、WORX 17%，MOVA 11%。": "Bauhaus, Obi, Hornbach, Toom, Hagebau. Middle-class self-install and the value-for-money battleground; +26%. Segway 33%, WORX 17%, MOVA 11%.", "综合大卖场 / 家电连锁": "Mass merchandisers / electronics chains", "Kaufland、Metro、MediaMarkt、Saturn、Otto。割草机器人被当“智能家电”购买，+45% 增速最快。Ecovacs 25%、MOVA 20%、WORX 19%。": "Kaufland, Metro, MediaMarkt, Saturn, Otto. Robotic mowers bought as \"smart home appliances\"; the fastest channel at +45%. Ecovacs 25%, MOVA 20%, WORX 19%.", "园艺中心": "Garden centres", "Dehner、Pflanzen-Kölle。以花草苗木为主，大型机械销量可忽略（0.1 Million €），Gardena 一家 100%。": "Dehner, Pflanzen-Kölle. Focused on plants and gardening supplies; large-machinery sales negligible (0.1 Million €), 100% Gardena.", "④+ 剔除专业经销商 Dealer ｜ 德国零售大盘真相 新视角": "④+ Excluding dealers | The true German retail market", "口径：GfK 四渠道中剔除「专业经销商 Dealer（农机园艺专卖）」，仅保留 DIY 超市＋综合大卖场＋园艺中心，即我方可直接触达的现代零售大盘。品牌金额＝渠道总额 × 渠道内品牌份额（估算，与④口径一致）。受底表所限，仅 4 个快照（2025.6、2026.4–6），无长历史。": "Definition: from GfK's four channels, exclude dealers (motor/garden-machinery specialists) and keep DIY + mass merchandisers + garden centres — the modern retail market we can directly reach. Brand value = channel total × brand share within the channel (estimated, consistent with section ④). Source data allows only 4 snapshots (Jun 2025, Apr–Jun 2026); no long history.", "① 增长引擎": "① Growth engine", "剔除 Dealer 后零售大盘 2026.6 为 38M€，占全渠道 49%；同比 +33%，而全渠道仅 +17%、Dealer 仅 +5%——这一轮市场增长几乎全部由零售渠道贡献，Dealer 是停滞的半壁江山。": "Excluding dealer, the retail market was 38M€ in Jun 2026, 49% of the all-channel market; it grew +33% YoY vs only +17% for all channels and +5% for dealer — almost all of this cycle's growth comes from retail, while dealer is the stalled half of the market.", "② 品牌格局重排": "② The brand ranking reshuffles", "零售口径下 Segway 23% 第一、我方（MOVA+追觅）22% 第二，差距仅 1.2pp；Ecovacs 19%、WORX 18% 紧随。去年同期的第一是 WORX（21%），一年间 Segway 与我方完成反超。": "On the retail basis, Segway is #1 at 23% and we (MOVA + dreame) are #2 at 22%, only 1.2pp behind; Ecovacs 19% and WORX 18% follow. WORX was #1 a year ago (21%) — Segway and we overtook within a year.", "Husqvarna（全渠道 30% 第一）、Kress（9%）、Stihl（5%）在零售口径份额为 0——剔除 Dealer 后传统专业派集体消失，我方与 Ecovacs、WORX 的全渠道份额近乎翻倍。": "Husqvarna (#1 at 30% all-channel), Kress (9%) and Stihl (5%) have zero share on the retail basis — once dealer is removed the traditional dealer camp vanishes, and the all-channel shares of us, Ecovacs and WORX nearly double.", "Gardena 零售份额 11%→4%（-7pp）崩塌，Sunseeker 从 0 新进至 2.3%；Mammotion 3%→4%。": "Gardena's retail share collapsed 11%→4% (−7pp); Sunseeker newly entered at 2.3% from zero; Mammotion 3%→4%.", "③ 季节节奏": "③ Seasonal rhythm", "零售渠道在安装旺季前的 4–5 月占全渠道六成（57%/60%），6 月 Dealer 凭借安装/维保旺季反超至 51%——两个阵营卖的是不同季节、不同客群。": "Before the installation peak, retail channels account for ~60% of all-channel value in Apr–May (57%/60%); in June dealer rebounds to 51% on the install/service peak. The two camps sell into different seasons and different customers.", "④ 战略含义": "④ Strategic implication", "在「可触达大盘」里我方已是第二、咬住第一；剩下唯一的空白增量是 40M€ 的 Dealer 堡垒（Husqvarna 58% 的基本盘、+5% 停滞），破门需本地经销与服务网络，Segway（Dealer 依赖度 39%）是唯一两栖样本。": "In the \"addressable market\" we are already #2, closing on #1; the only remaining white space is the 40M€ dealer fortress (Husqvarna's 58% base, stalled at +5%). Breaking in requires local dealer and service networks; Segway (39% dealer dependence) is the only two-channel template.", "Dealer vs 零售大盘：月度销售额堆叠（Million €）": "Dealer vs retail market: stacked monthly value (Million €)", "柱内%＝零售口径占全渠道比例；2026.6 同比：零售 +33% ｜ 全渠道 +17% ｜ Dealer +5%。": "In-bar % = retail share of all-channel value; Jun 2026 YoY: retail +33% | all channels +17% | dealer +5%.", "品牌份额：全渠道 vs 剔除Dealer零售口径（2026.6）": "Brand share: all-channel vs retail ex-dealer (Jun 2026)", "灰＝全渠道份额，彩＝零售口径份额；Husqvarna/Kress/Stihl 在零售口径归零，我方/Ecovacs/WORX 近翻倍。": "Grey = all-channel share, colour = retail-basis share; Husqvarna/Kress/Stihl fall to zero on the retail basis, while us/Ecovacs/WORX nearly double.", "Dealer × 零售｜品牌双向站位（2026.6 销售额 M€）": "Dealer × retail | diverging brand bars (Jun 2026 value, M€)", "每行一个品牌，蓝条向左＝专业经销商 Dealer 额，绿条向右＝零售（DIY＋大卖场＋园艺）额，条末标数值；我方行以粉色高亮。绝大多数品牌只在一侧有销售，Segway 是唯一两渠道都具规模的两栖品牌。": "One row per brand: blue bar to the left = dealer value, green bar to the right = retail value (DIY + mass + garden centres), values at bar ends; our row is highlighted in pink. Almost every brand sells on only one side; Segway is the only brand with scale in both channels.", "⑤ 线上线下互相印证 ｜ GfK × Amazon.de": "⑤ Online–offline cross-validation | GfK × Amazon.de", "GfK 为德国线下 POS 面板（H1 2026 份额），Amazon.de 为单一线上平台监测（2026.6）。两源口径不同、不可相加，仅做方向性印证。": "GfK is the German offline POS panel (H1 2026 shares); Amazon.de is monitoring of a single online platform (Jun 2026). The two sources use different definitions, cannot be added, and are used only for directional cross-validation.", "两套格局：Husqvarna 线下 27% 王座、线上仅 0.7%；Segway 双榜第一（17% / 29.5%）；Mammotion、eufy 线上第 2、3（17.9% / 13.4%）却线下未单列。": "Two different landscapes: Husqvarna holds the offline crown at 27% but is only 0.7% online; Segway is #1 on both (17% / 29.5%); Mammotion and eufy are #2 and #3 online (17.9% / 13.4%) but are not broken out offline.", "我方两源互证：线下 5%→12%，线上合计 11.8% 列第 3，增长真实、线上线下同步。": "Our growth is confirmed by both sources: offline 5%→12%, online 11.8% combined at #3 — real, and synchronised online and offline.", "体量与价格：Amazon 月销 ≈ 线下大盘 83%；线上均价 €916 低于线下 €1034，€2500+ 高端几乎只在线下 Dealer。": "Scale and price: Amazon monthly value ≈ 83% of the offline market; online avg price €916 is below offline €1034, and the €2,500+ premium tier exists almost only at offline dealers.", "品牌「线下 vs 线上」份额（GfK 线下 H1 vs Amazon.de，虚线＝两边相等）": "Brand share, offline vs online (GfK offline H1 vs Amazon.de; dashed line = parity)", "对角线上方＝线上更强，下方＝线下更强；贴轴者为该侧未单列（线下 Mammotion / eufy / Sunseeker，线上 Kress）。GfK「其他品牌」13% 与 Amazon「其他」7.1% 为不同残差口径，未纳入对比。": "Above the diagonal = stronger online; below = stronger offline; brands on an axis are not broken out on that side (Mammotion / eufy / Sunseeker offline; Kress online). GfK \"Other brands\" 13% and Amazon \"Other\" 7.1% use different residual definitions and are excluded from the comparison.", "B · 大盘方向": "B · Market direction", "Amazon 月销 ≈ 线下大盘 83% ｜ Amazon 同比缺失，仅比体量": "Amazon monthly value ≈ 83% of offline market | Amazon YoY unavailable — scale comparison only", "线下 +17.8%": "Offline +17.8%", "C · 价格带": "C · Price band", "线上 €916 vs 线下 €1034": "Online €916 vs offline €1034", "线上集中 €500–1000 甜区 ｜ €2500+ 高端仅在线下": "Online concentrates in the €500–1000 sweet spot | €2,500+ premium is offline-only", "D · 我方增长互证": "D · Cross-validation of our growth", "线下 5%→12% ｜ 线上 11.8%": "Offline 5%→12% | online 11.8%", "MOVA 8.2 + 追觅 3.6，线上列第 3，与线下跃升一致": "MOVA 8.2 + dreame 3.6, #3 online — consistent with the offline jump", "数据口径与精度说明": "Data definitions and precision notes", "看板中所有品牌占比均为销售额占比，非台数（销量）占比；高价品牌占比被相对放大。占比为整数百分比，单个数值误差 ±0.5pp，月度加总可能不恰为 100%。": "All brand shares in this dashboard are value (sales-amount) shares, not unit shares; high-price brands are relatively amplified. Shares are rounded integers with ±0.5pp error, so monthly totals may not sum exactly to 100%.", "overview 月表的金额（Million）、销量（千台）为四舍五入值：2022 年小月份误差可达 ±15–25%，仅用于趋势；2025 年后误差 ±1% 左右。": "The monthly value (Million) and units (thousands) in the overview table are rounded: small months in 2022 can carry ±15–25% error (trend use only); from 2025 the error is around ±1%.", "导航类别仅 CAMERA / RANDOM / GPS / CAMERA+GPS 四类，缺 LASER 激光；2026 年残差约 24%，图表中以“LASER 等（残差）”虚线柱提示，残差不等于 LASER 精确规模。": "Navigation covers only four classes — CAMERA / RANDOM / GPS / CAMERA+GPS — and omits LASER; the 2026 residual is ~24%, shown as a dashed \"LASER etc. (residual)\" bar. The residual is not a precise LASER size.", "TOP20 两表为 2026 年 6 月单月精确值（销量/销售额到个位，单价取整欧元）；TOP20 销量榜覆盖大盘约一半台数。": "Both TOP20 tables are exact Jun-2026 single-month values (units/value to the unit, price rounded to whole euros); the units TOP20 covers about half of market units.", "Amazon 数据为 0703 期 180 个 BSR 监测 ASIN 的估算月销量/月销售额，品牌名已做归一化（NAVIMOW 并入 Segway；eufy 为安克旗下，单列；MOVA 与追觅分列）。监测样本不等于 Amazon.de 全量，更不等于全德线上。": "Amazon figures are estimated monthly units/value for 180 BSR-monitored ASINs (0703 issue); brand names are normalised (NAVIMOW merged into Segway; eufy is Anker-owned and shown separately; MOVA and dreame shown separately). The monitored sample is not all of Amazon.de, much less all of German online.", "GfK 面板（线下）与 Amazon（线上）口径不同，不可相加；本看板对照仅用于方向性印证。": "The GfK panel (offline) and Amazon (online) use different definitions and cannot be added; comparisons here are for directional validation only."};
+const ENJ = {"千台": "k units", "同比": "YoY", "我方合计 MOVA+追觅": "Us total: MOVA+dreame", "上榜型号": "Models listed", "销量(台)": "Units", "金额(Million €)": "Value (Million €)", "加权均价": "Wgt. avg price", "品牌": "Brand", "变化": "Change", "仅统计销售额 TOP20 榜内型号，非全品牌口径。": "Only models on the value TOP20 list; not a whole-brand measure.", "双榜在列 · 量额齐高": "On both lists · high units & value", "仅销售额榜 · 高价高收入": "Value list only · high price, high revenue", "仅销量榜 · 薄利多销": "Units list only · thin margin, high volume", "台": " units", "销量（台）": "Units", "销售额（Million €）": "Sales value (Million €)", "视觉 CAMERA": "Vision CAMERA", "随机 RANDOM": "Random RANDOM", "单GPS": "Single-GPS", "融合 CAMERA+GPS": "Fusion CAMERA+GPS", "激光雷达（残差·无明细）": "LiDAR type (residual, no brand detail)", "整体": "Total", "视觉": "Vision", "随机": "Random", "融合": "Fusion", "激光雷达": "LiDAR", "1月": "Jan", "2月": "Feb", "3月": "Mar", "4月": "Apr", "5月": "May", "6月": "Jun", "随机/边界 ↓38%": "Random/boundary ↓38%", "单GPS ↓75%": "Single-GPS ↓75%", "视觉 ↑42%": "Vision ↑42%", "融合 ↑259%": "Fusion ↑259%", "品牌（按规模）": "Brand (by size)", "合计": "Total", "新兴 视觉+融合": "Emerging: vision + fusion", "衰退 随机+单GPS": "Declining: random + single-GPS", "占自身": "share of own total ", "销售额（Million €，四大类合计）": "Sales value (Million €, four classes)", "综合大卖场": "Mass merchandisers", "DIY 超市": "DIY", "园艺中心": "Garden centres", "专业经销商": "dealers", "DIY超市 ↑26%": "DIY ↑26%", "综合大卖场 ↑45%": "Mass merch. ↑45%", "园艺中心 ↓7%": "Garden centres ↓7%", "专业经销商 ↑5%": "dealers ↑5%", "销售额（Million €，四渠道合计）": "Sales value (Million €, four channels)", "专业经销商 Dealer": "dealers", "零售（DIY＋大卖场＋园艺）": "Retail (DIY + mass + garden)", "零售 ": "", "全渠道份额": "All-channel share", "零售口径份额（剔除Dealer）": "Retail-basis share (ex-dealer)", "销售额份额（%）": "Value share (%)", "← 专业经销商 Dealer": "← dealers", "零售（DIY＋大卖场＋园艺） →": "Retail (DIY + mass + garden) →", "线下未单列": "not broken out offline", "线上未单列": "not broken out online", "两边相等 y=x": "parity y=x", "GfK 线下 H1 2026 份额（%）": "GfK offline H1 2026 share (%)", "Amazon.de 2026.6 份额（%）": "Amazon.de Jun 2026 share (%)", "线下": "Offline", "线上": "Online", "未单列": "n/b", "中端": "Mid-market", "高端专业": "Premium/pro", "中端主流": "Mainstream mid", "中端偏入门": "Entry-mid", "入门园艺": "Entry gardening", "中端走量": "Volume mid", "DIY / 大卖场": "DIY / mass", "DIY / 大卖场 / 线上": "DIY / mass / online", "DIY 超市 / 线上": "DIY / online", "大卖场 / 线上": "Mass / online", "一家独大、中端混战": "One leader, mid-pack scrum", "两个定位梯队": "Two positioning tiers", "两极分化": "Polarised", "不代表全市场": "not the whole market", "不可相加": "not additive", "专业堡垒在松动": "dealer fortress loosening", "王座更迭": "Crown changes hands", "转型暴露度": "Transition exposure", "现代零售大盘": "modern retail market", "霸主停滞、格局分散": "Stalled leader, fragmenting field", "量额齐高": "High units & value", "高价高收入": "High price, high revenue", "新视角": "New lens", "略": "brief", "销售额占比": "Value share", "本期无上榜型号": "No listed models this period", "激光雷达类占 24%": "LiDAR type = 24%", "融合赛道领导权换人": "Fusion leadership changes hands", "视觉系已成主流": "Vision is now mainstream", "2026 年 6 月单月": "Jun 2026 single month", "2026 上半年大盘": "H1 2026 market", "我方 MOVA 8%＋追觅 4%＝12%，与 WORX 12% 持平、已跻身主力梯队": "Our MOVA 8% + dreame 4% = 12%, level with WORX 12% and now in the main tier", "数据源：GfK 德国面板（线下 POS）2022.2–2026.6 ｜ 线上印证：Amazon.de 监测 2026.6（0703 期，180 个 ASIN）｜ 销售额单位 Million €，所有品牌占比均为销售额占比": "Source: GfK Germany panel (offline POS) Feb 2022–Jun 2026 | Online cross-check: Amazon.de monitoring Jun 2026 (0703 issue, 180 ASINs) | Value in Million €; all brand shares are value shares", "€1,292–4,703（6 款，加权约 €2,293）": "€1,292–4,703 (6 models, wgt. avg ~€2,293)", "€1,405–2,888（2 款，约 €1,777）": "€1,405–2,888 (2 models, ~€1,777)", "€621–911（另有 €6,911 商用旗舰）": "€621–911 (plus a €6,911 commercial flagship)", "€376 走量 / €2,030 高端": "€376 volume / €2,030 premium"};
+const BR = {'Ecovacs 科沃斯':'Ecovacs','MOVA（我方）':'MOVA (us)','追觅 dreame（我方）':'dreame (us)',
+ '我方（MOVA+追觅）':'Us (MOVA+dreame)','其他品牌':'Others','Bosch 博世':'Bosch','Einhell 安海':'Einhell',
+ 'Tradebrand 自有品牌':'Tradebrand','eufy 安克':'eufy','追觅':'dreame'};
+const LANG = (new URLSearchParams(location.search)).get('lang') === 'en' ? 'en'
+  : (localStorage.getItem('gfk_lang') === 'en' ? 'en' : 'zh');
+const t = s => (LANG==='en' ? (EN[s] ?? ENJ[s] ?? BR[s] ?? s) : s);
+/* 静态 DOM 整段翻译：按元素 textContent 规范化后精确替换（含表格重渲染） */
+function transStatic(){
+ if(LANG!=='en') return;
+ const norm=s=>s.replace(/ /g,' ').replace(/\s+/g,' ').trim();
+ document.title='Germany Robotic Lawn Mower Market Dashboard · GfK 2022–2026';
+ const lookup=k=>EN[k]??ENJ[k]??BR[k]??null;
+ const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_ELEMENT,{
+   acceptNode:el=>{
+     if(['SCRIPT','STYLE','CANVAS','BUTTON'].includes(el.tagName)) return NodeFilter.FILTER_REJECT;
+     if(el.closest('.langbtn')) return NodeFilter.FILTER_REJECT;
+     if(el.querySelector('canvas')) return NodeFilter.FILTER_SKIP;  // 跳过含图表的容器，但继续翻译其内部 h3/note
+     if(!/[一-鿿]/.test(el.textContent)) return NodeFilter.FILTER_SKIP;
+     return NodeFilter.FILTER_ACCEPT;
+   }});
+ const targets=[];
+ while(walker.nextNode()) targets.push(walker.currentNode);
+ /* 最长（最外层整句）优先，命中后整段替换并跳过其子节点 */
+ targets.sort((a,b)=>b.textContent.length-a.textContent.length);
+ const done=new Set();
+ for(const el of targets){
+   if(done.has(el)) continue;
+   const v=lookup(norm(el.textContent));
+   if(v!=null){ el.textContent=v; done.add(el);
+     el.querySelectorAll('*').forEach(c=>done.add(c)); }
+ }
+}
+document.addEventListener('DOMContentLoaded',()=>{
+ document.querySelectorAll('#langbtn button').forEach(b=>{
+   if(b.dataset.lang===LANG) b.classList.add('on'); else b.classList.remove('on');
+   b.onclick=()=>{ localStorage.setItem('gfk_lang',b.dataset.lang);
+     location.href = location.pathname.split('/').pop() + '?lang=' + b.dataset.lang
+       + location.hash; location.reload(); };
+ });
+});
+/* ================ /i18n ================ */
 const COL = {
  'Husqvarna':'#2a78d6','Segway':'#eb6834','WORX':'#1baf7a','Ecovacs 科沃斯':'#eda100',
  'Kress':'#008300','Gardena':'#9aa08f','MOVA（我方）':'#e87ba4','追觅 dreame（我方）':'#4a3aa7',
@@ -308,7 +397,7 @@ const yrs = D.annual.map(d=>d.year+(d.months<12?'*':''));
 new Chart(c_annual_v,{type:'bar',data:{labels:yrs,datasets:[{data:D.annual.map(d=>d.value),backgroundColor:'#2a78d6',borderRadius:4,barPercentage:.62}]},
  options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+' Million €'}}},scales:{y:{beginAtZero:true}}}});
 new Chart(c_annual_u,{type:'bar',data:{labels:yrs,datasets:[{data:D.annual.map(d=>d.units),backgroundColor:'#1baf7a',borderRadius:4,barPercentage:.62}]},
- options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+' 千台'}}},scales:{y:{beginAtZero:true}}}});
+ options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+' '+t('千台')}}},scales:{y:{beginAtZero:true}}}});
 new Chart(c_monthly_all,{type:'bar',data:{labels:D.months.map(d=>d.label),datasets:[{data:D.months.map(d=>d.value),backgroundColor:'#86b6ef',borderRadius:2,barPercentage:.82,categoryPercentage:.9}]},
  options:{plugins:{legend:{display:false},tooltip:{callbacks:{title:ctx=>D.months[ctx[0].dataIndex].ym,label:c=>c.parsed.y+' Million €'}}},
   scales:{x:{ticks:{maxRotation:0,autoSkip:true,maxTicksLimit:14}}}}});
@@ -320,14 +409,14 @@ new Chart(c_recent_v,{type:'bar',data:{labels:i13.map(d=>d.label),datasets:[{dat
 new Chart(c_recent_yoy,{type:'line',data:{labels:i13.map(d=>d.label),datasets:[{
   data:i13.map(d=>d.yoy_value),borderColor:'#008300',backgroundColor:'#008300',borderWidth:2,
   pointRadius:3,pointBackgroundColor:'#008300',tension:.25}]},
- options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'同比 '+(c.parsed.y==null?'–':c.parsed.y+'%')}}},
+ options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>t('同比')+' '+(c.parsed.y==null?'–':c.parsed.y+'%')}}},
   scales:{y:{grid:{color:ctx=>ctx.tick.value===0?'#c3c2b7':'#e6e5df'},ticks:{callback:v=>v+'%'}}}}});
 
 /* ---------- ② ---------- */
 const bnames = ['Husqvarna','Segway','WORX','Ecovacs 科沃斯','Kress','MOVA（我方）','追觅 dreame（我方）','Gardena','其他品牌'];
 const H1V25=D.mkt_total.h1_25, H1V26=D.mkt_total.h1_26;
 const h1val=(b,y)=>{const s=D.brand_series[b]; if(!s)return null; const sh=s[y==25?'h1_25':'h1_26']; return sh==null?null:+(sh/100*(y==25?H1V25:H1V26)).toFixed(1);};
-new Chart(c_share_bar,{type:'bar',data:{labels:bnames,
+new Chart(c_share_bar,{type:'bar',data:{labels:bnames.map(t),
  datasets:[
   {label:'H1 2025',data:bnames.map(b=>h1val(b,25)),backgroundColor:'#c3c2b7',borderRadius:3},
   {label:'H1 2026',data:bnames.map(b=>h1val(b,26)),backgroundColor:bnames.map(b=>OURS.includes(b)?'#a94c74':'#2a78d6'),borderRadius:3}]},
@@ -336,9 +425,9 @@ new Chart(c_share_bar,{type:'bar',data:{labels:bnames,
   scales:{x:{beginAtZero:true,title:{display:true,text:'Million €',color:'#898781'},ticks:{callback:v=>v}}}}});
 
 const lineDs = ['Husqvarna','Segway','WORX','Ecovacs 科沃斯','Kress','Gardena','MOVA（我方）','追觅 dreame（我方）'].map(b=>({
-  label:b,data:D.brand_series[b].monthly,borderColor:COL[b],backgroundColor:COL[b],
+  label:t(b),data:D.brand_series[b].monthly,borderColor:COL[b],backgroundColor:COL[b],
   borderWidth:OURS.includes(b)?2.6:1.6,pointRadius:0,pointHoverRadius:5,tension:.25,spanGaps:true}));
-lineDs.push({label:'我方合计 MOVA+追觅',data:D.ours_sum.monthly,borderColor:'#a94c74',backgroundColor:'#a94c74',
+lineDs.push({label:t('我方合计 MOVA+追觅'),data:D.ours_sum.monthly,borderColor:'#a94c74',backgroundColor:'#a94c74',
   borderDash:[6,4],borderWidth:2.2,pointRadius:0,pointHoverRadius:5,tension:.25});
 new Chart(c_share_line,{type:'line',data:{labels:D.period_labels,datasets:lineDs},
  options:{maintainAspectRatio:false,interaction:{mode:'nearest',intersect:false},
@@ -348,19 +437,19 @@ new Chart(c_share_line,{type:'line',data:{labels:D.period_labels,datasets:lineDs
 (function(){
  const rows = [['Husqvarna',31,27],['Segway',16,17],['WORX',13,12],['Ecovacs 科沃斯',12,10],
   ['Kress',8,6],['MOVA（我方）',2,8],['追觅 dreame（我方）',3,4],['Gardena',6,3],['其他品牌',9,13]];
- let h = '<table><tr><th>品牌</th><th class="num">H1 25</th><th class="num">H1 26</th><th class="num">变化</th></tr>';
+ let h = `<table><tr><th>${t('品牌')}</th><th class="num">H1 25</th><th class="num">H1 26</th><th class="num">${t('变化')}</th></tr>`;
  rows.forEach(([b,a,c])=>{
    const d=c-a, cls=OURS.includes(b)?' class="ours"':'';
-   h+=`<tr${cls}><td>${b}</td><td class="num">${a}%</td><td class="num">${c}%</td><td class="num ${d>0?'up':d<0?'down':''}">${d>0?'+':''}${d}pp</td></tr>`;});
+   h+=`<tr${cls}><td>${t(b)}</td><td class="num">${a}%</td><td class="num">${c}%</td><td class="num ${d>0?'up':d<0?'down':''}">${d>0?'+':''}${d}pp</td></tr>`;});
  t_comp.innerHTML=h+'</table>';
 })();
 
 (function(){
- let h='<table><tr><th>品牌</th><th class="num">上榜型号</th><th class="num">销量(台)</th><th class="num">金额(Million €)</th><th class="num">加权均价</th></tr>';
+ let h=`<table><tr><th>${t('品牌')}</th><th class="num">${t('上榜型号')}</th><th class="num">${t('销量(台)')}</th><th class="num">${t('金额(Million €)')}</th><th class="num">${t('加权均价')}</th></tr>`;
  D.top_brand_models.forEach(r=>{
    const cls=OURS.includes(r.brand)?' class="ours"':'';
-   h+=`<tr${cls}><td>${r.brand}</td><td class="num">${r.models}</td><td class="num">${r.units.toLocaleString()}</td><td class="num">${(r.value/1e6).toFixed(2)}</td><td class="num">€${r.avg_price.toLocaleString()}</td></tr>`;});
- t_topbrand.innerHTML=h+'</table><div class="note">仅统计销售额 TOP20 榜内型号，非全品牌口径。</div>';
+   h+=`<tr${cls}><td>${t(r.brand)}</td><td class="num">${r.models}</td><td class="num">${r.units.toLocaleString()}</td><td class="num">${(r.value/1e6).toFixed(2)}</td><td class="num">€${r.avg_price.toLocaleString()}</td></tr>`;});
+ t_topbrand.innerHTML=h+'</table><div class="note">'+t('仅统计销售额 TOP20 榜内型号，非全品牌口径。')+'</div>';
 })();
 
 /* 销量 × 销售额 气泡图（气泡=单价，虚线=等价位参考线，斜率即单价） */
@@ -373,7 +462,7 @@ new Chart(c_share_line,{type:'line',data:{labels:D.period_labels,datasets:lineDs
  const EXTRA={Sunseeker:'#c98500','Tradebrand 自有品牌':'#b7b3a8'};
  const bcol=b=>COL[b]||EXTRA[b]||'#9aa08f';
  const brands=[...new Set(Object.values(bub).map(m=>m.brand))];
- const ds=brands.map(b=>({label:b,
+ const ds=brands.map(b=>({label:t(b),
    data:Object.values(bub).filter(m=>m.brand===b)
      .map(m=>({x:m.units,y:+(m.value/1e6).toFixed(2),r:+(3+Math.sqrt(m.price)/4.2).toFixed(1),item:m.item,price:m.price,units:m.units})),
    backgroundColor:OURS.includes(b)?'rgba(169,76,116,.55)':hexA(bcol(b),.55),
@@ -390,9 +479,9 @@ new Chart(c_share_line,{type:'line',data:{labels:D.period_labels,datasets:lineDs
    const x0=x.getPixelForValue(0),xT=x.getPixelForValue(uThr),xR=x.getPixelForValue(XMAX);
    const yB=y.getPixelForValue(0),yTpx=y.getPixelForValue(vThr),yTop=y.getPixelForValue(YMAX);
    const zones=[
-    {x:xT,y:yTop,w:xR-xT,h:yTpx-yTop,fill:'rgba(42,120,214,.07)',txt:'双榜在列 · 量额齐高',ink:'rgba(28,92,171,.42)'},
-    {x:x0,y:yTop,w:xT-x0,h:yTpx-yTop,fill:'rgba(237,161,0,.09)',txt:'仅销售额榜 · 高价高收入',ink:'rgba(150,99,0,.45)'},
-    {x:xT,y:yTpx,w:xR-xT,h:yB-yTpx,fill:'rgba(169,76,116,.07)',txt:'仅销量榜 · 薄利多销',ink:'rgba(122,47,82,.45)'}];
+    {x:xT,y:yTop,w:xR-xT,h:yTpx-yTop,fill:'rgba(42,120,214,.07)',txt:t('双榜在列 · 量额齐高'),ink:'rgba(28,92,171,.42)'},
+    {x:x0,y:yTop,w:xT-x0,h:yTpx-yTop,fill:'rgba(237,161,0,.09)',txt:t('仅销售额榜 · 高价高收入'),ink:'rgba(150,99,0,.45)'},
+    {x:xT,y:yTpx,w:xR-xT,h:yB-yTpx,fill:'rgba(169,76,116,.07)',txt:t('仅销量榜 · 薄利多销'),ink:'rgba(122,47,82,.45)'}];
    ctx.save();
    zones.forEach(z=>{ctx.fillStyle=z.fill;ctx.fillRect(z.x,z.y,z.w,z.h);
      ctx.fillStyle=z.ink;ctx.font='600 13.5px system-ui,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
@@ -408,10 +497,10 @@ new Chart(c_share_line,{type:'line',data:{labels:D.period_labels,datasets:lineDs
  new Chart(c_bubble,{type:'bubble',data:{datasets:[...rayDs,...ds]},
   options:{maintainAspectRatio:false,
    plugins:{legend:{position:'bottom',labels:{filter:it=>!it.text.startsWith('ray')}},
-     tooltip:{callbacks:{label:c=>{const q=c.raw;return q.item?`${c.dataset.label} ${q.item}：${q.units} 台 · €${q.price.toLocaleString()} · ${q.y} Million €`:'';}}}},
+     tooltip:{callbacks:{label:c=>{const q=c.raw;return q.item?`${c.dataset.label} ${q.item} · ${q.units}${t('台')} · €${q.price.toLocaleString()} · ${q.y} Million €`:'';}}}},
    scales:{
-     x:{title:{display:true,text:'销量（台）',color:'#898781'},beginAtZero:true,max:XMAX},
-     y:{title:{display:true,text:'销售额（Million €）',color:'#898781'},beginAtZero:true,max:YMAX,
+     x:{title:{display:true,text:t('销量（台）'),color:'#898781'},beginAtZero:true,max:XMAX},
+     y:{title:{display:true,text:t('销售额（Million €）'),color:'#898781'},beginAtZero:true,max:YMAX,
         grid:{color:v=>v.tick.value===0?'#c3c2b7':'#e6e5df'}}}},
   plugins:[zonePlugin,rayLabelPlugin]});
 })();
@@ -419,7 +508,7 @@ new Chart(c_share_line,{type:'line',data:{labels:D.period_labels,datasets:lineDs
 /* ---------- ③ 技术 ---------- */
 const byName = Object.fromEntries(D.nav.map(b=>[b.name.split(' (')[0],b]));
 const techCats = ['CAMERA','RANDOM','GPS','CAMERA + GPS'];
-const techLab = {CAMERA:'视觉 CAMERA',RANDOM:'随机 RANDOM',GPS:'单GPS','CAMERA + GPS':'融合 CAMERA+GPS'};
+const techLab = {CAMERA:t('视觉 CAMERA'),RANDOM:t('随机 RANDOM'),GPS:t('单GPS'),'CAMERA + GPS':t('融合 CAMERA+GPS')};
 const techCol = {CAMERA:'#1baf7a',RANDOM:'#eb6834',GPS:'#9aa08f','CAMERA + GPS':'#2a78d6'};
 const snaps4=['25/06','26/04','26/05','26/06'];
 const resid = idx => Math.max(0,+(byName['TOTAL'].total[idx]-techCats.reduce((s,c)=>s+(byName[c].total[idx]??0),0)).toFixed(1));
@@ -427,14 +516,14 @@ const resid = idx => Math.max(0,+(byName['TOTAL'].total[idx]-techCats.reduce((s,
 new Chart(c_tech_size,{type:'bar',
  data:{labels:snaps4,datasets:[
   ...techCats.map(c=>({label:techLab[c],data:byName[c].total,backgroundColor:techCol[c],borderRadius:3,barPercentage:1.05,categoryPercentage:.72})),
-  {label:'激光雷达（残差·无明细）',data:snaps4.map((_,i)=>resid(i)),backgroundColor:'rgba(185,173,134,.35)',
+  {label:t('激光雷达（残差·无明细）'),data:snaps4.map((_,i)=>resid(i)),backgroundColor:'rgba(185,173,134,.35)',
    borderColor:'#b9ad86',borderWidth:1.4,borderDash:[4,3],borderRadius:3,barPercentage:1.05,categoryPercentage:.72}]},
  options:{plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y==null?'–':c.parsed.y+' Million €')}}},
   scales:{y:{beginAtZero:true}}}});
-const hgLab={'TOTAL':'整体','CAMERA':'视觉','RANDOM':'随机','GPS':'单GPS','CAMERA + GPS':'融合','LASER':'激光雷达'};
+const hgLab={'TOTAL':t('整体'),'CAMERA':t('视觉'),'RANDOM':t('随机'),'GPS':t('单GPS'),'CAMERA + GPS':t('融合'),'LASER':t('激光雷达')};
 const hgCol={'TOTAL':'#0b0b0b','CAMERA':'#1baf7a','RANDOM':'#eb6834','GPS':'#9aa08f','CAMERA + GPS':'#2a78d6','LASER':'#c98500'};
 new Chart(c_tech_yoy,{type:'line',
- data:{labels:['1月','2月','3月','4月','5月','6月'],
+ data:{labels:['1月','2月','3月','4月','5月','6月'].map(t),
   datasets:D.hgrowth.map(g=>{const k=g.cat.split(' (')[0];return {label:hgLab[k]??g.cat,data:g.monthly,
    borderColor:hgCol[k],backgroundColor:hgCol[k],
    borderWidth:(k==='TOTAL')?2.4:1.8,borderDash:k==='LASER'?[5,3]:[],
@@ -478,7 +567,7 @@ function snapBar(elId, blocks, renderFn){
 /* ③ B2：品牌×导航类别 销售额热力图（M€，2026.6） + B1：新兴技术暴露度 */
 (function(){
  const JUN=3, b4cats=['RANDOM','GPS','CAMERA','CAMERA + GPS'];
- const b4head={'RANDOM':'随机/边界 ↓38%','GPS':'单GPS ↓75%','CAMERA':'视觉 ↑42%','CAMERA + GPS':'融合 ↑259%'};
+ const b4head={'RANDOM':t('随机/边界 ↓38%'),'GPS':t('单GPS ↓75%'),'CAMERA':t('视觉 ↑42%'),'CAMERA + GPS':t('融合 ↑259%')};
  const eur={};
  b4cats.forEach(c=>{const size=byName[c].total[JUN];
    Object.entries(byName[c].brands).forEach(([b,v])=>{
@@ -492,24 +581,24 @@ function snapBar(elId, blocks, renderFn){
  const cell=v=>{if(!v)return ['#f1f0ec','–','#898781'];const t=Math.min(v/10,1);
    const r=Math.round(242+(16-242)*t),g=Math.round(247+(66-247)*t),b2=Math.round(253+(129-253)*t);
    return [`rgb(${r},${g},${b2})`,v.toFixed(v<1?2:1),t>.6?'#fff':'#0b0b0b'];};
- let h='<table style="font-size:12.5px"><tr><th>品牌（按规模）</th>'+b4cats.map(c=>`<th>${b4head[c]}</th>`).join('')+'<th>合计</th></tr>';
+ let h=`<table style="font-size:12.5px"><tr><th>${t('品牌（按规模）')}</th>`+b4cats.map(c=>`<th>${b4head[c]}</th>`).join('')+`<th>${t('合计')}</th></tr>`;
  byTot.forEach(r=>{
    const cls=OURS.includes(r.b)?' class="ours"':'';
-   h+=`<tr${cls}><td>${r.b}</td>`;
+   h+=`<tr${cls}><td>${t(r.b)}</td>`;
    b4cats.forEach(c=>{const[bg,txt,fg]=cell(r.m[c]);h+=`<td><div style="background:${bg};color:${fg};border-radius:5px;height:32px;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums">${txt}</div></td>`;});
    h+=`<td style="font-variant-numeric:tabular-nums;color:#52514e">${r.tot}M</td></tr>`;});
  hm_nav_eur.innerHTML=h+'</table>';
  /* B1 stacked bar：条长=M€，段上标% */
  const byNew=recs.slice().sort((a,b)=>b.new/b.tot-a.new/a.tot).sort((a,b)=>(a.b==='其他品牌')-(b.b==='其他品牌'));
  new Chart(c_expo,{type:'bar',
-  data:{labels:byNew.map(r=>r.b),datasets:[
-   {label:'新兴 视觉+融合',data:byNew.map(r=>r.new),backgroundColor:'#2a78d6',stack:'s'},
-   {label:'衰退 随机+单GPS',data:byNew.map(r=>r.old),backgroundColor:'#c9c6bd',stack:'s'}]},
+  data:{labels:byNew.map(r=>t(r.b)),datasets:[
+   {label:t('新兴 视觉+融合'),data:byNew.map(r=>r.new),backgroundColor:'#2a78d6',stack:'s'},
+   {label:t('衰退 随机+单GPS'),data:byNew.map(r=>r.old),backgroundColor:'#c9c6bd',stack:'s'}]},
   options:{indexAxis:'y',maintainAspectRatio:false,layout:{padding:{right:40}},
    plugins:{legend:{position:'top'},
     tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.x.toFixed(2)+' Million €',
-      afterLabel:c=>'占自身 '+(c.datasetIndex===0?Math.round(byNew[c.dataIndex].new/byNew[c.dataIndex].tot*100):Math.round(byNew[c.dataIndex].old/byNew[c.dataIndex].tot*100))+'%'}}},
-   scales:{x:{stacked:true,beginAtZero:true,title:{display:true,text:'销售额（Million €，四大类合计）',color:'#898781'}},y:{stacked:true}}},
+      afterLabel:c=>t('占自身')+(c.datasetIndex===0?Math.round(byNew[c.dataIndex].new/byNew[c.dataIndex].tot*100):Math.round(byNew[c.dataIndex].old/byNew[c.dataIndex].tot*100))+'%'}}},
+   scales:{x:{stacked:true,beginAtZero:true,title:{display:true,text:t('销售额（Million €，四大类合计）'),color:'#898781'}},y:{stacked:true}}},
   plugins:[{id:'expolab',afterDatasetsDraw(ch){
     const {ctx}=ch,xs=ch.scales.x;ctx.font='11px system-ui';ctx.textBaseline='middle';
     ch.getDatasetMeta(0).data.forEach((bar,i)=>{const r=byNew[i];
@@ -524,7 +613,7 @@ function snapBar(elId, blocks, renderFn){
 
 /* ---------- ④ 渠道 ---------- */
 const chCats=['Motorists','DIY','Mass','Garden'];
-const chLab={Motorists:'专业经销商 Dealer',DIY:'DIY 超市',Mass:'综合大卖场',Garden:'园艺中心'};
+const chLab={Motorists:t('专业经销商 Dealer'),DIY:t('DIY 超市'),Mass:t('综合大卖场'),Garden:t('园艺中心')};
 const chCol={Motorists:'#2a78d6',DIY:'#1baf7a',Mass:'#eda100',Garden:'#c3c2b7'};
 new Chart(c_ch_size,{type:'bar',data:{labels:snaps4,datasets:
  D.channel.filter(c=>!c.name.startsWith('Panelmarket')).map(c=>{
@@ -560,7 +649,7 @@ new Chart(c_ch_mix,{type:'bar',
 (function(){
  const JUN=3;
  const ck4=['Mass','DIY','Garden','Motorists'];
- const ckCN={Mass:'综合大卖场 ↑45%',DIY:'DIY超市 ↑26%',Garden:'园艺中心 ↓7%',Motorists:'专业经销商 ↑5%'};
+ const ckCN={Mass:t('综合大卖场 ↑45%'),DIY:t('DIY超市 ↑26%'),Garden:t('园艺中心 ↓7%'),Motorists:t('专业经销商 ↑5%')};
  const eur={};
  ck4.forEach(k=>{const size=chByK[k].total[JUN];
    Object.entries(chByK[k].brands).forEach(([b,v])=>{
@@ -571,21 +660,21 @@ new Chart(c_ch_mix,{type:'bar',
  const cell=v=>{if(!v)return['#f1f0ec','–','#898781'];const t=Math.min(v/24,1);
    const r=Math.round(242+(16-242)*t),g=Math.round(247+(66-247)*t),b2=Math.round(253+(129-253)*t);
    return [`rgb(${r},${g},${b2})`,v.toFixed(v<1?2:1),t>.6?'#fff':'#0b0b0b'];};
- let h='<table style="font-size:12.5px"><tr><th>品牌（按规模）</th>'+ck4.map(k=>`<th>${ckCN[k]}</th>`).join('')+'<th>合计</th></tr>';
+ let h=`<table style="font-size:12.5px"><tr><th>${t('品牌（按规模）')}</th>`+ck4.map(k=>`<th>${ckCN[k]}</th>`).join('')+`<th>${t('合计')}</th></tr>`;
  recs.forEach(r=>{
    const cls=OURS.includes(r.b)?' class="ours"':'';
-   h+=`<tr${cls}><td>${r.b}</td>`;
+   h+=`<tr${cls}><td>${t(r.b)}</td>`;
    ck4.forEach(k=>{const[bg,txt,fg]=cell(r.m[k]);h+=`<td><div style="background:${bg};color:${fg};border-radius:5px;height:32px;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums">${txt}</div></td>`;});
    h+=`<td style="font-variant-numeric:tabular-nums;color:#52514e">${r.tot}M</td></tr>`;});
  hm_ch_eur.innerHTML=h+'</table>';
  /* V1 战略条：条长=M€，段上标各渠道% */
  new Chart(c_chstrat,{type:'bar',
-  data:{labels:recs.map(r=>r.b),datasets:ck4.map(k=>({label:chLab[k],
+  data:{labels:recs.map(r=>t(r.b)),datasets:ck4.map(k=>({label:chLab[k],
    data:recs.map(r=>r.m[k]),backgroundColor:chCol[k],stack:'s'}))},
   options:{indexAxis:'y',maintainAspectRatio:false,layout:{padding:{right:42}},
    plugins:{legend:{position:'top'},
     tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.x.toFixed(2)+' Million €'}}},
-   scales:{x:{stacked:true,beginAtZero:true,title:{display:true,text:'销售额（Million €，四渠道合计）',color:'#898781'}},y:{stacked:true}}},
+   scales:{x:{stacked:true,beginAtZero:true,title:{display:true,text:t('销售额（Million €，四渠道合计）'),color:'#898781'}},y:{stacked:true}}},
   plugins:[{id:'chlab',afterDatasetsDraw(ch){
     const {ctx}=ch,xs=ch.scales.x;ctx.font='11px system-ui';ctx.textBaseline='middle';
     recs.forEach((r,i)=>{let acc=0;
@@ -597,6 +686,113 @@ new Chart(c_ch_mix,{type:'bar',
         acc+=v;});
       ctx.fillStyle='#52514e';ctx.textAlign='left';
       ctx.fillText(r.tot+'M',xs.getPixelForValue(r.tot)+6,ch.getDatasetMeta(0).data[i].y);});}}]});
+})();
+
+/* ---------- ④+ 剔除 Dealer 零售大盘 ---------- */
+(function(){
+ const exdSnaps=['2025.6','2026.4','2026.5','2026.6'];
+ const exdGet=pref=>D.channel.find(c=>c.name.startsWith(pref));
+ const exdDeal=exdGet('Motorists'), exdRetail=[exdGet('DIY'),exdGet('Mass'),exdGet('Garden')];
+ const exdRet=i=>exdRetail.reduce((a,c)=>a+c.total[i],0);
+ const exdPanel=exdGet('Panelmarket');
+ /* 品牌在某渠道组的金额 M€ */
+ const exdBrand=(blocks,b,i)=>blocks.reduce((a,c)=>{
+   const sh=c.brands[b]?.[i]; return a+(sh==null?0:c.total[i]*sh/100);},0);
+ const exdAllBlocks=[exdDeal,...exdRetail];
+ let exdBrands=new Set();
+ exdAllBlocks.forEach(c=>Object.keys(c.brands).forEach(b=>exdBrands.add(b)));
+ exdBrands=[...exdBrands];
+ /* 合并我方双品牌，用于气泡图与份额图 */
+ const exdRows=exdBrands.map(b=>({b,
+   ret:+exdBrand(exdRetail,b,3).toFixed(2), deal:+exdBrand([exdDeal],b,3).toFixed(2)}));
+ /* ---- 图1：Dealer vs 零售 堆叠柱 ---- */
+ new Chart(c_exd_stack,{type:'bar',
+  data:{labels:exdSnaps,datasets:[
+   {label:t('专业经销商 Dealer'),data:[0,1,2,3].map(i=>+exdDeal.total[i].toFixed(1)),
+    backgroundColor:'#2a78d6',borderRadius:3,barPercentage:.62,categoryPercentage:.7},
+   {label:t('零售（DIY＋大卖场＋园艺）'),data:[0,1,2,3].map(i=>+exdRet(i).toFixed(1)),
+    backgroundColor:'#1baf7a',borderRadius:3,barPercentage:.62,categoryPercentage:.7}]},
+  options:{maintainAspectRatio:false,
+   plugins:{legend:{position:'bottom'},
+    tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+' Million €'}}},
+   scales:{x:{stacked:true,grid:{display:false}},
+    y:{stacked:true,beginAtZero:true,title:{display:true,text:'Million €',color:'#898781'}}}},
+  plugins:[{id:'exdpct',afterDatasetsDraw(ch){
+   const {ctx,scales:{x,y}}=ch;
+   [0,1,2,3].forEach(i=>{const deal=exdDeal.total[i],r=exdRet(i),p=exdPanel.total[i],pct=Math.round(r/p*100);
+    const px=x.getPixelForValue(i), cy=y.getPixelForValue(deal+r/2);
+    ctx.save();ctx.fillStyle='#fff';ctx.font='700 12px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(t('零售 ')+pct+'%',px,cy);ctx.restore();});}}]});
+ /* ---- 图2：全渠道 vs 零售 品牌份额（2026.6）---- */
+ const exdTot=exdRet(3);
+ const exdOurs=['MOVA（我方）','追觅 dreame（我方）'];
+ /* 全渠道份额也用四渠道估算口径（与④热力图一致，避免 Panelmarket 块漏列 Stihl 等小品牌）*/
+ const exdShareRows=[];
+ const exdPush=(disp, rows)=>{
+   const panVal=rows.reduce((a,b)=>a+exdBrand(exdAllBlocks,b,3),0);
+   const ret=rows.reduce((a,b)=>a+exdBrand(exdRetail,b,3),0);
+   if(panVal<0.3 && ret<0.3) return;
+   exdShareRows.push({disp,pan:+(panVal/exdPanel.total[3]*100).toFixed(1),
+     ret:+(ret/exdTot*100).toFixed(1),ours:rows.some(b=>exdOurs.includes(b))});
+ };
+ /* 非我方品牌逐个 */
+ const exdSingle=['Husqvarna','Segway','WORX','Ecovacs 科沃斯','Kress','Stihl','Gardena','Mammotion','Sunseeker','Tradebrand 自有品牌','其他品牌'];
+ exdSingle.forEach(b=>{ if(exdBrands.includes(b)) exdPush(b,[b]); });
+ exdPush('我方（MOVA+追觅）',exdOurs);
+ const exdT=br=>t(br.replace(' 科沃斯','').replace(' 自有品牌',''));
+ exdShareRows.sort((a,b)=>(b.ret+b.pan)-(a.ret+a.pan));
+ new Chart(c_exd_share,{type:'bar',
+  data:{labels:exdShareRows.map(r=>exdT(r.disp)),
+   datasets:[
+    {label:t('全渠道份额'),data:exdShareRows.map(r=>r.pan),backgroundColor:'#c3c2b7',borderRadius:3,barPercentage:.75,categoryPercentage:.78},
+    {label:t('零售口径份额（剔除Dealer）'),data:exdShareRows.map(r=>r.ret),
+     backgroundColor:exdShareRows.map(r=>r.ours?'#a94c74':'#1baf7a'),borderRadius:3,barPercentage:.75,categoryPercentage:.78}]},
+  options:{indexAxis:'y',maintainAspectRatio:false,
+   plugins:{legend:{position:'bottom'},
+    tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.x+'%'}}},
+   scales:{x:{beginAtZero:true,title:{display:true,text:t('销售额份额（%）'),color:'#898781'},ticks:{callback:v=>v+'%'}},
+    y:{grid:{display:false}}}}});
+ /* ---- 图3：Dealer × 零售 双向条形 ---- */
+ const exdB=exdRows.filter(r=>!exdOurs.includes(r.b));
+ exdB.push({b:'我方（MOVA+追觅）',
+   ret:+exdOurs.reduce((a,b)=>a+exdBrand(exdRetail,b,3),0).toFixed(2),
+   deal:+exdOurs.reduce((a,b)=>a+exdBrand([exdDeal],b,3),0).toFixed(2), ours:true});
+ exdB.sort((a,b)=>(b.deal+b.ret)-(a.deal+a.ret)).sort((a,b)=>(a.b==='其他品牌')-(b.b==='其他品牌'));
+ const exdShort=b=>b.replace(' 科沃斯','').replace(' 自有品牌','');
+ new Chart(c_exd_scat,{type:'bar',
+  data:{labels:exdB.map(r=>exdT(r.b)),
+   datasets:[
+    {label:t('专业经销商 Dealer'),data:exdB.map(r=>-r.deal),stack:'s',
+     backgroundColor:exdB.map(r=>r.ours?'#a94c74':'#2a78d6'),borderRadius:3,
+     barPercentage:.72,categoryPercentage:1},
+    {label:t('零售（DIY＋大卖场＋园艺）'),data:exdB.map(r=>r.ret),stack:'s',
+     backgroundColor:exdB.map(r=>r.ours?'#a94c74':'#1baf7a'),borderRadius:3,
+     barPercentage:.72,categoryPercentage:1}]},
+  options:{indexAxis:'y',maintainAspectRatio:false,animation:false,
+   layout:{padding:{top:24}},
+   plugins:{legend:{display:false},
+    tooltip:{callbacks:{label:c=>c.dataset.label+': '+Math.abs(c.parsed.x).toFixed(1)+' Million €'}}},
+   scales:{
+    x:{min:-26,max:26,stacked:true,grid:{color:v=>v.tick.value===0?'#898781':'#e6e5df'},
+      ticks:{callback:v=>Math.abs(v)+'M',color:'#898781'}},
+    y:{grid:{display:false},ticks:{color:'#0b0b0b',font:{weight:ctx=>exdB[ctx.index]?.ours?'700':'400'}}}}},
+  plugins:[{id:'exdval',afterDatasetsDraw(ch){
+   const {ctx,scales:{x,y},chartArea}=ch;
+   ctx.save();ctx.font='11px system-ui';ctx.textBaseline='middle';
+   exdB.forEach((r,i)=>{
+    const yy=y.getPixelForValue(i);
+    if(r.deal>=0.35){ctx.fillStyle='#52514e';ctx.textAlign='right';
+      ctx.fillText(r.deal.toFixed(1),x.getPixelForValue(-r.deal)-6,yy);}
+    if(r.ret>=0.35){ctx.fillStyle='#52514e';ctx.textAlign='left';
+      ctx.fillText(r.ret.toFixed(1),x.getPixelForValue(r.ret)+6,yy);}
+   });
+   /* 两侧阵营标题 */
+   ctx.font='700 12px system-ui';ctx.textBaseline='top';
+   ctx.fillStyle='#2a78d6';ctx.textAlign='left';
+   ctx.fillText(t('← 专业经销商 Dealer'),chartArea.left,chartArea.top-20);
+   ctx.fillStyle='#15805c';ctx.textAlign='right';
+   ctx.fillText(t('零售（DIY＋大卖场＋园艺） →'),chartArea.right,chartArea.top-20);
+   ctx.restore();}}]});
 })();
 
 /* ---------- ⑤ 双榜散点 ---------- */
@@ -614,11 +810,11 @@ new Chart(c_dual,{type:'scatter',data:{datasets:scatRows.map(b=>({
  options:{maintainAspectRatio:false,
   plugins:{legend:{display:false},
    tooltip:{callbacks:{label:c=>{const p=pts[c.datasetIndex];
-     return `${p.b}：线下 ${p.xNil?'未单列':p.x+'%'} · 线上 ${p.yNil?'未单列':p.y+'%'}`;}}}},
+     return `${t(p.b)} · ${t('线下')} ${p.xNil?t('未单列'):p.x+'%'} · ${t('线上')} ${p.yNil?t('未单列'):p.y+'%'}`;}}}},
   scales:{
-   x:{title:{display:true,text:'GfK 线下 H1 2026 份额（%）',color:'#898781'},beginAtZero:true,max:XMAX,
+   x:{title:{display:true,text:t('GfK 线下 H1 2026 份额（%）'),color:'#898781'},beginAtZero:true,max:XMAX,
       ticks:{callback:v=>v+'%'},grid:{color:v=>v.tick.value===0?'#c3c2b7':'#e6e5df'}},
-   y:{title:{display:true,text:'Amazon.de 2026.6 份额（%）',color:'#898781'},beginAtZero:true,max:YMAX,
+   y:{title:{display:true,text:t('Amazon.de 2026.6 份额（%）'),color:'#898781'},beginAtZero:true,max:YMAX,
       ticks:{callback:v=>v+'%'},grid:{color:v=>v.tick.value===0?'#c3c2b7':'#e6e5df'}}}},
  plugins:[
   {id:'diag',afterDatasetsDraw(ch){
@@ -627,7 +823,7 @@ new Chart(c_dual,{type:'scatter',data:{datasets:scatRows.map(b=>({
     ctx.save();ctx.strokeStyle='#c3c2b7';ctx.setLineDash([6,4]);ctx.lineWidth=1.4;
     ctx.beginPath();ctx.moveTo(xm,ym);ctx.lineTo(xM,yM);ctx.stroke();ctx.setLineDash([]);
     ctx.fillStyle='#898781';ctx.font='11px system-ui';ctx.textAlign='right';ctx.textBaseline='top';
-    ctx.fillText('两边相等 y=x',xM-8,yM+8);ctx.restore();}},
+    ctx.fillText(t('两边相等 y=x'),xM-8,yM+8);ctx.restore();}},
   {id:'scatlab',afterDatasetsDraw(ch){
     const {ctx,scales:{x,y}}=ch;
     ctx.save();
@@ -635,13 +831,14 @@ new Chart(c_dual,{type:'scatter',data:{datasets:scatRows.map(b=>({
       const px=x.getPixelForValue(p.x),py=y.getPixelForValue(p.y);
       ctx.font='600 11.5px system-ui';ctx.fillStyle=scatCol(p.b);
       if(p.x<3){
-        ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillText(scatLab[p.b],px+9,py);
-        if(p.xNil){ctx.font='10px system-ui';ctx.fillStyle='#898781';ctx.textBaseline='top';ctx.fillText('线下未单列',px+9,py+13);}
+        ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillText(t(scatLab[p.b]),px+9,py);
+        if(p.xNil){ctx.font='10px system-ui';ctx.fillStyle='#898781';ctx.textBaseline='top';ctx.fillText(t('线下未单列'),px+9,py+13);}
       }else{
-        ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText(scatLab[p.b],px,py-8);
-        if(p.yNil){ctx.font='10px system-ui';ctx.fillStyle='#898781';ctx.fillText('线上未单列',px,py-21);}
+        ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText(t(scatLab[p.b]),px,py-8);
+        if(p.yNil){ctx.font='10px system-ui';ctx.fillStyle='#898781';ctx.fillText(t('线上未单列'),px,py-21);}
       }
     });
     ctx.restore();}}]});
+transStatic();
 </script>
 </body></html>
