@@ -9,6 +9,8 @@ from datetime import datetime, timedelta
 
 # 每期摘要（可选；不填则显示 —）
 META = {
+    '20261009': ('27,285 台', '$28.0M', '+0.9%', '双周持平内部换庄：英国+27%领涨、美国-8.5%三期累跌25%；MOVA登顶；Greenworks回切C30Z；甜区回摆500-800'),
+    '20260924': ('27,033 台', '$28.0M', '-5.5%', '美国独自出清(-18%)、欧洲四国反弹；甜区由500-800上移800-1000；视觉路线获品牌溢价'),
     '20260911': ('28,596 台', '$31.2M', '-3.3%', '价格重心下移；Greenworks C30Z→C20Z；WORX重夺第1'),
     '20260904': ('29,672 台', '$33.6M', '-3.6%', 'Greenworks C30Z空降美国冠军；欧洲全面承压'),
     '20260821': ('—', '—', '—', '夏季旺季大盘'),
@@ -23,6 +25,41 @@ def window_label(key: str) -> str:
     start = end - timedelta(days=29)  # 含首尾共30天
     return f"{start.month}.{start.day}–{end.month}.{end.day}"
 
+
+# ---- 第二部分：割草机大盘看板（非亚马逊期次的常驻看板）----
+DASHBOARDS = [
+    {
+        'href': 'market_seasonality.html',
+        'icon': '',
+        'title': '亚马逊看板 | 欧洲/美国',
+        'window': '📅 卖家精灵市场分析 · 2025-01 至 2026-09 月度 · 中英双语',
+        'stats': [('📦 欧洲 418,961 台', 'up', '+37.0%'), ('📦 美国 89,527 台', 'up', '+64.8%')],
+        'note': '欧洲＝DE/FR/IT/UK 合并（UK £ 按 ECB 汇率换算 € 对比），美国独立成区；含销量/均价的季节性、月度同比与分国详情。',
+    },
+    {
+        'href': 'gfk_germany_dashboard.html',
+        'icon': '🇩🇪',
+        'title': 'GfK 德国看板',
+        'window': '📅 GfK 德国市场月度面板',
+        'stats': [],
+        'note': 'GfK 德国割草机市场大盘看板（金额份额 / Mio EUR 等口径见页内注释）。',
+    },
+]
+
+db_cards = []
+for d in DASHBOARDS:
+    stats = ''.join(
+        f'<span>{txt}</span>' + (f'<span class="{cls}">{g}</span>' if g else '')
+        for txt, cls, g in d['stats']
+    )
+    stats_row = f'<div class="card-stats">{stats}</div>' if stats else ''
+    db_cards.append(f"""
+    <a class="card" href="{d['href']}">
+      <div class="card-date">{(d['icon'] + ' ') if d['icon'] else ''}{d['title']}</div>
+      <div class="card-window">{d['window']}</div>
+      {stats_row}
+      <div class="card-note">{d['note']}</div>
+    </a>""")
 
 files = sorted(glob.glob("amazon_charts_2*.html"), reverse=True)
 cards = []
@@ -62,6 +99,7 @@ body {{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-seri
 .top-nav .nav-brand {{ font-size:15px; font-weight:700; }}
 .top-nav .nav-links a {{ font-size:13px; color:#0071e3; text-decoration:none; margin-left:18px; font-weight:600; }}
 h1 {{ font-size:24px; font-weight:700; margin:8px 0 4px; }}
+h2.sec-title {{ font-size:19px; font-weight:700; margin:40px 0 4px; }}
 .subtitle {{ font-size:13px; color:#86868b; margin-bottom:24px; }}
 .grid {{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }}
 .card {{ display:block; background:#fff; border-radius:14px; padding:20px 24px;
@@ -86,16 +124,22 @@ h1 {{ font-size:24px; font-weight:700; margin:8px 0 4px; }}
     <div class="nav-links">
       <a href="amazon_charts_latest.html">最新一期</a>
       <a href="price_trend.html">📈 价格趋势</a>
-      <a href="market_seasonality.html">🌦️ 大盘趋势</a>
-      <a href="gfk_germany_dashboard.html">🇩🇪 GfK德国看板</a>
       <a href="index.html">首页</a>
     </div>
   </div>
   <h1>📚 往期索引</h1>
+  <h2 class="sec-title">一、亚马逊 BSR 看板（往期）</h2>
   <div class="subtitle">亚马逊 6 国（DE/US/FR/IT/ES/GB）智能割草机 BSR 数据看板 · 每期为导出日的近 30 天累计销量 · 点击卡片查看当期完整图表</div>
   <div class="grid">
     {''.join(cards)}
   </div>
+
+  <h2 class="sec-title">二、割草机大盘看板</h2>
+  <div class="subtitle">非亚马逊期次的常驻大盘看板 · 点击卡片进入</div>
+  <div class="grid">
+    {''.join(db_cards)}
+  </div>
+
   <div class="footer">
     数据口径：每期为导出日近 30 天累计销量（窗口 = 导出日前 29 天至导出日，共 30 天）；两期相隔 7 天时，差值等价于「新 1 周 vs 旧 1 周」的周对比。<br>
     2026-09-11 期起口径收紧为「智能/机器人割草机」（已剔除手推式及独立配件），上期数据同口径重述。
